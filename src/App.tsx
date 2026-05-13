@@ -717,26 +717,29 @@ const GuardianView = ({
         <div className="grid grid-cols-3 gap-4">
           <button 
             onClick={() => onAction('videoCall')}
-            className="bg-white text-gray-700 border border-gray-100 py-5 rounded-[20px] flex flex-col items-center gap-2 card-shadow active:scale-95 transition-all w-full"
+            className="bg-white text-gray-700 border border-gray-100 py-4 rounded-[20px] flex flex-col items-center gap-1 card-shadow active:scale-95 transition-all w-full"
           >
-            <span className="text-3xl">📞</span>
+            <span className="text-3xl mb-1">📞</span>
             <span className="font-bold text-sm">呼叫小和</span>
+            <span className="text-[10px] text-gray-400">发起视频通话</span>
           </button>
           <motion.button 
             onClick={handleRefresh}
             animate={isCapturing ? { rotate: [-5, 5, -5, 5, 0] } : {}}
             transition={{ duration: 0.4 }}
-            className={`bg-white text-gray-700 border border-gray-100 py-5 rounded-[20px] flex flex-col items-center gap-2 card-shadow active:scale-95 transition-all w-full ${isCapturing ? 'opacity-50 pointer-events-none' : ''}`}
+            className={`bg-white text-gray-700 border border-gray-100 py-4 rounded-[20px] flex flex-col items-center gap-1 card-shadow active:scale-95 transition-all w-full ${isCapturing ? 'opacity-50 pointer-events-none' : ''}`}
           >
-            <span className="text-3xl">📷</span>
+            <span className="text-3xl mb-1">📷</span>
             <span className="font-bold text-sm">看看爸妈</span>
+            <span className="text-[10px] text-gray-400">查看最新近况</span>
           </motion.button>
           <button 
              onClick={() => onAction('voiceMessage')}
-            className="bg-white text-gray-700 border border-gray-100 py-5 rounded-[20px] flex flex-col items-center gap-2 card-shadow active:scale-95 transition-all w-full"
+            className="bg-white text-gray-700 border border-gray-100 py-4 rounded-[20px] flex flex-col items-center gap-1 card-shadow active:scale-95 transition-all w-full"
           >
-            <span className="text-3xl">🎙️</span>
+            <span className="text-3xl mb-1">🎙️</span>
             <span className="font-bold text-sm">发送语音</span>
+            <span className="text-[10px] text-gray-400">语音消息留言</span>
           </button>
         </div>
       </div>
@@ -1390,11 +1393,13 @@ const CompanionView = ({ onAction, isAnonymous }: { onAction: (type: OverlayType
 const EmergencyContactsView = ({ 
   contacts, 
   onUpdate, 
-  onClose 
+  onClose,
+  isMainAccount = true
 }: { 
   contacts: Contact[]; 
   onUpdate: (newContacts: Contact[]) => void; 
-  onClose: () => void 
+  onClose: () => void;
+  isMainAccount?: boolean;
 }) => {
   const [items, setItems] = useState(contacts);
   const [isAdding, setIsAdding] = useState(false);
@@ -1427,15 +1432,22 @@ const EmergencyContactsView = ({
           <button onClick={onClose} className="text-xl">⬅️</button>
           <h2 className="text-xl font-bold text-[#024481]">紧急联系人</h2>
         </div>
-        <button 
-          onClick={() => setIsAdding(true)}
-          className="text-blue-600 font-bold text-sm"
-        >添加</button>
+        {isMainAccount && (
+          <button 
+            onClick={() => setIsAdding(true)}
+            className="text-blue-600 font-bold text-sm"
+          >添加</button>
+        )}
       </header>
 
       <main className="flex-1 p-6">
-        <p className="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-wider">长按右侧图标拖动排序（首位为默认呼叫人）</p>
+        {isMainAccount ? (
+          <p className="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-wider">长按右侧图标拖动排序（首位为默认呼叫人）</p>
+        ) : (
+          <p className="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-wider">只读模式，仅主账号可编辑</p>
+        )}
         <Reorder.Group axis="y" values={items} onReorder={(newOrder) => {
+          if (!isMainAccount) return;
           setItems(newOrder);
           onUpdate(newOrder);
         }} className="space-y-4">
@@ -1443,6 +1455,7 @@ const EmergencyContactsView = ({
             <Reorder.Item 
               key={item.id} 
               value={item}
+              drag={isMainAccount ? "y" : false}
               className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center justify-between shadow-sm active:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-3">
@@ -1452,10 +1465,12 @@ const EmergencyContactsView = ({
                   <p className="text-xs text-gray-500 mt-0.5">{item.phone}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <button onClick={() => handleDelete(item.id)} className="text-xs text-red-400 p-2">移除</button>
-                <div className="cursor-grab active:cursor-grabbing text-gray-300">☰</div>
-              </div>
+              {isMainAccount && (
+                <div className="flex items-center gap-3">
+                  <button onClick={() => handleDelete(item.id)} className="text-xs text-red-400 p-2">移除</button>
+                  <div className="cursor-grab active:cursor-grabbing text-gray-300">☰</div>
+                </div>
+              )}
             </Reorder.Item>
           ))}
         </Reorder.Group>
@@ -1785,7 +1800,7 @@ const FamilyMembersView = ({
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
           <button onClick={onClose} className="text-xl">⬅️</button>
-          <h2 className="text-xl font-bold text-[#024481]">家人管理</h2>
+          <h2 className="text-xl font-bold text-[#024481]">照护分享</h2>
         </div>
         <button onClick={handleInvite} className="bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">邀请家人</button>
       </header>
@@ -1826,15 +1841,18 @@ const FamilyMembersView = ({
 const MedicationPlanView = ({ 
   plan, 
   onUpdate, 
-  onClose 
+  onClose,
+  isMainAccount = true
 }: { 
   plan: Medication[]; 
   onUpdate: (plan: Medication[]) => void; 
-  onClose: () => void 
+  onClose: () => void;
+  isMainAccount?: boolean;
 }) => {
   const [data, setData] = useState(plan);
 
   const updateDosage = (id: string, newDosage: string) => {
+    if (!isMainAccount) return;
     const updated = data.map(m => m.id === id ? { ...m, dosage: newDosage } : m);
     setData(updated);
     onUpdate(updated);
@@ -1855,6 +1873,9 @@ const MedicationPlanView = ({
       </header>
 
       <main className="flex-1 p-6 space-y-6">
+        {!isMainAccount && (
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider -mt-2">只读模式，仅主账号可编辑医嘱</p>
+        )}
         {data.map(med => (
           <div key={med.id} className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm space-y-4">
             <div className="flex justify-between items-start">
@@ -1872,11 +1893,12 @@ const MedicationPlanView = ({
             <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl">
                <span className="text-xs font-bold text-gray-400">当前剂量：</span>
                <input 
-                 className="bg-transparent border-none font-bold text-gray-700 w-24 text-sm focus:ring-0"
+                 className={`bg-transparent border-none font-bold text-gray-700 w-24 text-sm focus:ring-0 ${!isMainAccount ? 'opacity-60 cursor-not-allowed' : ''}`}
                  value={med.dosage}
+                 disabled={!isMainAccount}
                  onChange={e => updateDosage(med.id, e.target.value)}
                />
-               <span className="text-[10px] text-gray-300">点击可直接维护 🖊️</span>
+               {isMainAccount && <span className="text-[10px] text-gray-300">点击可直接维护 🖊️</span>}
             </div>
           </div>
         ))}
@@ -1898,12 +1920,14 @@ const LegalNoticeView = ({
   type, 
   onClose,
   onDeleteData,
-  onViewLogs
+  onViewLogs,
+  isMainAccount = true
 }: { 
   type: 'terms' | 'privacy'; 
   onClose: () => void;
   onDeleteData?: () => void;
   onViewLogs?: () => void;
+  isMainAccount?: boolean;
 }) => {
   return (
     <motion.div 
@@ -1932,13 +1956,15 @@ const LegalNoticeView = ({
                 }}
                 className="w-full py-3 text-[#024481] font-bold text-xs bg-blue-50 rounded-xl active:scale-95 transition-transform"
               >查看摄像头调用详情</button>
-              <button 
-                onClick={() => {
-                  onClose();
-                  onDeleteData?.();
-                }}
-                className="w-full py-3 text-red-500 font-bold text-xs bg-red-50 rounded-xl active:scale-95 transition-transform"
-              >清理历史数据</button>
+              {isMainAccount && (
+                <button 
+                  onClick={() => {
+                    onClose();
+                    onDeleteData?.();
+                  }}
+                  className="w-full py-3 text-red-500 font-bold text-xs bg-red-50 rounded-xl active:scale-95 transition-transform"
+                >清理历史数据</button>
+              )}
             </div>
           )}
           <p className="text-[10px] text-gray-400 pt-4 border-t border-gray-100">© 2024 嘉和智护（北京）科技有限公司 版权所有</p>
@@ -2012,12 +2038,14 @@ const RobotDetailView = ({
   robot, 
   onSave, 
   onDelete,
-  onClose 
+  onClose,
+  isMainAccount = true
 }: { 
   robot: any; 
   onSave: (robot: any) => void; 
   onDelete: (id: string) => void;
-  onClose: () => void 
+  onClose: () => void;
+  isMainAccount?: boolean;
 }) => {
   const [nickname, setNickname] = useState(robot.nickname);
   const [upgrading, setUpgrading] = useState(false);
@@ -2067,7 +2095,8 @@ const RobotDetailView = ({
              <input 
                value={nickname}
                onChange={e => setNickname(e.target.value)}
-               className="w-full bg-gray-50 border-none rounded-2xl p-4 text-sm font-black focus:ring-2 focus:ring-blue-100 text-[#024481]"
+               disabled={!isMainAccount}
+               className={`w-full ${!isMainAccount ? 'bg-gray-100 text-gray-400' : 'bg-gray-50 text-[#024481] focus:ring-2 focus:ring-blue-100'} border-none rounded-2xl p-4 text-sm font-black`}
              />
            </div>
            <div className="flex justify-between items-center px-1">
@@ -2088,15 +2117,17 @@ const RobotDetailView = ({
                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">Version {robot.version}</p>
              </div>
            </div>
-           <button 
-             onClick={handleOTA}
-             disabled={upgrading}
-             className={`px-5 py-2 rounded-2xl text-[10px] font-black transition-all ${
-               upgrading ? 'bg-gray-100 text-gray-400' : 'bg-blue-600 text-white shadow-lg active:scale-95'
-             }`}
-           >
-             {upgrading ? '⌛ 升级中...' : '检查更新'}
-           </button>
+           {isMainAccount && (
+             <button 
+               onClick={handleOTA}
+               disabled={upgrading}
+               className={`px-5 py-2 rounded-2xl text-[10px] font-black transition-all ${
+                 upgrading ? 'bg-gray-100 text-gray-400' : 'bg-blue-600 text-white shadow-lg active:scale-95'
+               }`}
+             >
+               {upgrading ? '⌛ 升级中...' : '检查更新'}
+             </button>
+           )}
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -2116,15 +2147,23 @@ const RobotDetailView = ({
           </button>
         </div>
 
-        <div className="pt-4">
-           <button 
-             onClick={() => setShowDeleteConfirm(true)}
-             className="w-full py-4 text-red-500 font-black text-xs tracking-widest bg-red-50 rounded-2xl active:scale-95 transition-transform"
-           >❌ 解除设备绑定</button>
-           <p className="text-center text-[10px] text-gray-300 font-bold mt-4 leading-relaxed px-4">
-             解除绑定后，该设备的历史轨迹和录音数据将被安全抹除。
-           </p>
-        </div>
+        {isMainAccount ? (
+          <div className="pt-4">
+            <button 
+              onClick={() => setShowDeleteConfirm(true)}
+              className="w-full py-4 text-red-500 font-black text-xs tracking-widest bg-red-50 rounded-2xl active:scale-95 transition-transform"
+            >❌ 解除设备绑定</button>
+            <p className="text-center text-[10px] text-gray-300 font-bold mt-4 leading-relaxed px-4">
+              解除绑定后，该设备的历史轨迹和录音数据将被安全抹除。
+            </p>
+          </div>
+        ) : (
+          <div className="pt-4 text-center">
+            <p className="text-[10px] text-gray-400 font-bold mt-4 leading-relaxed px-4">
+              当前账号为分享账号，无法解除设备绑定或修改设备参数。
+            </p>
+          </div>
+        )}
       </main>
 
       {/* 解绑确认弹窗 */}
@@ -2846,28 +2885,26 @@ const LoginRegisterView = ({
   onAnonymousLogin, 
   onSetUnbound, 
   onSetRobots, 
-  onSetLoggedIn 
+  onSetLoggedIn,
+  onSetMainAccount
 }: { 
   onLogin: () => void; 
   onAnonymousLogin: () => void;
   onSetUnbound: (val: boolean) => void;
   onSetRobots: (robots: any[]) => void;
   onSetLoggedIn: (val: boolean) => void;
+  onSetMainAccount: (val: boolean) => void;
 }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [loginMethod, setLoginMethod] = useState<'sms' | 'password'>('sms'); // 默认验证码登录
   const [formData, setFormData] = useState({ phone: '', code: '', password: '', confirmPassword: '' });
   const [loading, setLoading] = useState(false);
 
+  // 原有演示模式
   const fillDemoAccount = () => {
-    // 设置演示账户登录信息
-    setFormData({
-      ...formData,
-      phone: '13800138000',
-      password: 'password123',
-      code: '888888'
-    });
-    // 演示模式：登录并设置演示机器人数据
+    setFormData({ ...formData, phone: '13800138000', password: 'password123', code: '888888' });
+    onSetMainAccount(true);
+    onSetUnbound(false);
     onLogin();
     onSetRobots([
       { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: '🤖' },
@@ -2875,10 +2912,40 @@ const LoginRegisterView = ({
     ]);
   };
 
+  // 新增账号A：主管理员账号
+  const fillMainAccountDemo = () => {
+    setFormData({ ...formData, phone: '13811111111', password: 'password111', code: '111111' });
+    onSetMainAccount(true);
+    onSetUnbound(false);
+    onLogin();
+    onSetRobots([
+      { id: 'robot-main', nickname: '主管理员设备', model: 'Gen-2', status: 'online', battery: 92, network: '极佳', version: 'v2.1.0', icon: '🤖' }
+    ]);
+  };
+
+  // 新增账号B：分享账号（子账号）
+  const fillSharedAccountDemo = () => {
+    setFormData({ ...formData, phone: '13822222222', password: 'password222', code: '222222' });
+    onSetMainAccount(false);
+    onSetUnbound(false);
+    onLogin();
+    onSetRobots([
+      { id: 'robot-shared', nickname: '共享小和设备', model: 'Gen-2', status: 'online', battery: 45, network: '良好', version: 'v2.1.0', icon: '🤖' }
+    ]);
+  };
+
+  // 新增账号C：账号异常（未绑定/离线）
+  const fillAbnormalAccountDemo = () => {
+    setFormData({ ...formData, phone: '13833333333', password: 'password333', code: '333333' });
+    onSetMainAccount(true);
+    onSetUnbound(true);
+    onLogin();
+    onSetRobots([]);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // 模拟身份验证
     setTimeout(() => {
       setLoading(false);
       onLogin();
@@ -2890,38 +2957,60 @@ const LoginRegisterView = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[500] bg-white flex flex-col p-8"
+      className="fixed inset-0 z-[500] bg-white flex flex-col p-8 overflow-y-auto"
     >
-      <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full space-y-10">
+      <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full space-y-6">
         <div className="space-y-4">
           <div className="flex justify-between items-start">
-            <div className="w-16 h-16 bg-[#024481] rounded-2xl flex items-center justify-center text-3xl shadow-xl shadow-blue-100">🏠</div>
-            <div className="flex flex-col gap-2">
+            <div className="w-16 h-16 bg-[#024481] rounded-2xl flex items-center justify-center text-3xl shadow-xl shadow-blue-100 shrink-0">🏠</div>
+            <div className="flex flex-col gap-2 items-end">
               {isLogin && (
                 <>
-                  <button 
-                    type="button"
-                    onClick={fillDemoAccount}
-                    className="text-[10px] bg-blue-50 text-[#024481] px-3 py-1.5 rounded-full font-black uppercase tracking-wider active:scale-95 transition-all text-center"
-                  >使用演示模式</button>
-                  <button 
-                    type="button"
-                    onClick={() => {
-                      onAnonymousLogin();
-                      // Maybe set a flag indicating unbound mode
-                    }}
-                    className="text-[10px] bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full font-black uppercase tracking-wider active:scale-95 transition-all text-center"
-                  >使用匿名模式</button>
-                  <button 
-                    type="button"
-                    onClick={() => {
-                      onAnonymousLogin();
-                      onSetUnbound(true);
-                      onSetRobots([]);
-                      onSetLoggedIn(true);
-                    }}
-                    className="text-[10px] bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-full font-black uppercase tracking-wider active:scale-95 transition-all text-center"
-                  >快速绑定模式</button>
+                  <div className="flex flex-col gap-1.5 w-full items-end">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase">全场景演示区</span>
+                    <div className="grid grid-cols-2 gap-2 w-full max-w-[200px]">
+                      <button 
+                        type="button"
+                        onClick={fillMainAccountDemo}
+                        className="text-[10px] bg-blue-500 text-white px-2 py-1.5 rounded-lg font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-blue-500/30"
+                      ><span>👑</span>主账号模式</button>
+                      <button 
+                        type="button"
+                        onClick={fillSharedAccountDemo}
+                        className="text-[10px] bg-indigo-500 text-white px-2 py-1.5 rounded-lg font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-indigo-500/30"
+                      ><span>👥</span>分享号模式</button>
+                      <button 
+                        type="button"
+                        onClick={fillAbnormalAccountDemo}
+                        className="text-[10px] bg-amber-500 text-white px-2 py-1.5 rounded-lg font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-amber-500/30 col-span-2"
+                      ><span>⚠️</span>账号异常模式</button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-2 mt-2 border-t border-gray-100 pt-2 w-full justify-end">
+                    <button 
+                      type="button"
+                      onClick={fillDemoAccount}
+                      className="text-[10px] bg-blue-50 text-[#024481] px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
+                    >老演示</button>
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        onAnonymousLogin();
+                      }}
+                      className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
+                    >匿名模式</button>
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        onAnonymousLogin();
+                        onSetUnbound(true);
+                        onSetRobots([]);
+                        onSetLoggedIn(true);
+                      }}
+                      className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
+                    >快速绑定</button>
+                  </div>
                 </>
               )}
             </div>
@@ -3259,7 +3348,7 @@ const ProfileView = ({
         >
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-xl">🏘️</div>
-            <span className="font-bold text-gray-700">家人管理</span>
+            <span className="font-bold text-gray-700">照护分享</span>
           </div>
           <span className="text-gray-300">❯</span>
         </button>
@@ -3450,6 +3539,7 @@ const NotificationsView = ({ onClose, onAlertClick }: { onClose: () => void, onA
 };
 
 export default function App() {
+  const [isMainAccount, setIsMainAccount] = useState(true);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isUnboundMode, setIsUnboundMode] = useState(false); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -3629,6 +3719,7 @@ export default function App() {
           }}
           onDeleteData={() => setOverlay('confirmDelete' as any)}
           onLogout={() => setIsLoggedIn(false)}
+          isMainAccount={isMainAccount}
         />
       );
     }
@@ -3714,6 +3805,7 @@ export default function App() {
             onSetUnbound={setIsUnboundMode}
             onSetRobots={setRobots}
             onSetLoggedIn={setIsLoggedIn}
+            onSetMainAccount={setIsMainAccount}
           />
         )}
       </AnimatePresence>
@@ -3769,6 +3861,7 @@ export default function App() {
             contacts={emergencyContacts}
             onUpdate={setEmergencyContacts}
             onClose={() => setOverlay(null)}
+            isMainAccount={isMainAccount}
           />
         )}
         {overlay === 'familyMembers' && (
@@ -3783,6 +3876,7 @@ export default function App() {
             plan={medicationPlan}
             onUpdate={setMedicationPlan}
             onClose={() => setOverlay(null)}
+            isMainAccount={isMainAccount}
           />
         )}
         {overlay === 'medicationCalendar' && (
@@ -3806,6 +3900,7 @@ export default function App() {
               setOverlay(null);
               setActiveDetailRobot(null);
             }}
+            isMainAccount={isMainAccount}
           />
         )}
         {overlay === 'legalNotice' && (
@@ -3814,6 +3909,7 @@ export default function App() {
             onViewLogs={() => setOverlay('cameraAccessLogs')}
             onDeleteData={() => setOverlay('confirmDelete' as any)}
             onClose={() => setOverlay(null)}
+            isMainAccount={isMainAccount}
           />
         )}
         {overlay === 'alarmSettings' && (
