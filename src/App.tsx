@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, Reorder, useMotionValue, useTransform } from 'motion/react';
 import { AreaChart, Area, LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceArea } from 'recharts';
+import { GoogleGenAI, Type } from "@google/genai";
 
 // --- 类型定义 ---
 type TabType = 'guardian' | 'health' | 'companion' | 'profile';
@@ -39,6 +40,9 @@ interface Medication {
   dosage: string;
   times: string[];
   enabled?: boolean;
+  imageUrl?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 interface AlertData {
@@ -616,7 +620,8 @@ const GuardianView = ({
   onStatusClick,
   onTabSwitch,
   isDeviceOffline = false,
-  isAnonymous = false
+  isAnonymous = false,
+  unreadNotificationsCount = 0
 }: { 
   onAction: (type: OverlayType) => void;
   onImageClick: (src: string) => void;
@@ -624,6 +629,7 @@ const GuardianView = ({
   onTabSwitch: (tab: TabType) => void;
   isDeviceOffline?: boolean;
   isAnonymous?: boolean;
+  unreadNotificationsCount?: number;
 }) => {
   const [isCapturing, setIsCapturing] = useState(false);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
@@ -1402,7 +1408,7 @@ const HealthView = ({ onCalendarClick, isAnonymous }: { onCalendarClick: () => v
 };
 
 // --- 子组件：AI 陪伴 ---
-const CompanionView = ({ onAction, isAnonymous }: { onAction: (type: OverlayType) => void; isAnonymous?: boolean }) => {
+const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: { onAction: (type: OverlayType) => void; isAnonymous?: boolean; unreadNotificationsCount?: number }) => {
   if (isAnonymous) {
     return (
       <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
@@ -2203,13 +2209,83 @@ const MedicationPlanView = ({
   const [data, setData] = useState(plan);
   const [editingMed, setEditingMed] = useState<Medication | null>(null);
   const [isAdding, setIsAdding] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [fullScreenImage, setFullScreenImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [form, setForm] = useState<Partial<Medication>>({
     name: '',
     dosage: '',
     times: ['08:00'],
-    enabled: true
+    enabled: true,
+    startDate: new Date().toISOString().split('T')[0],
+    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   });
+
+  const handlePhotoScan = async (file: File) => {
+    setIsScanning(true);
+    try {
+      const reader = new FileReader();
+      const base64Promise = new Promise<{base64: string, full: string}>((resolve) => {
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          resolve({
+            base64: result.split(',')[1],
+            full: result
+          });
+        };
+      });
+      reader.readAsDataURL(file);
+      const { base64, full } = await base64Promise;
+
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: [
+          {
+            inlineData: {
+              data: base64,
+              mimeType: file.type,
+            },
+          },
+          {
+            text: "请识别这张药品盒照片中的药品名称和建议剂量。请以JSON格式返回，包含 name (药品简称), dosage (单次剂量, 如1粒) 字段。如果识别不清晰，根据经验推测最可能的名称。如果你认为这不是药品盒，请在name字段返回'invalid'。",
+          },
+        ],
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              name: { type: Type.STRING },
+              dosage: { type: Type.STRING },
+            },
+            required: ["name", "dosage"],
+          },
+        },
+      });
+
+      const result = JSON.parse(response.text);
+      if (result.name && result.name !== 'invalid') {
+        setForm({
+          name: result.name,
+          dosage: result.dosage || '1粒',
+          times: ['08:00'],
+          enabled: true,
+          imageUrl: full,
+          startDate: new Date().toISOString().split('T')[0],
+          endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+        });
+        setIsAdding(true);
+        setEditingMed(null);
+      }
+    } catch (error) {
+      console.error("Scan error:", error);
+    } finally {
+      setIsScanning(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
   const handleEditClick = (med: Medication) => {
     if (!isMainAccount) return;
@@ -2224,7 +2300,10 @@ const MedicationPlanView = ({
       name: '',
       dosage: '',
       times: ['08:00'],
-      enabled: true
+      enabled: true,
+      imageUrl: undefined,
+      startDate: new Date().toISOString().split('T')[0],
+      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     });
     setIsAdding(true);
     setEditingMed(null);
@@ -2304,16 +2383,49 @@ const MedicationPlanView = ({
           <h2 className="text-xl font-bold text-[#024481]">用药计划</h2>
         </div>
         {isMainAccount && (
-          <button 
-            onClick={handleAddClick}
-            className="w-10 h-10 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-2xl active:scale-95 transition-transform"
-          >
-            +
-          </button>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => fileInputRef.current?.click()}
+              className="px-4 h-10 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center gap-2 text-sm font-bold active:scale-95 transition-transform"
+              title="拍照识别"
+            >
+              <span>📷</span>
+              <span>图片识别药品</span>
+            </button>
+            <button 
+              onClick={handleAddClick}
+              className="w-10 h-10 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-2xl active:scale-95 transition-transform"
+            >
+              +
+            </button>
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              className="hidden" 
+              accept="image/*" 
+              onChange={e => {
+                const file = e.target.files?.[0];
+                if (file) handlePhotoScan(file);
+              }}
+            />
+          </div>
         )}
       </header>
 
-      <main className="flex-1 overflow-y-auto p-6 space-y-6">
+      <main className="flex-1 overflow-y-auto p-6 space-y-6 relative">
+        {isScanning && (
+          <div className="fixed inset-0 z-[200] bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center">
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              className="text-5xl mb-4"
+            >
+              🔍
+            </motion.div>
+            <p className="text-[#024481] font-bold">正在为您识别药品...</p>
+            <p className="text-xs text-gray-400 mt-2">AI 正在精准分析药盒信息</p>
+          </div>
+        )}
         {!isMainAccount && (
           <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl flex items-center gap-3">
             <span className="text-xl">🔒</span>
@@ -2330,16 +2442,32 @@ const MedicationPlanView = ({
             >
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-inner ${med.enabled === false ? 'bg-gray-100' : 'bg-blue-50'}`}>
-                    {med.enabled === false ? '💤' : '💊'}
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-inner shrink-0 ${med.enabled === false ? 'bg-gray-100' : 'bg-blue-50'}`}>
+                    {med.imageUrl && med.enabled !== false ? (
+                      <img 
+                        src={med.imageUrl} 
+                        className="w-full h-full object-cover rounded-2xl" 
+                        alt={med.name} 
+                        onClick={(e) => { e.stopPropagation(); setFullScreenImage(med.imageUrl!); }}
+                      />
+                    ) : (
+                      med.enabled === false ? '💤' : '💊'
+                    )}
                   </div>
                   <div>
                     <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[10px] bg-blue-50 text-blue-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">每日推送</span>
-                      <p className="text-xs text-gray-400 font-medium">
-                        {med.times.join(' • ')}
-                      </p>
+                    <div className="flex flex-col gap-0.5 mt-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] bg-blue-50 text-blue-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">每日推送</span>
+                        <p className="text-xs text-gray-400 font-medium">
+                          {med.times.join(' • ')}
+                        </p>
+                      </div>
+                      {(med.startDate || med.endDate) && (
+                        <p className="text-[10px] text-gray-300 font-medium">
+                          📅 {med.startDate || '未设'} 至 {med.endDate || '未设'}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -2417,6 +2545,28 @@ const MedicationPlanView = ({
 
             <main className="flex-1 overflow-y-auto p-6 space-y-6">
               <div className="bg-white rounded-[32px] p-8 border border-gray-50 shadow-sm space-y-8">
+                {/* 药盒识别图 */}
+                {form.imageUrl && (
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">药品包装图</label>
+                    <div 
+                      className="w-full aspect-video rounded-3xl overflow-hidden shadow-inner bg-gray-50 relative group cursor-pointer"
+                      onClick={() => setFullScreenImage(form.imageUrl!)}
+                    >
+                      <img src={form.imageUrl} className="w-full h-full object-cover" alt="Drug Box" />
+                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-white font-bold bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">点击全屏查看</span>
+                      </div>
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); setForm({ ...form, imageUrl: undefined }); }}
+                        className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-md text-red-500 rounded-full flex items-center justify-center font-bold shadow-lg"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {/* 药名 */}
                 <div className="space-y-3">
                   <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">药品名称</label>
@@ -2439,6 +2589,28 @@ const MedicationPlanView = ({
                     onChange={e => setForm({ ...form, dosage: e.target.value })}
                     className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
                   />
+                </div>
+
+                {/* 计划周期 */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">开始日期</label>
+                    <input 
+                      type="date"
+                      value={form.startDate}
+                      onChange={e => setForm({ ...form, startDate: e.target.value })}
+                      className="w-full bg-gray-50 border-none rounded-2xl px-4 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none text-sm"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">结束日期</label>
+                    <input 
+                      type="date"
+                      value={form.endDate}
+                      onChange={e => setForm({ ...form, endDate: e.target.value })}
+                      className="w-full bg-gray-50 border-none rounded-2xl px-4 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none text-sm"
+                    />
+                  </div>
                 </div>
 
                 {/* 时间点 */}
@@ -2481,6 +2653,12 @@ const MedicationPlanView = ({
               )}
             </main>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {fullScreenImage && (
+          <ImageViewer src={fullScreenImage} onClose={() => setFullScreenImage(null)} />
         )}
       </AnimatePresence>
     </motion.div>
@@ -2849,6 +3027,25 @@ const ElderlyProfileEditView = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
 
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAvatarSelect = () => {
+    avatarInputRef.current?.click();
+  };
+
+  const onAvatarFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setFormData({ ...formData, avatar: event.target.result as string });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   // 模拟从病历拍照提取数据
   const handleScanRecord = () => {
     cameraInputRef.current?.click();
@@ -2889,6 +3086,13 @@ const ElderlyProfileEditView = ({
           <h2 className="text-lg font-bold">健康档案库</h2>
         </div>
         <div className="flex gap-2">
+          <input 
+            type="file" 
+            accept="image/*" 
+            ref={avatarInputRef}
+            className="hidden"
+            onChange={onAvatarFileChange}
+          />
           <input 
             type="file" 
             accept="image/*" 
@@ -2938,7 +3142,10 @@ const ElderlyProfileEditView = ({
         {/* 核心基础信息 */}
         <div className="bg-white rounded-2xl p-4 border border-gray-100 space-y-3">
           <div className="flex items-center gap-4 mb-2">
-             <div className="relative shrink-0">
+             <div 
+               className="relative shrink-0 cursor-pointer active:scale-95 transition-transform"
+               onClick={handleAvatarSelect}
+             >
                <img src={formData.avatar} className="w-14 h-14 rounded-full object-cover border-2 border-blue-50" alt="avatar" />
                <div className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-1 rounded-full text-[8px]">📷</div>
              </div>
@@ -3869,7 +4076,7 @@ const ProfileView = ({
             />
           </div>
           <button 
-            onClick={() => setShowAvatarMenu(true)}
+            onClick={onEditClick}
             className="absolute bottom-0 right-0 bg-[#024481] text-white p-1.5 rounded-full border-2 border-white shadow-md text-xs active:scale-90 transition-transform"
           >
             🖊️
@@ -4618,6 +4825,7 @@ export default function App() {
         return (
           <GuardianView 
             onAction={handleAction}
+            unreadNotificationsCount={notifications.filter(n => !n.isRead).length}
             onImageClick={(src) => {
               setSelectedImage(src);
               setOverlay('imageViewer');
@@ -4638,7 +4846,7 @@ export default function App() {
           isAnonymous={isEmptyAnonymous} // 更新此调用
         />
       );
-      case 'companion': return <CompanionView onAction={(type) => setOverlay(type)} isAnonymous={isEmptyAnonymous} />; // 更新此调用
+      case 'companion': return <CompanionView onAction={(type) => setOverlay(type)} isAnonymous={isEmptyAnonymous} unreadNotificationsCount={notifications.filter(n => !n.isRead).length} />; // 更新此调用
       case 'profile': return (
         <ProfileView 
           profiles={elderlyProfiles} 
@@ -4970,10 +5178,15 @@ export default function App() {
           <span className="text-2xl">🌱</span>
           <h1 className="text-xl font-bold text-[#024481]">嘉和智护OS</h1>
         </div>
-        <button onClick={() => handleAction('notifications')} className="w-10 h-10 rounded-full bg-white flex items-center justify-center card-shadow active:scale-95 transition-transform relative">
-          🔔
+        <button onClick={() => handleAction('notifications')} className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center card-shadow active:scale-95 transition-transform relative">
+          <span className="text-xl">🔔</span>
           {notifications.some(n => !n.isRead) && (
-            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-[1.5px] border-white shadow-sm"></span>
+            <span className="absolute -top-1 -right-1 flex h-4 w-4">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white shadow-sm flex items-center justify-center text-[9px] text-white font-black">
+                {notifications.filter(n => !n.isRead).length}
+              </span>
+            </span>
           )}
         </button>
       </header>
