@@ -749,7 +749,7 @@ const GuardianView = ({
       )}
 
       {/* 安心时刻卡片：展示长辈实时抓拍画面 */}
-      <div id="guardian-moment-card" className="bg-white rounded-[24px] p-6 card-shadow border border-gray-50 flex flex-col gap-4 mx-auto w-[90%] md:w-full min-h-[300px] overflow-hidden relative">
+      <div id="guardian-moment-card" className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 flex flex-col gap-5 mx-6 overflow-hidden relative">
         {/* 下拉提示背景 */}
         <div className="absolute top-0 left-0 right-0 h-20 flex flex-col items-center justify-center pointer-events-none z-0">
            <motion.div 
@@ -768,23 +768,27 @@ const GuardianView = ({
           dragElastic={0.6}
           onDrag={handleDrag}
           onDragEnd={handleDragEnd}
-          className="relative z-10 bg-white flex flex-col gap-4"
+          className="relative z-10 bg-white flex flex-col gap-5"
         >
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-800">安心时刻</h2>
-            <div className="flex items-center gap-3">
-              <span className="text-gray-400 text-xs">{isCapturing ? '正在尝试抓拍...' : '刚刚 抓拍'}</span>
+          <div className="flex justify-between items-center px-1">
+            <h2 className="text-xl font-bold text-[#024481] flex items-center gap-2">
+              <span>🏠</span>
+              <span>长辈安心时刻</span>
+            </h2>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-400 text-[10px] bg-gray-50 px-2 py-1 rounded-md font-medium">智能识别: 老人正处于客厅</span>
               {/* 刷新按钮 */}
               <button 
                 onClick={handleRefresh}
                 disabled={isCapturing || isDeviceOffline}
-                className={`w-8 h-8 rounded-full flex flex-col items-center justify-center shadow-sm border border-gray-100 cursor-pointer transition-all ${
-                  isCapturing ? 'bg-blue-50 text-[#024481]' : 'bg-gray-50 text-gray-400 hover:text-[#024481] hover:bg-blue-50'
+                className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 cursor-pointer transition-all ${
+                  isCapturing ? 'bg-blue-50 text-[#024481]' : 'bg-white text-gray-400 hover:text-[#024481] hover:bg-blue-50'
                 } active:scale-95 disabled:opacity-50`}
               >
                 <motion.span
                   animate={isCapturing ? { rotate: 360 } : {}}
                   transition={isCapturing ? { repeat: Infinity, duration: 1, ease: "linear" } : {}}
+                  className="text-lg"
                 >
                   🔄
                 </motion.span>
@@ -793,43 +797,80 @@ const GuardianView = ({
           </div>
 
           {isDeviceOffline ? (
-            <div className="w-full aspect-[4/3] rounded-2xl bg-gray-50 border border-dashed border-gray-200 flex flex-col items-center justify-center gap-3">
-              <span className="text-4xl text-gray-300">📷</span>
+            <div className="w-full aspect-[4/3] rounded-3xl bg-gray-50 border-2 border-dashed border-gray-100 flex flex-col items-center justify-center gap-3">
+              <span className="text-5xl opacity-20">📡</span>
               <p className="text-xs text-gray-400 font-bold">设备离线或被遮挡，无法获取影像</p>
             </div>
           ) : isAnonymous ? (
-            <div className="w-full aspect-[4/3] rounded-2xl bg-gray-50 border border-dashed border-gray-200 flex flex-col items-center justify-center gap-3">
-              <span className="text-4xl text-gray-300">🍃</span>
+            <div className="w-full aspect-[4/3] rounded-3xl bg-gray-50 border-2 border-dashed border-gray-100 flex flex-col items-center justify-center gap-3">
+              <span className="text-5xl opacity-20">🍃</span>
               <p className="text-xs text-gray-400 font-bold">暂无实时影像数据</p>
             </div>
           ) : isCapturing ? (
-            <div className="relative w-full aspect-[4/3] rounded-2xl bg-gray-900 overflow-hidden flex flex-col items-center justify-center p-6 gap-4">
-               <div className="text-3xl animate-pulse">🛰️</div>
-               <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${captureProgress}%` }}
-                    className="h-full bg-blue-500"
-                  />
+            <div className="relative w-full aspect-[4/3] rounded-3xl bg-black overflow-hidden flex flex-col items-center justify-center p-8 gap-6 group">
+               {/* 模拟扫描线 */}
+               <motion.div 
+                 animate={{ top: ['0%', '100%', '0%'] }}
+                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                 className="absolute left-0 right-0 h-0.5 bg-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-10"
+               />
+               <div className="relative z-0 opacity-20 scale-110 pointer-events-none">
+                 <img src={images[0]?.url} className="w-full h-full object-cover blur-xl" alt="blur" />
                </div>
-               <p className="text-white/60 text-xs font-bold tracking-widest">{captureStep}</p>
+               
+               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-20">
+                 <div className="text-4xl animate-bounce">🛰️</div>
+                 <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden border border-white/5">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${captureProgress}%` }}
+                      className="h-full bg-gradient-to-r from-blue-500 to-cyan-400"
+                    />
+                 </div>
+                 <p className="text-white font-bold text-xs tracking-[0.2em] animate-pulse">{captureStep}</p>
+                 <div className="mt-4 flex gap-1">
+                   {[0, 1, 2].map(i => (
+                     <motion.div 
+                       key={i}
+                       animate={{ opacity: [0.3, 1, 0.3] }}
+                       transition={{ duration: 1, repeat: Infinity, delay: i * 0.3 }}
+                       className="w-1.5 h-1.5 rounded-full bg-blue-400"
+                     />
+                   ))}
+                 </div>
+               </div>
             </div>
           ) : (
-            <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory">
+            <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory px-0.5">
               {images.map((item, index) => (
                 <div 
                   key={index}
                   onClick={() => onImageClick(item.url)}
-                  className="relative shrink-0 w-[85%] aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 shadow-inner snap-center cursor-pointer group"
+                  className="relative shrink-0 w-[92%] aspect-[4/3] rounded-3xl overflow-hidden bg-gray-200 shadow-xl border-4 border-white snap-center cursor-pointer group"
                 >
                   <img 
                     src={item.url} 
                     alt="长辈安心时刻" 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full font-bold">
-                    {index + 1} / {images.length}
+                  {/* 图片水印与元数据 */}
+                  <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+                    <div className="flex justify-between items-start">
+                      <div className="flex flex-col">
+                        <span className="text-white text-[10px] font-black tracking-widest uppercase opacity-80">嘉和智护 实时抓拍</span>
+                        <span className="text-white/60 text-[8px] font-medium">机位: 1号智能移动机器人 (客厅)</span>
+                      </div>
+                      <div className="bg-white/20 backdrop-blur-md text-white text-[9px] px-2.5 py-1 rounded-full font-black border border-white/10">
+                        {index === 0 ? '最新' : `${index + 1} / ${images.length}`}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
+                    <p className="text-white text-xs font-black tracking-tighter">
+                      {new Date().toLocaleDateString()} {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -838,9 +879,11 @@ const GuardianView = ({
           
           <button 
             onClick={handleRefresh}
-            className="text-center text-[10px] text-gray-400 font-bold pb-2 uppercase tracking-widest active:scale-95 transition-transform"
+            className="flex items-center justify-center gap-2 py-1 text-center text-[10px] text-gray-400 font-bold pb-2 uppercase tracking-widest active:scale-95 transition-transform"
           >
-            {isCapturing ? '正在尝试建立物理连接...' : '下拉或点击立即抓拍'}
+            <span>✨</span>
+            <span>{isCapturing ? '正在尝试建立加密物理连接...' : '下拉或点击立即抓拍照片'}</span>
+            <span>✨</span>
           </button>
         </motion.div>
       </div>
@@ -1083,7 +1126,7 @@ const GuardianView = ({
 };
 
 // --- 子组件：健康详情 ---
-const HealthView = ({ onCalendarClick, isAnonymous }: { onCalendarClick: () => void; isAnonymous?: boolean }) => {
+const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCalendarClick: () => void; isAnonymous?: boolean; plan: Medication[]; onImageClick: (src: string) => void }) => {
   if (isAnonymous) {
     return (
       <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
@@ -1141,17 +1184,23 @@ const HealthView = ({ onCalendarClick, isAnonymous }: { onCalendarClick: () => v
     }
   };
 
-  const todayMeds = [
-    { id: '1', name: '阿司匹林肠溶片', time: '08:00 早餐后', icon: '☀️', status: 'done', statusText: '已服用', color: '#16a34a', bg: '#f0fdf4', iconBg: '#dcfce7' },
-    { id: '2', name: '维生素 D3', time: '12:30 午餐后', icon: '🕛', status: 'missed', statusText: '漏服', color: '#dc2626', bg: '#fef2f2', iconBg: '#fee2e2' },
-    { id: '3', name: '缬沙坦胶囊', time: '20:00 睡前', icon: '🌙', status: 'pending', statusText: '待服用', color: '#2563eb', bg: '#eff6ff', iconBg: '#dbeafe' },
-  ];
+  // 映射真实数据到显示结构
+  const todayMedsDisplay = React.useMemo(() => {
+    return plan.map(med => ({
+      id: med.id,
+      name: med.name,
+      time: med.times.join(' • '),
+      icon: med.imageUrl ? '🖼️' : (med.name.includes('阿斯匹林') ? '💊' : med.name.includes('维生素') ? '🧴' : '🌿'),
+      imageUrl: med.imageUrl,
+      status: med.enabled === false ? 'pending' : 'done', // 简化处理
+      statusText: med.enabled === false ? '已暂停' : '已按时',
+      color: med.enabled === false ? '#9ca3af' : '#16a34a',
+      bg: med.enabled === false ? '#f3f4f6' : '#f0fdf4',
+      iconBg: med.enabled === false ? '#e5e7eb' : '#dcfce7'
+    }));
+  }, [plan]);
 
-  const fullMeds = [
-    ...todayMeds,
-    { id: '4', name: '钙片', time: '09:00', icon: '☀️', status: 'done', statusText: '已服用', color: '#16a34a', bg: '#f0fdf4', iconBg: '#dcfce7' },
-    { id: '5', name: '降压药', time: '19:00', icon: '🌙', status: 'pending', statusText: '待服用', color: '#2563eb', bg: '#eff6ff', iconBg: '#dbeafe' },
-  ];
+  const displayList = expandedMed ? todayMedsDisplay : todayMedsDisplay.slice(0, 3);
 
   return (
     <motion.div 
@@ -1205,10 +1254,40 @@ const HealthView = ({ onCalendarClick, isAnonymous }: { onCalendarClick: () => v
         onClick={() => setExpandedMed(!expandedMed)}
         className="w-full space-y-3 text-left transition-all duration-300"
       >
-        {(expandedMed ? fullMeds : todayMeds).map((med) => (
+        {displayList.map((med) => (
           <div key={med.id} className="p-4 rounded-[20px] flex items-center justify-between border-l-4 shadow-sm" style={{ background: med.bg, borderColor: med.color }}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl" style={{ border: `1px solid ${med.color}20`, background: med.iconBg }}>{med.icon}</div>
+              <div 
+                className={`w-10 h-10 rounded-full flex items-center justify-center text-xl overflow-hidden ${med.imageUrl ? 'cursor-zoom-in active:scale-90 transition-transform' : ''}`} 
+                style={{ border: `1px solid ${med.color}20`, background: med.iconBg }}
+                onClick={(e) => { 
+                  if (med.imageUrl) {
+                    e.stopPropagation();
+                    onImageClick(med.imageUrl);
+                  }
+                }}
+              >
+                {med.imageUrl ? (
+                  <img 
+                    src={med.imageUrl} 
+                    className="w-full h-full object-cover" 
+                    alt={med.name} 
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      // 如果图片加载失败，显示 icon
+                      const parent = (e.target as HTMLElement).parentElement;
+                      if (parent) {
+                        const span = document.createElement('span');
+                        span.innerText = '💊';
+                        parent.appendChild(span);
+                      }
+                    }}
+                  />
+                ) : (
+                  med.icon
+                )}
+              </div>
               <div>
                 <p className="font-bold text-gray-800">{med.name}</p>
                 <p className="text-xs text-gray-500">{med.time}</p>
@@ -1219,7 +1298,7 @@ const HealthView = ({ onCalendarClick, isAnonymous }: { onCalendarClick: () => v
             </span>
           </div>
         ))}
-        {!expandedMed && (
+        {todayMedsDisplay.length > 3 && !expandedMed && (
           <div className="text-center py-2">
             <span className="text-[10px] font-bold text-[#024481] uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">
               点击展开全部清单 ⌵
@@ -2238,6 +2317,9 @@ const MedicationPlanView = ({
       reader.readAsDataURL(file);
       const { base64, full } = await base64Promise;
 
+      // 立即在表单中预览图片，提升用户反馈感
+      setForm(prev => ({ ...prev, imageUrl: full }));
+
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
@@ -2414,7 +2496,12 @@ const MedicationPlanView = ({
 
       <main className="flex-1 overflow-y-auto p-6 space-y-6 relative">
         {isScanning && (
-          <div className="fixed inset-0 z-[200] bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center">
+          <div className="fixed inset-0 z-[200] bg-white/90 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center">
+            {form.imageUrl && (
+              <div className="w-48 h-48 rounded-3xl overflow-hidden shadow-2xl mb-8 border-4 border-white">
+                <img src={form.imageUrl} className="w-full h-full object-cover" alt="Scanning" />
+              </div>
+            )}
             <motion.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -2422,8 +2509,8 @@ const MedicationPlanView = ({
             >
               🔍
             </motion.div>
-            <p className="text-[#024481] font-bold">正在为您识别药品...</p>
-            <p className="text-xs text-gray-400 mt-2">AI 正在精准分析药盒信息</p>
+            <p className="text-[#024481] font-bold text-lg">正在为您识别药品...</p>
+            <p className="text-xs text-gray-400 mt-2">AI 正在精准分析药盒信息，请稍候</p>
           </div>
         )}
         {!isMainAccount && (
@@ -2448,14 +2535,33 @@ const MedicationPlanView = ({
                         src={med.imageUrl} 
                         className="w-full h-full object-cover rounded-2xl" 
                         alt={med.name} 
+                        referrerPolicy="no-referrer"
                         onClick={(e) => { e.stopPropagation(); setFullScreenImage(med.imageUrl!); }}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                          const parent = (e.target as HTMLElement).parentElement;
+                          if (parent) {
+                            parent.innerText = '💊';
+                          }
+                        }}
                       />
                     ) : (
                       med.enabled === false ? '💤' : '💊'
                     )}
                   </div>
                   <div>
-                    <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
+                      {med.imageUrl && med.enabled !== false && (
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); setFullScreenImage(med.imageUrl!); }}
+                          className="text-lg hover:scale-110 active:scale-95 transition-transform"
+                          title="点击查看药盒照片"
+                        >
+                          🖼️
+                        </button>
+                      )}
+                    </div>
                     <div className="flex flex-col gap-0.5 mt-1">
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] bg-blue-50 text-blue-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">每日推送</span>
@@ -4782,8 +4888,22 @@ export default function App() {
 
   // 用药计划
   const [medicationPlan, setMedicationPlan] = useState<Medication[]>([
-    { id: '1', name: '缬沙坦胶囊', dosage: '1粒/次', times: ['08:00'], enabled: true },
-    { id: '2', name: '二甲双胍', dosage: '0.5g/次', times: ['08:00', '18:00'], enabled: true }
+    { 
+      id: '1', 
+      name: '缬沙坦胶囊', 
+      dosage: '1粒/次', 
+      times: ['08:00'], 
+      enabled: true,
+      imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600&auto=format&fit=crop' 
+    },
+    { 
+      id: '2', 
+      name: '二甲双胍', 
+      dosage: '0.5g/次', 
+      times: ['08:00', '18:00'], 
+      enabled: true,
+      imageUrl: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?q=80&w=600&auto=format&fit=crop'
+    }
   ]);
 
   const [legalType, setLegalType] = useState<'terms' | 'privacy'>('terms');
@@ -4844,6 +4964,11 @@ export default function App() {
         <HealthView 
           onCalendarClick={() => handleAction('medicationCalendar')}
           isAnonymous={isEmptyAnonymous} // 更新此调用
+          plan={medicationPlan}
+          onImageClick={(src) => {
+            setSelectedImage(src);
+            setOverlay('imageViewer');
+          }}
         />
       );
       case 'companion': return <CompanionView onAction={(type) => setOverlay(type)} isAnonymous={isEmptyAnonymous} unreadNotificationsCount={notifications.filter(n => !n.isRead).length} />; // 更新此调用
