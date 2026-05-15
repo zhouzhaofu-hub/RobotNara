@@ -468,88 +468,88 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
-      className="absolute inset-0 z-[100] bg-[#fbf9f8] flex flex-col"
+      className="absolute inset-0 z-[100] bg-gray-50 flex flex-col"
     >
-      <header className="bg-[#E11D48] text-white px-6 py-6 flex items-center gap-4 relative shadow-md">
-        <button onClick={onClose} className="text-2xl text-white">⬅️</button>
-        <h2 className="text-xl font-bold flex items-center gap-2">
+      <header className="bg-red-600 text-white px-4 py-3 flex items-center gap-3 relative shadow-md">
+        <button onClick={onClose} className="text-xl text-white">⬅️</button>
+        <h2 className="text-base font-bold flex items-center gap-2">
           <span>⚠️</span> 检测到妈妈可能跌倒
         </h2>
       </header>
-      <main className="flex-1 px-6 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] space-y-6 py-6 text-gray-800">
-        <div className="bg-white rounded-[24px] p-6 card-shadow border border-red-50 space-y-3">
-          <div className="flex justify-between items-center py-2 border-b border-gray-50">
-            <span className="text-gray-500 text-base">发生时间</span>
+      <main className="flex-1 px-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] space-y-3 py-4 text-gray-800">
+        <div className="bg-white rounded-[16px] p-4 card-shadow border border-blue-50 space-y-1">
+          <div className="flex justify-between items-center py-1 border-b border-gray-50 text-sm">
+            <span className="text-gray-500">发生时间</span>
             <span className="font-bold text-gray-800">2026-05-10 13:00:23</span>
           </div>
-          <div className="flex justify-between items-center py-2 border-b border-gray-50">
-            <span className="text-gray-500 text-base">发生位置</span>
+          <div className="flex justify-between items-center py-1 border-b border-gray-50 text-sm">
+            <span className="text-gray-500">发生位置</span>
             <span className="font-bold text-gray-800">主卧室</span>
           </div>
-          <div className="flex justify-between items-center py-2 border-b border-gray-50">
-            <span className="text-gray-500 text-base">持续时长</span>
-            <span className="font-bold text-gray-800 text-[#E11D48]">已达 3 分钟</span>
+          <div className="flex justify-between items-center py-1 border-b border-gray-50 text-sm">
+            <span className="text-gray-500">持续时长</span>
+            <span className="font-bold text-[#024481]">已达 3 分钟</span>
           </div>
-          <div className="flex justify-between items-center py-2">
-            <span className="text-gray-500 text-base">最新体征数据</span>
+          <div className="flex justify-between items-center py-1 text-sm">
+            <span className="text-gray-500">最新体征数据</span>
             <span className="font-bold text-gray-800">心率稍快 95bmp</span>
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           <h3 className="text-gray-500 font-bold text-xs px-1 tracking-widest uppercase">实时画面核实</h3>
           {!isVideoOpen ? (
             <button 
               onClick={() => setIsVideoOpen(true)}
-              className="w-full h-32 border-2 border-dashed border-[#024481]/30 rounded-[20px] text-[#024481] font-bold flex flex-col items-center justify-center gap-2 bg-blue-50/50"
+              className="w-full h-16 border-2 border-dashed border-[#024481]/30 rounded-[16px] text-[#024481] font-bold flex items-center justify-center gap-2 bg-blue-50/50"
             >
-              <span className="text-3xl">🎥</span>
-              <span>点击查看实时监控画面</span>
+              <span className="text-xl">🎥</span>
+              <span className="text-sm">点击查看实时监控画面</span>
             </button>
           ) : (
-            <div className="aspect-video bg-gray-900 rounded-[20px] overflow-hidden relative border-2 border-red-500 shadow-lg shadow-red-500/20">
+            <div className="aspect-video bg-gray-900 rounded-[16px] overflow-hidden relative shadow-lg">
               <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover opacity-80" alt="核实画面" referrerPolicy="no-referrer" />
-              <div className="absolute top-4 left-4 bg-[#E11D48] text-white text-xs px-2 py-0.5 rounded font-bold flex items-center gap-1 animate-pulse">
+              <div className="absolute top-2 left-2 bg-[#E11D48] text-white text-[10px] px-1.5 py-0.5 rounded font-bold flex items-center gap-1 animate-pulse">
                 <span className="w-1.5 h-1.5 rounded-full bg-white"></span> LIVE
               </div>
             </div>
           )}
         </div>
 
-        <div className="space-y-4 pt-4 border-t border-gray-100">
-          <button className="w-full bg-[#024481] text-white py-4 rounded-[20px] flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] transition-transform text-lg">
-            <span className="text-2xl">📞</span>
-            <span className="font-bold">呼叫妈妈</span>
+        <div className="grid grid-cols-3 gap-2 pt-2">
+          <button className="bg-[#024481] text-white py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-md active:scale-[0.98] transition-transform">
+            <span className="text-xl">📞</span>
+            <span className="font-bold text-xs">呼叫妈妈</span>
           </button>
-          <button className="w-full bg-[#E11D48] text-white py-4 rounded-[20px] flex items-center justify-center gap-2 shadow-lg shadow-red-600/30 active:scale-[0.98] transition-transform text-lg">
-            <span className="text-2xl">🚑</span>
-            <span className="font-bold">拨打 120急救</span>
+          <button className="bg-red-50 text-[#E11D48] border border-red-100 py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform">
+            <span className="text-xl">🚑</span>
+            <span className="font-bold text-xs">120急救</span>
           </button>
-          <button className="w-full bg-white border-2 border-gray-200 text-gray-800 py-4 rounded-[20px] flex items-center justify-center gap-2 active:scale-[0.98] transition-transform text-lg">
-            <span className="text-2xl">🏘️</span>
-            <span className="font-bold">联系物业服务</span>
+          <button className="bg-white border border-gray-200 text-gray-800 py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform">
+            <span className="text-xl">🏘️</span>
+            <span className="font-bold text-xs">联系物业</span>
           </button>
         </div>
 
-        <div className="pt-6 pb-12 space-y-4">
+        <div className="pt-4 pb-6 space-y-3">
           {!showResolveConfirm ? (
             <button 
               onClick={() => setShowResolveConfirm(true)}
-              className="w-full bg-[#10B981] text-white py-4 rounded-[20px] flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 active:scale-[0.98] transition-transform text-lg"
+              className="w-full bg-[#10B981] text-white py-3 rounded-[16px] flex items-center justify-center gap-2 shadow-md active:scale-95 transition-transform text-sm"
             >
-              <span className="text-xl">✅</span>
+              <span className="text-lg">✅</span>
               <span className="font-bold">解除告警</span>
             </button>
           ) : (
             <motion.div 
-               initial={{ opacity: 0, scale: 0.9 }}
+               initial={{ opacity: 0, scale: 0.95 }}
                animate={{ opacity: 1, scale: 1 }}
-               className="bg-green-50 p-6 rounded-[32px] border border-green-100 flex flex-col gap-4 text-center"
+               className="bg-green-50 p-4 rounded-[20px] border border-green-100 flex flex-col gap-3 text-center"
              >
-               <p className="text-base font-bold text-green-800">已确认长辈安全并解除本次告警？</p>
-               <div className="flex gap-3">
-                 <button onClick={() => setShowResolveConfirm(false)} className="flex-1 bg-white py-3 rounded-[24px] text-gray-500 font-bold border border-gray-100 active:scale-95 transition-transform">取消</button>
-                 <button onClick={onResolve} className="flex-1 bg-[#10B981] py-3 rounded-[24px] text-white font-bold shadow-md active:scale-95 transition-transform">确认解除</button>
+               <p className="text-sm font-bold text-green-800">已确认长辈安全并解除告警？</p>
+               <div className="flex gap-2">
+                 <button onClick={() => setShowResolveConfirm(false)} className="flex-1 bg-white py-2 rounded-[16px] text-gray-500 text-sm font-bold border border-gray-100 active:scale-95 transition-transform">取消</button>
+                 <button onClick={onResolve} className="flex-1 bg-[#10B981] py-2 rounded-[16px] text-white text-sm font-bold shadow-md active:scale-95 transition-transform">解除</button>
                </div>
              </motion.div>
           )}
@@ -558,20 +558,20 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
             {!showFalseAlarmConfirm ? (
               <button 
                 onClick={() => setShowFalseAlarmConfirm(true)}
-                className="text-gray-400 font-bold text-xs underline underline-offset-4"
+                className="text-gray-400 font-bold text-[10px] underline underline-offset-2"
               >
                 这可能是一次误报？
               </button>
             ) : (
                <motion.div 
-                 initial={{ opacity: 0, y: 10 }}
+                 initial={{ opacity: 0, y: 5 }}
                  animate={{ opacity: 1, y: 0 }}
-                 className="bg-gray-100 p-4 rounded-[20px] flex flex-col gap-3"
+                 className="bg-gray-100 p-3 rounded-[16px] flex flex-col gap-2"
                >
-                 <p className="text-base font-bold text-gray-700">确认这是一次误报吗？</p>
-                 <div className="flex gap-3">
-                   <button onClick={() => setShowFalseAlarmConfirm(false)} className="flex-1 bg-white py-2 rounded-[24px] text-gray-500 font-bold shadow-sm">取消</button>
-                   <button onClick={onResolve} className="flex-1 bg-gray-300 py-2 rounded-[24px] text-gray-700 font-bold shadow-sm">标记为误报</button>
+                 <p className="text-sm font-bold text-gray-700">确认是一次误报吗？</p>
+                 <div className="flex gap-2">
+                   <button onClick={() => setShowFalseAlarmConfirm(false)} className="flex-1 bg-white py-2 rounded-[16px] text-gray-500 text-xs font-bold shadow-sm">取消</button>
+                   <button onClick={onResolve} className="flex-1 bg-gray-300 py-2 rounded-[16px] text-gray-700 text-xs font-bold shadow-sm">误报</button>
                  </div>
                </motion.div>
             )}
@@ -653,12 +653,33 @@ const GuardianView = ({
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [captureProgress, setCaptureProgress] = useState(0);
   const [captureStep, setCaptureStep] = useState('');
+  const albumRef = useRef<HTMLDivElement>(null);
+  const [albumIndex, setAlbumIndex] = useState(0);
 
   const [images, setImages] = useState(isAnonymous ? [] : [
     { url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=800" },
     { url: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=800" },
     { url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800" }
   ]);
+
+  // 安心时刻自动轮播
+  useEffect(() => {
+    if (isCapturing || isAnonymous || isDeviceOffline || images.length <= 1) return;
+    const interval = setInterval(() => {
+      setAlbumIndex(prev => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isCapturing, isAnonymous, isDeviceOffline, images.length]);
+
+  useEffect(() => {
+    if (albumRef.current) {
+      const el = albumRef.current;
+      el.scrollTo({
+        left: el.clientWidth * albumIndex,
+        behavior: 'smooth'
+      });
+    }
+  }, [albumIndex]);
 
   const [localToast, setLocalToast] = useState('');
   const [pullStatus, setPullStatus] = useState<'idle' | 'pulling' | 'ready'>('idle');
@@ -784,7 +805,7 @@ const GuardianView = ({
       )}
 
       {/* 安心时刻卡片：展示长辈实时抓拍画面 */}
-      <div id="guardian-moment-card" className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 flex flex-col gap-5 overflow-hidden relative">
+      <div id="guardian-moment-card" className="bg-white rounded-[32px] px-4 pt-4 pb-1 card-shadow border border-gray-50 flex flex-col gap-4 overflow-hidden relative">
         {/* 下拉提示背景 */}
         <div className="absolute top-0 left-0 right-0 h-20 flex flex-col items-center justify-center pointer-events-none z-0">
            <motion.div 
@@ -803,7 +824,7 @@ const GuardianView = ({
           dragElastic={0.6}
           onDrag={handleDrag}
           onDragEnd={handleDragEnd}
-          className="relative z-10 bg-white flex flex-col gap-5"
+          className="relative z-10 bg-white flex flex-col gap-4"
         >
           <div className="flex justify-between items-center px-1">
             <h2 className="text-xl font-bold text-[#024481] flex items-center gap-2">
@@ -859,12 +880,20 @@ const GuardianView = ({
                </div>
             </div>
           ) : (
-            <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory px-0.5">
+            <div 
+              ref={albumRef}
+              className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory px-0.5"
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                const index = Math.round(el.scrollLeft / el.clientWidth);
+                if (index !== albumIndex) setAlbumIndex(index);
+              }}
+            >
               {images.map((item, index) => (
                 <div 
                   key={index}
                   onClick={() => onImageClick(item.url)}
-                  className="relative shrink-0 w-[92%] aspect-[4/3] rounded-3xl overflow-hidden bg-gray-200 shadow-xl border-4 border-white snap-center cursor-pointer group"
+                  className="relative shrink-0 w-full aspect-[4/3] rounded-[24px] overflow-hidden bg-gray-200 shadow-xl border-2 border-white snap-center cursor-pointer group"
                 >
                   <img 
                     src={item.url} 
@@ -896,9 +925,9 @@ const GuardianView = ({
           )}
           
           <button 
-            className="flex items-center justify-center gap-2 py-1 text-center text-xs text-gray-400 font-bold pb-2 uppercase tracking-widest pointer-events-none"
+            className="flex items-center justify-center gap-2 py-0 text-center text-[10px] text-gray-400 font-bold -mt-2 pb-1 uppercase tracking-widest pointer-events-none"
           >
-            <span>{isCapturing ? '正在尝试建立加密物理连接...' : '下拉立即抓拍照片'}</span>
+            <span>{isCapturing ? '正在联机握手...' : '下拉立即抓拍照片'}</span>
           </button>
         </motion.div>
       </div>
@@ -946,28 +975,32 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-[24px] bg-red-50 flex items-center justify-center text-xl">💓</div>
-                      <div>
-                        <h4 className="font-bold text-gray-800">心率 / 呼吸</h4>
-                        <p className="text-xs text-gray-400 font-bold uppercase">毫米波雷达实时监测</p>
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-[24px] bg-red-50 flex items-center justify-center text-xl">💓</div>
+                        <div>
+                          <h4 className="font-bold text-gray-800">心率 / 呼吸</h4>
+                          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">毫米波雷达实时监测</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex flex-col items-end">
+                          <span className="text-[10px] bg-green-50 text-[#10B981] px-2 py-0.5 rounded-full font-bold">正常</span>
+                          <p className="text-[9px] text-gray-300 mt-0.5">刚刚同步</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <span className="text-xs bg-green-50 text-[#10B981] px-2 py-0.5 rounded-full font-bold">正常</span>
-                      <p className="text-xs text-gray-300 mt-1">同步于刚刚</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 py-2 border-y border-gray-50">
-                    <div>
-                      <p className="text-xs text-gray-400 font-bold uppercase tracking-tight">平均心率</p>
-                      <p className="text-xl font-black text-gray-800">72<span className="text-xs ml-1 font-bold">bpm</span></p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-400 font-bold uppercase tracking-tight">平均呼吸</p>
-                      <p className="text-xl font-black text-gray-800">18<span className="text-xs ml-1 font-bold">次/分</span></p>
+                    <div className="grid grid-cols-2 gap-4 py-2 border-y border-gray-50">
+                      <div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">平均心率</p>
+                        <p className="text-xl font-black text-gray-800">72<span className="text-xs ml-1 font-bold">bpm</span></p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">平均呼吸</p>
+                        <p className="text-xl font-black text-gray-800">18<span className="text-xs ml-1 font-bold">次/分</span></p>
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -981,7 +1014,7 @@ const GuardianView = ({
                         />
                       ))}
                     </div>
-                    <p className="text-xs text-gray-500 font-medium">生命体征平稳，未检测到异常波动。</p>
+                    <p className="text-[10px] text-gray-500 font-medium">生命体征平稳，未检测到异常波动。</p>
                   </div>
                 </div>
               </div>
@@ -989,31 +1022,44 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-[24px] bg-blue-50 flex items-center justify-center text-xl">🌙</div>
-                      <div>
-                        <h4 className="font-bold text-gray-800">睡眠质量</h4>
-                        <p className="text-xs text-gray-400 font-bold">昨晚睡眠监测数据</p>
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-[24px] bg-blue-50 flex items-center justify-center text-xl">🌙</div>
+                        <div>
+                          <h4 className="font-bold text-gray-800">睡眠质量</h4>
+                          <p className="text-[10px] text-gray-400 font-bold">昨晚睡眠监测数据</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex flex-col items-end">
+                          <p className="text-xl font-black text-[#024481]">78<span className="text-xs ml-1 font-bold">分</span></p>
+                          <p className="text-[10px] text-blue-500 font-bold bg-blue-50 px-2 py-0.5 rounded-full">良好</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xl font-black text-[#024481]">78<span className="text-xs ml-1 font-bold">分</span></p>
-                      <p className="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-0.5 rounded-full">良好</p>
+                    <div className="grid grid-cols-2 gap-4 py-2 border-y border-gray-50">
+                      <div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">睡眠时长</p>
+                        <p className="text-xl font-black text-gray-800">6.3<span className="text-xs ml-1 font-bold">h</span></p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">深睡时长</p>
+                        <p className="text-xl font-black text-gray-800">2.1<span className="text-xs ml-1 font-bold">h</span></p>
+                      </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4 py-2 border-y border-gray-50">
-                    <div>
-                      <p className="text-xs text-gray-400 font-bold uppercase">睡眠时长</p>
-                      <p className="text-lg font-bold text-gray-700">6h 20min</p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+                       <motion.div 
+                         initial={{ width: 0 }}
+                         animate={{ width: '85%' }}
+                         className="h-full bg-blue-400 rounded-full"
+                       />
                     </div>
-                    <div>
-                      <p className="text-xs text-gray-400 font-bold uppercase">深睡比例</p>
-                      <p className="text-lg font-bold text-gray-700">22%</p>
-                    </div>
+                    <p className="shrink-0 text-[10px] text-blue-500 font-bold">优于 85% 同龄人</p>
                   </div>
-                  <p className="text-xs text-gray-500 leading-relaxed italic">“深度睡眠比例略低，建议晚间睡前适当增加泡脚行为。”</p>
                 </div>
               </div>
 
@@ -1022,30 +1068,34 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-[24px] bg-emerald-50 flex items-center justify-center text-xl">💊</div>
-                      <div>
-                        <h4 className="font-bold text-gray-800">今日用药</h4>
-                        <p className="text-xs text-gray-400 font-bold">服药计划完成度计数</p>
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-[24px] bg-emerald-50 flex items-center justify-center text-xl">💊</div>
+                        <div>
+                          <h4 className="font-bold text-gray-800">今日用药</h4>
+                          <p className="text-[10px] text-gray-400 font-bold tracking-tight uppercase">服药计划完成度</p>
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <p className="text-xl font-black text-emerald-600">3/4</p>
+                        <span className="absolute -top-1 -right-2 w-2 h-2 bg-[#E11D48] rounded-full animate-pulse shadow-sm"></span>
                       </div>
                     </div>
-                    <div className="relative">
-                      <p className="text-xl font-black text-emerald-600">3/4</p>
-                      <span className="absolute -top-1 -right-2 w-2 h-2 bg-[#E11D48] rounded-full animate-pulse shadow-sm"></span>
+                    
+                    <div className="flex items-center gap-3 p-3 bg-emerald-50/50 rounded-[24px] border border-emerald-100">
+                      <div className="flex -space-x-1">
+                        <div className="w-5 h-5 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-[8px] text-white">✅</div>
+                        <div className="w-5 h-5 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-[8px] text-white">✅</div>
+                        <div className="w-5 h-5 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-[8px] text-white">✅</div>
+                        <div className="w-5 h-5 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[8px] text-gray-400">⏳</div>
+                      </div>
+                      <p className="text-[9px] text-emerald-700 font-bold leading-tight">待服 1 次：降压药 (睡前)</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-emerald-50/50 rounded-[24px] border border-emerald-100">
-                    <div className="flex -space-x-1">
-                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-xs">✅</div>
-                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-xs">✅</div>
-                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-xs">✅</div>
-                      <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs">⏳</div>
-                    </div>
-                    <p className="text-xs text-emerald-700 font-bold">待服 1 次：降压药 (睡前)</p>
-                  </div>
-                  <p className="text-xs text-gray-500 leading-relaxed italic">今日表现不错，最后一项目前暂未到开始时间。</p>
+                  
+                  <p className="text-[10px] text-gray-500 leading-relaxed italic">“今天已经完成 75% 的服药计划，请在睡前记得提醒长辈。”</p>
                 </div>
               </div>
 
@@ -1054,32 +1104,39 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-[24px] bg-orange-50 flex items-center justify-center text-xl">🩺</div>
-                      <div>
-                        <h4 className="font-bold text-gray-800">最新血压</h4>
-                        <p className="text-xs text-gray-400 font-bold tracking-tight">自动同步于 今早 08:30</p>
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-[24px] bg-orange-50 flex items-center justify-center text-xl">🩺</div>
+                        <div>
+                          <h4 className="font-bold text-gray-800">最新血压</h4>
+                          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">今早 08:30 同步</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">偏高</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                       <span className="w-2.5 h-2.5 bg-orange-400 rounded-full shadow-[0_0_8px_rgba(251,146,60,0.5)]"></span>
-                       <span className="text-xs font-bold text-[#F59E0B]">轻度偏高</span>
+                    
+                    <div className="grid grid-cols-2 gap-4 py-2 border-y border-gray-50">
+                      <div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">收缩压 (高压)</p>
+                        <p className="text-xl font-black text-gray-800">142<span className="text-xs ml-1 font-bold">mmHg</span></p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">舒张压 (低压)</p>
+                        <p className="text-xl font-black text-gray-800">88<span className="text-xs ml-1 font-bold">mmHg</span></p>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-baseline gap-2 py-2">
-                    <p className="text-4xl font-black text-[#F59E0B]">148/86</p>
-                    <p className="text-xs text-gray-400 font-bold">mmHg</p>
-                  </div>
-                  <div className="p-3 bg-orange-50 rounded-[24px] border border-orange-100/50">
-                    <p className="text-xs text-orange-700 leading-relaxed font-medium">
-                      ⚠️ 检测到今日血压偏高。建议提醒长辈按时服用降压药物，并保持静息观察，如不适请及时致电紧急联系人。
-                    </p>
+                  
+                  <div className="flex items-center gap-2 p-2 bg-orange-50/50 rounded-xl">
+                    <span className="animate-pulse">⚠️</span>
+                    <p className="text-[10px] text-orange-700 font-bold">今日血压略高于平均水平，建议减少盐分摄入。</p>
                   </div>
                 </div>
               </div>
-
             </div>
             )}
           </div>
@@ -1134,6 +1191,10 @@ const GuardianView = ({
              <p className="text-xs text-gray-500">今早血压偏高148/86，请关注</p>
            </div>
         </div>
+      </div>
+
+      <div className="text-center pt-2">
+        <p className="text-xs text-gray-300 font-bold tracking-widest">— 到底了 —</p>
       </div>
     </motion.div>
   );
@@ -1408,7 +1469,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
                           <span className="text-xs font-black text-[#024481]">{p.value}</span>
                         </div>
                       ))}
-                      <div className="mt-1 pt-1 border-t border-gray-50 text-[10px] text-gray-400">
+                      <div className="mt-1 pt-1 border-t border-gray-50 text-xs text-gray-400">
                         {renderNormalRange()}
                       </div>
                     </div>
@@ -1823,19 +1884,19 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                       “{quote.source}说：{quote.text}”
                     </p>
                   </div>
-                  <div className="relative z-10 flex justify-between items-center pt-4 border-t border-gray-50 mt-4">
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-2 mb-1 text-xs text-gray-400 font-bold uppercase">
-                        <span>话题：{quote.topic}</span>
-                        <span>采集时间：{quote.date}</span>
-                      </div>
-                      <div className="flex items-center gap-4 mt-2">
+                  <div className="relative z-10 flex flex-col gap-3 pt-4 border-t border-gray-50 mt-4">
+                    <div className="flex items-center gap-2 text-xs text-gray-400 font-bold uppercase">
+                      <span>话题：{quote.topic}</span>
+                      <span>采集时间：{quote.date}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
                         <button 
                           onClick={(e) => toggleLike(`quote_${idx}`, e)} 
                           className={`flex items-center gap-1 text-xs font-bold transition-colors ${likedItems[`quote_${idx}`] ? 'text-blue-600' : 'text-gray-400'}`}
                         >
                           <span className={`${likedItems[`quote_${idx}`] ? 'scale-125' : ''} transition-transform`}>{likedItems[`quote_${idx}`] ? '❤️' : '🤍'}</span>
-                          <span>{likedItems[`quote_${idx}`] ? '已收到你的赞' : '点赞'}</span>
+                          <span>{likedItems[`quote_${idx}`] ? '已赞' : '点赞'}</span>
                         </button>
                         <button 
                           onClick={(e) => { e.stopPropagation(); onAction('voiceMessage'); }}
@@ -1845,8 +1906,13 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                           <span>发送语音</span>
                         </button>
                       </div>
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); onAction('memoriesAlbum'); }}
+                        className="text-xs text-[#024481] font-bold active:scale-95 transition-transform"
+                      >
+                        查看传家记忆 ➔
+                      </button>
                     </div>
-                    <span className="text-xs text-[#024481] font-bold">查看传家记忆 ➔</span>
                   </div>
                   <span className="absolute -bottom-10 -right-2 text-[80px] font-serif text-[#024481]/10 select-none group-hover:text-[#024481]/20 transition-colors">”</span>
                 </div>
