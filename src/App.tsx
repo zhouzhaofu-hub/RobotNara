@@ -10,7 +10,18 @@ import { GoogleGenAI, Type } from "@google/genai";
 
 // --- 类型定义 ---
 type TabType = 'guardian' | 'health' | 'companion' | 'profile';
-type OverlayType = 'alertDetail' | 'videoCall' | 'voiceMessage' | 'imageViewer' | 'notifications' | 'elderlyProfile' | 'addRobot' | 'emergencyContacts' | 'familyMembers' | 'medicationPlan' | 'medicationCalendar' | 'legalNotice' | 'robotDetail' | 'confirmDelete' | 'cameraAccessLogs' | 'alarmSettings' | 'healthReport' | 'memoriesAlbum' | 'accountSettings';
+type OverlayType = 'alertDetail' | 'videoCall' | 'voiceMessage' | 'imageViewer' | 'notifications' | 'elderlyProfile' | 'addRobot' | 'emergencyContacts' | 'familyMembers' | 'medicationPlan' | 'medicationCalendar' | 'legalNotice' | 'robotDetail' | 'confirmDelete' | 'cameraAccessLogs' | 'alarmSettings' | 'healthReport' | 'memoriesAlbum' | 'accountSettings' | 'smartPlatforms' | 'smartDeviceScan' | 'smartDeviceDetail' | 'deviceManagement';
+
+interface Robot {
+  id: string;
+  nickname: string;
+  model: string;
+  status: 'online' | 'offline';
+  battery: number;
+  network: string;
+  version: string;
+  icon: string;
+}
 
 interface CameraLog {
   id: string;
@@ -205,7 +216,7 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
           animate={{ opacity: 1, scale: 1 }}
           className="absolute top-12 right-6 w-28 h-40 bg-gray-800 rounded-xl overflow-hidden border-2 border-white/20 shadow-2xl z-20"
         >
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="我" />
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="我" referrerPolicy="no-referrer" />
         </motion.div>
       )}
 
@@ -394,7 +405,7 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
                   onClick={() => onImageClick(memory.image)}
                   className="relative h-48 w-full cursor-pointer group active:opacity-90"
                 >
-                  <img src={memory.image} alt="记忆瞬间" className="w-full h-full object-cover transition-transform group-hover:scale-105" />
+                  <img src={memory.image} alt="记忆瞬间" className="w-full h-full object-cover transition-transform group-hover:scale-105" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
                     <span className="text-white text-xs font-bold uppercase tracking-wider bg-black/40 w-max px-2 py-1 rounded backdrop-blur-md mb-2">{memory.topic}</span>
                     <span className="text-white/60 text-[10px] font-bold">点击查看图片</span>
@@ -425,7 +436,11 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
                       <span className="text-xs">▶️</span>
                       <span className="text-[10px] font-black">{memory.duration} 播放原声</span>
                     </button>
-                    <button onClick={() => handleShare(memory)} className="text-gray-400 text-sm active:scale-95 transition-transform p-1">📤</button>
+                    <button 
+                      onClick={() => handleShare(memory)} 
+                      title="分享分享"
+                      className="text-[#024481] text-lg active:scale-90 transition-transform p-1.5 bg-[#024481]/5 rounded-full"
+                    >🔗</button>
                   </div>
                 </div>
               </div>
@@ -493,7 +508,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
             </button>
           ) : (
             <div className="aspect-video bg-gray-900 rounded-[20px] overflow-hidden relative border-2 border-red-500 shadow-lg shadow-red-500/20">
-              <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover opacity-80" alt="核实画面" />
+              <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover opacity-80" alt="核实画面" referrerPolicy="no-referrer" />
               <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] px-2 py-0.5 rounded font-bold flex items-center gap-1 animate-pulse">
                 <span className="w-1.5 h-1.5 rounded-full bg-white"></span> LIVE
               </div>
@@ -835,7 +850,7 @@ const GuardianView = ({
                  className="absolute left-0 right-0 h-0.5 bg-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-10"
                />
                <div className="relative z-0 opacity-20 scale-110 pointer-events-none">
-                 <img src={images[0]?.url} className="w-full h-full object-cover blur-xl" alt="blur" />
+                 <img src={images[0]?.url} className="w-full h-full object-cover blur-xl" alt="blur" referrerPolicy="no-referrer" />
                </div>
                
                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-20">
@@ -2308,7 +2323,7 @@ const FamilyMembersView = ({
         {members.map(member => (
           <div key={member.id} className="bg-white p-4 rounded-2xl flex items-center justify-between border border-gray-50">
             <div className="flex items-center gap-3">
-              <img src={member.avatar} className="w-12 h-12 rounded-full border-2 border-blue-50" alt={member.name} />
+              <img src={member.avatar} className="w-12 h-12 rounded-full border-2 border-blue-50" alt={member.name} referrerPolicy="no-referrer" />
               <div>
                 <p className="font-bold text-gray-800">{member.name}</p>
                 <p className="text-xs text-gray-400 font-bold">{member.relation}</p>
@@ -2562,7 +2577,7 @@ const MedicationPlanView = ({
           <div className="fixed inset-0 z-[200] bg-white/90 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center">
             {form.imageUrl && (
               <div className="w-48 h-48 rounded-3xl overflow-hidden shadow-2xl mb-8 border-4 border-white">
-                <img src={form.imageUrl} className="w-full h-full object-cover" alt="Scanning" />
+                <img src={form.imageUrl} className="w-full h-full object-cover" alt="Scanning" referrerPolicy="no-referrer" />
               </div>
             )}
             <motion.div 
@@ -2734,7 +2749,7 @@ const MedicationPlanView = ({
                       className="w-full aspect-video rounded-3xl overflow-hidden shadow-inner bg-gray-50 relative group cursor-pointer"
                       onClick={() => setFullScreenImage(form.imageUrl!)}
                     >
-                      <img src={form.imageUrl} className="w-full h-full object-cover" alt="Drug Box" />
+                      <img src={form.imageUrl} className="w-full h-full object-cover" alt="Drug Box" referrerPolicy="no-referrer" />
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <span className="text-white font-bold bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">点击全屏查看</span>
                       </div>
@@ -3327,7 +3342,7 @@ const ElderlyProfileEditView = ({
                className="relative shrink-0 cursor-pointer active:scale-95 transition-transform"
                onClick={handleAvatarSelect}
              >
-               <img src={formData.avatar} className="w-14 h-14 rounded-full object-cover border-2 border-blue-50" alt="avatar" />
+               <img src={formData.avatar} className="w-14 h-14 rounded-full object-cover border-2 border-blue-50" alt="avatar" referrerPolicy="no-referrer" />
                <div className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-1 rounded-full text-[8px]">📷</div>
              </div>
              <div className="flex-1 space-y-2">
@@ -3486,6 +3501,423 @@ const ElderlyProfileEditView = ({
 };
 
 // --- 子组件：添加机器人页面 ---
+// --- 子组件：第三方健康平台及设备绑定 ---
+// --- 子组件：智能设备详情/编辑页面 ---
+// --- 子组件：全量设备管理页面 ---
+const DeviceManagementView = ({ 
+  robots, 
+  activeRobotId, 
+  onRobotClick, 
+  onRobotDetail, 
+  onAddRobot, 
+  onAddSmartDevice, 
+  onAddPlatform,
+  onDeviceManage,
+  onClose 
+}: { 
+  robots: Robot[]; 
+  activeRobotId: string | null; 
+  onRobotClick: (id: string) => void; 
+  onRobotDetail: (r: Robot) => void;
+  onAddRobot: () => void;
+  onAddSmartDevice: () => void;
+  onAddPlatform: () => void;
+  onDeviceManage: (d: any) => void;
+  onClose: () => void;
+}) => {
+  return (
+    <motion.div 
+      initial={{ x: '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: '100%' }}
+      className="fixed inset-0 z-[240] bg-[#fbf9f8] flex flex-col"
+    >
+      <header className="p-6 flex items-center justify-between bg-white border-b border-gray-50 flex-none sticky top-0 z-20">
+        <div className="flex items-center gap-4">
+          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full text-xl active:scale-90 transition-transform">❮</button>
+          <h2 className="text-xl font-bold text-gray-800">设备中心</h2>
+        </div>
+      </header>
+
+      <div className="flex-1 overflow-y-auto p-6 space-y-8">
+        {/* 1. 照护机器人 */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h4 className="text-xs font-bold text-gray-400 flex items-center gap-2">
+              <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
+              照护机器人
+            </h4>
+            <button 
+              onClick={onAddRobot}
+              className="text-[10px] text-blue-600 font-bold bg-blue-50 px-3 py-1 rounded-full active:scale-95 transition-transform"
+            >＋ 绑定机器人</button>
+          </div>
+          {robots.map(robot => (
+            <div 
+              key={robot.id}
+              onClick={() => onRobotClick(robot.id)}
+              className={`p-5 rounded-[28px] border transition-all cursor-pointer ${activeRobotId === robot.id ? 'bg-[#024481] border-blue-500 shadow-xl shadow-blue-900/10' : 'bg-white border-gray-100 hover:border-blue-200'}`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-transform ${activeRobotId === robot.id ? 'bg-white/20' : 'bg-gray-50'}`}>
+                    🤖
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                       <p className={`font-bold transition-all ${activeRobotId === robot.id ? 'text-white text-base' : 'text-gray-800 text-sm'}`}>{robot.nickname}</p>
+                       {activeRobotId === robot.id && <span className="bg-[#0d6c42] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase">默认显示</span>}
+                    </div>
+                    <div className="flex items-center gap-1.5 mt-1">
+                       <span className={`w-1.5 h-1.5 rounded-full ${robot.status === 'online' ? (activeRobotId === robot.id ? 'bg-green-400' : 'bg-[#0d6c42]') + ' animate-pulse' : 'bg-gray-300'}`}></span>
+                       <span className={`text-[10px] font-bold ${activeRobotId === robot.id ? 'text-white/60' : (robot.status === 'online' ? 'text-[#0d6c42]' : 'text-gray-400')}`}>
+                         {robot.status === 'online' ? '在线运行中' : '离线/深度休眠'}
+                       </span>
+                    </div>
+                  </div>
+                </div>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRobotDetail(robot);
+                  }}
+                  className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider transition-all active:scale-90 ${activeRobotId === robot.id ? 'bg-white text-[#024481] shadow-sm' : 'bg-gray-100 text-gray-400'}`}
+                >管理</button>
+              </div>
+              {activeRobotId === robot.id && (
+                <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-2">
+                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl flex items-center justify-center gap-2">
+                    <span className="text-xs font-bold text-white/60 uppercase tracking-tighter">电量</span>
+                    <div className="w-10 h-2 bg-white/20 rounded-full overflow-hidden">
+                       <div className="h-full bg-green-400" style={{ width: `${robot.battery}%` }}></div>
+                    </div>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-white">
+                    📶 {robot.network}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* 2. 绑定智能设备与平台接入 */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h4 className="text-xs font-bold text-gray-400 flex items-center gap-2">
+              <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+              智能平台与健康硬件
+            </h4>
+            <button 
+              onClick={onAddSmartDevice}
+              className="text-[10px] text-green-600 font-bold bg-green-50 px-3 py-1 rounded-full active:scale-95 transition-transform"
+            >＋ 绑定硬件</button>
+          </div>
+          <div className="space-y-3">
+            {[
+              { id: 'hw-01', name: '智能血压计', icon: '🩺', platform: '华为健康', val: '118/76 mmHg', color: 'blue' },
+              { id: 'xm-01', name: '心率呼吸监测', icon: '🩻', platform: '小米运动', val: '监测中 · 无异常', color: 'orange' },
+              { id: 'yy-01', name: '血糖分析仪', icon: '💉', platform: '鱼跃医疗', val: '正常波动范围内', color: 'green' }
+            ].map(d => (
+              <div 
+                key={d.id}
+                className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center justify-between group active:bg-blue-50/50 transition-all cursor-default shadow-sm"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl group-active:scale-90 transition-transform">
+                    {d.icon}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <p className="font-bold text-gray-800 text-sm">{d.name}</p>
+                      <span className={`text-[8px] px-1.5 py-0.5 rounded font-bold ${d.color === 'blue' ? 'bg-blue-50 text-blue-600' : d.color === 'orange' ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}`}>
+                        {d.platform}
+                      </span>
+                    </div>
+                    <p className={`text-[10px] font-medium mt-0.5 ${d.color === 'green' || d.color === 'blue' ? 'text-[#0d6c42]' : 'text-gray-400'}`}>
+                      {d.val}
+                    </p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => onDeviceManage(d)}
+                  className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-gray-50 text-gray-400 border border-gray-100 active:scale-90 transition-transform"
+                >管理</button>
+              </div>
+            ))}
+
+            <div 
+              onClick={onAddPlatform}
+              className="bg-dashed border-2 border-dashed border-gray-100 p-4 rounded-2xl flex items-center justify-center gap-2 active:bg-gray-50 transition-colors group cursor-pointer"
+            >
+              <span className="text-lg text-gray-300 group-hover:scale-110 transition-transform">➕</span>
+              <p className="text-[10px] font-bold text-gray-400">对接华为或小米账号获取健康数据</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any; onClose: () => void; onDisconnect: () => void }) => {
+
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  const handleSync = () => {
+    setIsSyncing(true);
+    setTimeout(() => {
+      setIsSyncing(false);
+      alert('数据同步成功！已获取最新的健康指标。');
+    }, 2000);
+  };
+
+  return (
+    <motion.div 
+      initial={{ x: '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: '100%' }}
+      className="fixed inset-0 z-[260] bg-[#fbf9f8] flex flex-col"
+    >
+      <header className="p-6 flex items-center justify-between bg-white border-b border-gray-50">
+        <div className="flex items-center gap-4">
+          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full text-xl active:scale-90 transition-transform">❮</button>
+          <h2 className="text-xl font-bold text-gray-800">设备管理</h2>
+        </div>
+      </header>
+
+      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        {/* 设备头部卡片 */}
+        <div className="bg-white p-8 rounded-[32px] shadow-sm border border-gray-50 flex flex-col items-center text-center gap-4">
+          <div className="w-20 h-20 bg-gray-50 rounded-3xl flex items-center justify-center text-4xl shadow-inner">
+            {device.icon}
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-gray-800">{device.name}</h3>
+            <p className="text-xs text-gray-400 mt-1">序列号: {device.id || 'SN-772839441'}</p>
+          </div>
+          <div className="flex gap-2">
+            <span className="bg-green-50 text-[#0d6c42] text-[10px] font-bold px-3 py-1 rounded-full border border-green-100 italic">Connected</span>
+            <span className="bg-blue-50 text-blue-600 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-100">Battery 85%</span>
+          </div>
+        </div>
+
+        {/* 管理选项组 */}
+        <div className="space-y-3">
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">数据与同步</p>
+          <button 
+            onClick={handleSync}
+            disabled={isSyncing}
+            className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl">
+                {isSyncing ? '⏳' : '🔄'}
+              </div>
+              <div className="text-left">
+                <p className="font-bold text-gray-800 text-sm">立即同步数据</p>
+                <p className="text-[10px] text-gray-400 mt-1">同步上次测量后的所有离线记录</p>
+              </div>
+            </div>
+            <span className="text-gray-300">❯</span>
+          </button>
+
+          <button className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-xl">📊</div>
+              <div className="text-left">
+                <p className="font-bold text-gray-800 text-sm">测量趋势分析</p>
+                <p className="text-[10px] text-gray-400 mt-1">查看该设备的历史全量数据报表</p>
+              </div>
+            </div>
+            <span className="text-gray-300">❯</span>
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">安全设置</p>
+          <button className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center text-xl">🔔</div>
+              <div className="text-left">
+                <p className="font-bold text-gray-800 text-sm">告警阈值设定</p>
+                <p className="text-[10px] text-gray-400 mt-1">当测量值超过范围时自动呼叫家人</p>
+              </div>
+            </div>
+            <span className="text-gray-300">❯</span>
+          </button>
+        </div>
+
+        {/* 危险操作 */}
+        <div className="pt-6">
+          <button 
+            onClick={() => {
+              if (confirm(`确认要解除与 ${device.name} 的绑定吗？解除后将无法自动获取该设备的数据。`)) {
+                onDisconnect();
+              }
+            }}
+            className="w-full py-4 text-red-500 font-bold border-2 border-red-50/50 rounded-[24px] active:bg-red-50 transition-colors"
+          >
+            解除设备绑定
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
+  const platforms = [
+    { id: 'huawei', name: '华为健康', icon: '🔴', detail: '同步华为手表、血压计、体脂称数据', status: '已同步' },
+    { id: 'xiaomi', name: '小米运动健康', icon: '🟠', detail: '同步小米手环、体脂称及心率监测数据', status: '未连接' },
+    { id: 'yuyue', name: '鱼跃医疗', icon: '🟢', detail: '对接鱼跃系列血压、血糖及血氧仪', status: '已连接' },
+    { id: 'apple', name: 'Apple Health', icon: '⚪', detail: '同步 iPhone 及 Apple Watch 健康数据', status: '未连接' },
+    { id: 'google', name: 'Google Fit', icon: '🔵', detail: '同步 Android 手机健康中心数据', status: '未连接' }
+  ];
+
+  const handleConnect = (name: string) => {
+    alert(`正在建立与 ${name} 的安全加密连接，请在随后的弹窗中完成授权...`);
+  };
+
+  return (
+    <motion.div 
+      initial={{ y: '100%' }}
+      animate={{ y: 0 }}
+      exit={{ y: '100%' }}
+      className="fixed inset-0 z-[250] bg-[#fbf9f8] flex flex-col"
+    >
+      <header className="p-6 flex items-center gap-4 bg-white/80 backdrop-blur-md sticky top-0 z-10 border-b border-gray-50">
+        <button onClick={onClose} className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full text-xl active:scale-90 transition-transform">❮</button>
+        <h2 className="text-xl font-bold text-gray-800">对接健康数据平台</h2>
+      </header>
+      
+      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="bg-blue-50/50 p-5 rounded-[24px] border border-blue-100 flex items-start gap-4">
+          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-xl shadow-sm">💡</div>
+          <p className="text-xs text-blue-700 leading-relaxed font-medium">
+            授权后，系统将自动从第三方平台获取长辈的基础生理指标（步数、心率、呼吸等），协助机器人为您生成更精准的健康报告。
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">可选平台列表</p>
+          {platforms.map(p => (
+            <button 
+              key={p.id}
+              onClick={() => handleConnect(p.name)}
+              className="w-full bg-white p-5 rounded-[28px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all group shadow-sm hover:shadow-md"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-2xl group-active:scale-90 transition-transform">
+                  {p.icon}
+                </div>
+                <div className="text-left">
+                  <p className="font-bold text-gray-800 text-sm">{p.name}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">{p.detail}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${p.status === '未连接' ? 'text-blue-600 bg-blue-50' : 'text-gray-400 bg-gray-50'}`}>
+                  {p.status}
+                </span>
+                <span className="text-gray-300">❯</span>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center pb-12">
+          <div className="w-12 h-1 bg-gray-200 mx-auto rounded-full mb-4"></div>
+          <p className="text-[10px] text-gray-300 font-medium">数据加密传输中 · 由嘉和智护安全中心提供技术支持</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
+  const [scanning, setScanning] = useState(true);
+  const [devices, setDevices] = useState<any[]>([]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setScanning(false);
+      setDevices([
+        { id: '1', name: '智能血压计 (BP-88)', type: '蓝牙设备', rssi: -65 },
+        { id: '2', name: '红外体温枪 (T-01)', type: '蓝牙设备', rssi: -78 }
+      ]);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <motion.div 
+      initial={{ y: '100%' }}
+      animate={{ y: 0 }}
+      exit={{ y: '100%' }}
+      className="fixed inset-0 z-[250] bg-[#fbf9f8] flex flex-col"
+    >
+      <header className="p-6 flex items-center justify-between bg-white border-b border-gray-50">
+        <div className="flex items-center gap-4">
+          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full text-xl active:scale-90 transition-transform">❮</button>
+          <h2 className="text-xl font-bold text-gray-800">绑定智能健康硬件</h2>
+        </div>
+        {scanning && <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.5)]"></span>}
+      </header>
+
+      <div className="flex-1 p-6 space-y-6">
+        {scanning ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center gap-6">
+             <div className="relative">
+               <motion.div 
+                 animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0.2, 0.5] }}
+                 transition={{ repeat: Infinity, duration: 2 }}
+                 className="absolute inset-0 bg-blue-400 rounded-full"
+               ></motion.div>
+               <div className="relative w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-3xl shadow-xl z-10 text-white">📡</div>
+             </div>
+             <div className="space-y-1">
+               <h3 className="font-bold text-gray-800">正在搜索周边蓝牙设备...</h3>
+               <p className="text-xs text-gray-400">请确保您的血压计、血糖仪已开启蓝牙模式</p>
+             </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between px-1">
+              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">发现可用设备 ({devices.length})</p>
+              <button className="text-[10px] text-blue-600 font-bold" onClick={() => { setScanning(true); setDevices([]); }}>重新搜索</button>
+            </div>
+            {devices.map(d => (
+              <button 
+                key={d.id}
+                onClick={() => alert(`正在尝试连接 ${d.name}...`)}
+                className="w-full bg-white p-5 rounded-[28px] border border-gray-100 flex items-center justify-between active:scale-[0.98] transition-transform shadow-sm"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-2xl">🩺</div>
+                  <div className="text-left">
+                    <p className="font-bold text-gray-800 text-sm">{d.name}</p>
+                    <p className="text-[10px] text-gray-400 mt-1">{d.type} · 信号稳定</p>
+                  </div>
+                </div>
+                <div className="bg-[#024481] text-white text-[10px] font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-100">绑定</div>
+              </button>
+            ))}
+
+            <div className="mt-10 p-6 bg-gray-50/50 border border-gray-100 rounded-[32px] text-center space-y-3">
+               <p className="text-xs text-gray-400 font-medium">找不到您的设备？</p>
+               <button 
+                onClick={() => alert('已开启平台手动对接模式')}
+                className="text-xs text-[#024481] font-bold border-b border-[#024481]/30 pb-0.5"
+               >尝试通过健康平台同步数据</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
 const AddRobotView = ({ 
   onAdd, 
   onClose 
@@ -4221,7 +4653,8 @@ const ProfileView = ({
   onAddProfile,
   onUpdateProfile,
   userProfile,
-  onUpdateUserProfile
+  onUpdateUserProfile,
+  onDeviceManage
 }: { 
   profiles: any[];
   activeIdx: number;
@@ -4241,6 +4674,7 @@ const ProfileView = ({
   onUpdateProfile: (idx: number, updates: any) => void;
   userProfile: FamilyMember;
   onUpdateUserProfile: (updates: Partial<FamilyMember>) => void;
+  onDeviceManage: (device: any) => void;
 }) => {
   const profile = profiles[activeIdx];
   const [switches, setSwitches] = useState({ push: true, sms: true, voice: false });
@@ -4329,7 +4763,7 @@ const ProfileView = ({
             className={`flex flex-col items-center gap-2 min-w-[70px] transition-all ${activeIdx === idx ? 'scale-110' : 'opacity-40 grayscale'}`}
           >
             <div className={`w-14 h-14 rounded-full border-2 ${activeIdx === idx ? 'border-[#024481]' : 'border-transparent'} p-0.5 relative`}>
-              <img src={p.avatar} className="w-full h-full rounded-full object-cover" alt={p.name} />
+              <img src={p.avatar} className="w-full h-full rounded-full object-cover" alt={p.name} referrerPolicy="no-referrer" />
               {activeIdx === idx && (
                 <span className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-0.5 rounded-full text-[8px]">✔️</span>
               )}
@@ -4396,90 +4830,28 @@ const ProfileView = ({
         </div>
       </div>
 
-      {/* 机器人管理 */}
-      <div className="px-2 mb-2">
-        <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase">我的设备</h3>
+      {/* 我的设备：入口组 */}
+      <div className="px-2 mb-2 bg-transparent">
+        <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase">我的智能设备</h3>
       </div>
-      <div className="bg-white rounded-[24px] p-6 card-shadow border border-gray-50 space-y-4">
-        <h3 className="font-bold text-gray-800 text-sm flex items-center justify-between">
-          <span>机器人管理</span>
-          <button 
-            onClick={onAddRobotClick}
-            className="text-[10px] text-blue-600 font-bold bg-blue-50 px-3 py-1 rounded-full active:scale-95 transition-transform"
-          >＋ 添加机器人</button>
-        </h3>
-        
-        <div className="space-y-4">
-          {robots.map(robot => (
-            <div 
-              key={robot.id}
-              className={`p-4 rounded-2xl border transition-all ${activeRobotId === robot.id ? 'border-blue-100 bg-blue-50/20' : 'border-gray-50 bg-gray-50/30'}`}
-              onClick={() => onRobotSwitch(robot.id)}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-2xl transition-all ${activeRobotId === robot.id ? 'bg-[#024481] text-white scale-110 shadow-lg' : 'bg-white text-gray-300'}`}>
-                    🤖
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                       <p className={`font-bold transition-all ${activeRobotId === robot.id ? 'text-gray-800 text-base' : 'text-gray-400 text-sm'}`}>{robot.nickname}</p>
-                       {activeRobotId === robot.id && <span className="bg-[#0d6c42] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase">默认</span>}
-                    </div>
-                    <div className="flex items-center gap-1.5 mt-1">
-                      <span className={`w-1.5 h-1.5 rounded-full ${robot.status === 'online' ? 'bg-[#0d6c42] animate-pulse' : 'bg-gray-300'}`}></span>
-                      <span className={`text-[10px] font-bold ${robot.status === 'online' ? 'text-[#0d6c42]' : 'text-gray-400'}`}>
-                        {robot.status === 'online' ? '在线运行中' : '离线/深度休眠'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onRobotDetail(robot);
-                    }}
-                    title="管理设备"
-                    className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider transition-all active:scale-90 ${activeRobotId === robot.id ? 'bg-white text-[#024481]' : 'bg-gray-100 text-gray-400'}`}
-                  >管理维护</button>
-                </div>
-              </div>
-              
-              {activeRobotId === robot.id && (
-                <div className="grid grid-cols-2 gap-3 mt-4">
-                  <div className="bg-white/80 backdrop-blur-sm p-2 rounded-xl flex items-center justify-center gap-2">
-                    <span className="text-xs">🔋</span>
-                    <span className="text-xs font-bold text-gray-700">{robot.battery}%</span>
-                    <div className="w-8 h-2 bg-gray-100 rounded-full overflow-hidden">
-                       <div className="h-full bg-green-500" style={{ width: `${robot.battery}%` }}></div>
-                    </div>
-                  </div>
-                  <div className="bg-white/80 backdrop-blur-sm p-2 rounded-xl flex items-center justify-center gap-2">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter">网络</span>
-                    <span className="text-xs font-bold text-gray-700">{robot.network}</span>
-                  </div>
-                </div>
-              )}
+      <div className="bg-white rounded-[32px] p-2 card-shadow border border-gray-50 mb-6">
+        <button 
+          onClick={() => onAddRobotClick('deviceManagement' as any)}
+          className="w-full flex items-center justify-between p-4 bg-transparent active:bg-gray-50 rounded-[24px] transition-colors group"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-blue-50 text-[#024481] rounded-2xl flex items-center justify-center text-2xl shadow-inner">
+              🤖
             </div>
-          ))}
-          {robots.length === 0 && (
-            <div className="text-center py-12 border-2 border-dashed border-gray-100 rounded-[32px] bg-gray-50/30">
-               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 opacity-50">
-                 🤖
-               </div>
-               <p className="text-gray-800 font-bold mb-1">尚未关联机器人</p>
-               <p className="text-xs text-gray-400 px-10 leading-relaxed mb-6">关联机器人后，您可以实时查看长辈的居家状态、健康数据及服药提醒执行情况。</p>
-               <button 
-                 onClick={onAddRobotClick}
-                 className="bg-[#024481] text-white px-6 py-2 rounded-full text-xs font-bold shadow-lg shadow-blue-900/10 active:scale-95 transition-transform"
-               >
-                 立即扫描添加
-               </button>
+            <div className="text-left">
+              <p className="font-bold text-gray-800 text-sm">进入设备中心</p>
+              <p className="text-[10px] text-gray-400 mt-0.5">管理机器人 ({robots.length})、健康硬件 (3) 及数据平台</p>
             </div>
-          )}
-        </div>
+          </div>
+          <span className="text-gray-300">❯</span>
+        </button>
       </div>
+
 
       {/* 系统相关设置 */}
       <div className="px-2 mb-2">
@@ -4553,7 +4925,7 @@ const ProfileView = ({
       >
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-xl overflow-hidden shadow-inner">
-            <img src={userProfile.avatar} className="w-full h-full object-cover" alt="用户" />
+            <img src={userProfile.avatar} className="w-full h-full object-cover" alt="用户" referrerPolicy="no-referrer" />
           </div>
           <div>
             <h3 className="font-bold text-gray-800 text-sm">账号设置</h3>
@@ -4666,7 +5038,7 @@ const AccountSettingsView = ({
             <span className="font-bold text-gray-700">头像</span>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                <img src={userProfile.avatar} alt="用户头像" className="w-full h-full object-cover" />
+                <img src={userProfile.avatar} alt="用户头像" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
               <span className="text-gray-300">❯</span>
             </div>
@@ -4961,6 +5333,7 @@ export default function App() {
   const [globalToast, setGlobalToast] = useState('');
   const [alertData, setAlertData] = useState<AlertData | null>(null);
   const [alarmResolved, setAlarmResolved] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState<any>(null);
   
   // 服务人状态
   const [servicePersonnel, setServicePersonnel] = useState<FamilyMember[]>([
@@ -5033,7 +5406,7 @@ export default function App() {
   ]);
   const [activeElderlyIndex, setActiveElderlyIndex] = useState(0);
 
-  const [robots, setRobots] = useState<any[]>([]);
+  const [robots, setRobots] = useState<Robot[]>([]);
 
   const [activeRobotId, setActiveRobotId] = useState('robot-1');
   const [editingRobot, setEditingRobot] = useState<any>(null);
@@ -5233,7 +5606,14 @@ export default function App() {
             else if (type === 'legalPrivacy') { setLegalType('privacy'); setOverlay('legalNotice' as any); }
             else if (type === 'alarmSettings') { setOverlay('alarmSettings' as any); }
             else if (type === 'accountSettings') setOverlay('accountSettings' as any);
+            else if (type === 'smartPlatforms') setOverlay('smartPlatforms');
+            else if (type === 'smartDeviceScan') setOverlay('smartDeviceScan');
+            else if (type === 'deviceManagement') setOverlay('deviceManagement');
             else setOverlay('addRobot');
+          }}
+          onDeviceManage={(device) => {
+            setSelectedDevice(device);
+            setOverlay('smartDeviceDetail');
           }}
           onDeleteRobot={(id) => {
             setRobots(rs => rs.filter(r => r.id !== id));
@@ -5346,9 +5726,47 @@ export default function App() {
           <AddRobotView 
             onAdd={(robot) => {
               setRobots(rs => [...rs, robot]);
-              setOverlay(null);
+              setOverlay('deviceManagement');
             }}                
+            onClose={() => setOverlay('deviceManagement')}
+          />
+        )}
+        {overlay === 'deviceManagement' && (
+          <DeviceManagementView 
+            robots={robots}
+            activeRobotId={activeRobotId}
+            onRobotClick={(id) => {
+              setActiveRobotId(id);
+            }}
+            onRobotDetail={(r) => {
+              setActiveDetailRobot(r);
+              setOverlay('robotDetail');
+            }}
+            onAddRobot={() => setOverlay('addRobot')}
+            onAddSmartDevice={() => setOverlay('smartDeviceScan')}
+            onAddPlatform={() => setOverlay('smartPlatforms')}
+            onDeviceManage={(device) => {
+              setSelectedDevice(device);
+              setOverlay('smartDeviceDetail');
+            }}
             onClose={() => setOverlay(null)}
+          />
+        )}
+        {overlay === 'smartPlatforms' && (
+          <SmartHealthPlatformsView onClose={() => setOverlay('deviceManagement')} />
+        )}
+        {overlay === 'smartDeviceScan' && (
+          <SmartDeviceBindView onClose={() => setOverlay('deviceManagement')} />
+        )}
+        {overlay === 'smartDeviceDetail' && selectedDevice && (
+          <SmartDeviceDetailView 
+            device={selectedDevice} 
+            onClose={() => setOverlay('deviceManagement')} 
+            onDisconnect={() => {
+              setOverlay('deviceManagement');
+              setGlobalToast(`已解除与 ${selectedDevice.name} 的绑定`);
+              setTimeout(() => setGlobalToast(''), 3000);
+            }}
           />
         )}
         {overlay === 'videoCall' && (
@@ -5447,14 +5865,15 @@ export default function App() {
             robot={activeDetailRobot}
             onSave={(updatedRobot) => {
               setRobots(rs => rs.map(r => r.id === updatedRobot.id ? updatedRobot : r));
-              setOverlay(null);
+              setOverlay('deviceManagement');
               setActiveDetailRobot(null);
             }}
             onDelete={(id) => {
               setRobots(rs => rs.filter(r => r.id !== id));
+              setOverlay('deviceManagement');
             }}
             onClose={() => {
-              setOverlay(null);
+              setOverlay('deviceManagement');
               setActiveDetailRobot(null);
             }}
             isMainAccount={isMainAccount}
