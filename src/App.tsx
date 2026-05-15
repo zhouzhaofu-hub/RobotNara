@@ -141,7 +141,7 @@ const ImageViewer = ({ src, onClose }: { src: string; onClose: () => void }) => 
       </AnimatePresence>
 
       <div className="absolute bottom-10 left-0 right-0 flex justify-center opacity-30">
-        <p className="text-white text-[10px] font-bold tracking-widest uppercase">双指可缩放查看细节</p>
+        <p className="text-white text-xs font-bold tracking-widest uppercase">双指可缩放查看细节</p>
       </div>
     </motion.div>
   );
@@ -214,7 +214,7 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="absolute top-12 right-6 w-28 h-40 bg-gray-800 rounded-xl overflow-hidden border-2 border-white/20 shadow-2xl z-20"
+          className="absolute top-12 right-6 w-28 h-40 bg-gray-800 rounded-[24px] overflow-hidden border-2 border-white/20 shadow-2xl z-20"
         >
           <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="我" referrerPolicy="no-referrer" />
         </motion.div>
@@ -229,7 +229,7 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
           </div>
         )}
         {status === 'poor' && (
-          <div className="bg-orange-500/80 backdrop-blur inline-flex items-center gap-2 px-4 py-1.5 rounded-full">
+          <div className="bg-[#F59E0B]/80 backdrop-blur inline-flex items-center gap-2 px-4 py-1.5 rounded-full">
             <span className="text-white text-xs font-bold">⚠️ 当前网络环境较差，画面可能卡顿</span>
           </div>
         )}
@@ -251,7 +251,7 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
                </div>
                <div className="space-y-2">
                  <h2 className="text-white text-2xl font-bold tracking-widest animate-pulse">正在呼叫妈妈</h2>
-                 <p className="text-white/60 text-sm">正在等待接通...</p>
+                 <p className="text-white/60 text-base">正在等待接通...</p>
                </div>
             </div>
           ) : (status === 'interrupted' || status === 'hungup') ? (
@@ -262,7 +262,7 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
             >
               <div className="text-5xl mb-4">{status === 'interrupted' ? '📡' : '🤙'}</div>
               <h3 className="text-white text-xl font-bold">{status === 'interrupted' ? '网络已断开' : '对方已挂断'}</h3>
-              <p className="text-white/60 text-sm leading-relaxed">
+              <p className="text-white/60 text-base leading-relaxed">
                 {status === 'interrupted' ? '检测到网络异常繁忙，通话已被迫中断' : '父母可能暂时有事离开了通话'}
                 ，您可以尝试以下操作：
               </p>
@@ -270,13 +270,13 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
               <div className="space-y-3 pt-4">
                 <button 
                   onClick={handleRetry}
-                  className="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                  className="w-full py-4 bg-blue-600 text-white rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                 >
                   🔄 重新呼叫
                 </button>
                 <button 
                   onClick={handleVoiceMessage}
-                  className="w-full py-4 bg-white/10 text-white rounded-2xl font-bold border border-white/10 active:scale-95 transition-transform"
+                  className="w-full py-4 bg-white/10 text-white rounded-[24px] font-bold border border-white/10 active:scale-95 transition-transform"
                 >
                   🎙️ 发送语音留言
                 </button>
@@ -287,7 +287,7 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
             </motion.div>
           ) : (
             <div className="bg-black/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 inline-block">
-              <span className="text-white font-mono text-sm tracking-widest">正在通话 {formatTime(callTime)}</span>
+              <span className="text-white font-mono text-base tracking-widest">正在通话 {formatTime(callTime)}</span>
             </div>
           )}
         </div>
@@ -298,18 +298,18 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
             <div className="bg-black/40 backdrop-blur-xl p-6 rounded-[32px] grid grid-cols-3 gap-6 shadow-2xl border border-white/10">
               <button className="flex flex-col items-center gap-2 group">
                 <div className="w-14 h-14 rounded-full bg-white/10 group-active:bg-white/20 flex items-center justify-center text-white text-xl transition-colors">🎙️</div>
-                <span className="text-white/60 text-[10px] font-bold">静音</span>
+                <span className="text-white/60 text-xs font-bold">静音</span>
               </button>
               <button 
                 onClick={onClose} 
                 className="flex flex-col items-center gap-2 group"
               >
-                <div className="w-16 h-16 rounded-full bg-red-500 group-active:scale-95 flex items-center justify-center text-white text-2xl shadow-lg shadow-red-500/40 transition-all -mt-4">📞</div>
-                <span className="text-white/80 text-[10px] font-bold">挂断</span>
+                <div className="w-16 h-16 rounded-full bg-[#E11D48] group-active:scale-95 flex items-center justify-center text-white text-2xl shadow-lg shadow-red-500/40 transition-all -mt-4">📞</div>
+                <span className="text-white/80 text-xs font-bold">挂断</span>
               </button>
               <button className="flex flex-col items-center gap-2 group">
                 <div className="w-14 h-14 rounded-full bg-white/10 group-active:bg-white/20 flex items-center justify-center text-white text-xl transition-colors">📷</div>
-                <span className="text-white/60 text-[10px] font-bold">翻转镜头</span>
+                <span className="text-white/60 text-xs font-bold">翻转镜头</span>
               </button>
             </div>
           </div>
@@ -394,7 +394,7 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
         <div className="bg-[#024481] rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
           <h3 className="text-2xl font-serif mb-2 relative z-10">时光回响</h3>
-          <p className="text-sm text-white/80 relative z-10 leading-relaxed">这里珍藏了长辈的碎碎念与老日历。<br/>点点滴滴，代代相传。</p>
+          <p className="text-base text-white/80 relative z-10 leading-relaxed">这里珍藏了长辈的碎碎念与老日历。<br/>点点滴滴，代代相传。</p>
         </div>
 
         <div className="space-y-6">
@@ -408,7 +408,7 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
                   <img src={memory.image} alt="记忆瞬间" className="w-full h-full object-cover transition-transform group-hover:scale-105" referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
                     <span className="text-white text-xs font-bold uppercase tracking-wider bg-black/40 w-max px-2 py-1 rounded backdrop-blur-md mb-2">{memory.topic}</span>
-                    <span className="text-white/60 text-[10px] font-bold">点击查看图片</span>
+                    <span className="text-white/60 text-xs font-bold">点击查看图片</span>
                   </div>
                 </div>
               )}
@@ -418,14 +418,14 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
                 )}
                 <div className="flex gap-2">
                   <span className="text-3xl text-[#024481]/20 font-serif leading-none mt-1">“</span>
-                  <p className="text-gray-800 text-sm font-medium leading-relaxed italic">{memory.text}</p>
+                  <p className="text-gray-800 text-base font-medium leading-relaxed italic">{memory.text}</p>
                   <span className="text-3xl text-[#024481]/20 font-serif leading-none mt-auto">”</span>
                 </div>
                 
                 <div className="flex items-center justify-between border-t border-gray-50 pt-4 mt-2">
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-gray-400 font-bold">由 {memory.source} 讲述</span>
-                    <span className="text-[10px] text-gray-400 font-bold uppercase">{memory.date}</span>
+                    <span className="text-xs text-gray-400 font-bold">由 {memory.source} 讲述</span>
+                    <span className="text-xs text-gray-400 font-bold uppercase">{memory.date}</span>
                   </div>
                   
                   <div className="flex items-center gap-3">
@@ -434,7 +434,7 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
                       className="flex items-center gap-1.5 bg-[#024481]/5 text-[#024481] px-3 py-1.5 rounded-full active:scale-95 transition-all"
                     >
                       <span className="text-xs">▶️</span>
-                      <span className="text-[10px] font-black">{memory.duration} 播放原声</span>
+                      <span className="text-xs font-black">{memory.duration} 播放原声</span>
                     </button>
                     <button 
                       onClick={() => handleShare(memory)} 
@@ -470,7 +470,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
       exit={{ x: '100%' }}
       className="absolute inset-0 z-[100] bg-[#fbf9f8] flex flex-col"
     >
-      <header className="bg-red-600 text-white px-6 py-6 flex items-center gap-4 relative shadow-md">
+      <header className="bg-[#E11D48] text-white px-6 py-6 flex items-center gap-4 relative shadow-md">
         <button onClick={onClose} className="text-2xl text-white">⬅️</button>
         <h2 className="text-xl font-bold flex items-center gap-2">
           <span>⚠️</span> 检测到妈妈可能跌倒
@@ -479,19 +479,19 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
       <main className="flex-1 px-6 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] space-y-6 py-6 text-gray-800">
         <div className="bg-white rounded-[24px] p-6 card-shadow border border-red-50 space-y-3">
           <div className="flex justify-between items-center py-2 border-b border-gray-50">
-            <span className="text-gray-500 text-sm">发生时间</span>
+            <span className="text-gray-500 text-base">发生时间</span>
             <span className="font-bold text-gray-800">2026-05-10 13:00:23</span>
           </div>
           <div className="flex justify-between items-center py-2 border-b border-gray-50">
-            <span className="text-gray-500 text-sm">发生位置</span>
+            <span className="text-gray-500 text-base">发生位置</span>
             <span className="font-bold text-gray-800">主卧室</span>
           </div>
           <div className="flex justify-between items-center py-2 border-b border-gray-50">
-            <span className="text-gray-500 text-sm">持续时长</span>
-            <span className="font-bold text-gray-800 text-red-500">已达 3 分钟</span>
+            <span className="text-gray-500 text-base">持续时长</span>
+            <span className="font-bold text-gray-800 text-[#E11D48]">已达 3 分钟</span>
           </div>
           <div className="flex justify-between items-center py-2">
-            <span className="text-gray-500 text-sm">最新体征数据</span>
+            <span className="text-gray-500 text-base">最新体征数据</span>
             <span className="font-bold text-gray-800">心率稍快 95bmp</span>
           </div>
         </div>
@@ -509,7 +509,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
           ) : (
             <div className="aspect-video bg-gray-900 rounded-[20px] overflow-hidden relative border-2 border-red-500 shadow-lg shadow-red-500/20">
               <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover opacity-80" alt="核实画面" referrerPolicy="no-referrer" />
-              <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] px-2 py-0.5 rounded font-bold flex items-center gap-1 animate-pulse">
+              <div className="absolute top-4 left-4 bg-[#E11D48] text-white text-xs px-2 py-0.5 rounded font-bold flex items-center gap-1 animate-pulse">
                 <span className="w-1.5 h-1.5 rounded-full bg-white"></span> LIVE
               </div>
             </div>
@@ -521,7 +521,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
             <span className="text-2xl">📞</span>
             <span className="font-bold">呼叫妈妈</span>
           </button>
-          <button className="w-full bg-red-600 text-white py-4 rounded-[20px] flex items-center justify-center gap-2 shadow-lg shadow-red-600/30 active:scale-[0.98] transition-transform text-lg">
+          <button className="w-full bg-[#E11D48] text-white py-4 rounded-[20px] flex items-center justify-center gap-2 shadow-lg shadow-red-600/30 active:scale-[0.98] transition-transform text-lg">
             <span className="text-2xl">🚑</span>
             <span className="font-bold">拨打 120急救</span>
           </button>
@@ -535,7 +535,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
           {!showResolveConfirm ? (
             <button 
               onClick={() => setShowResolveConfirm(true)}
-              className="w-full bg-green-500 text-white py-4 rounded-[20px] flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 active:scale-[0.98] transition-transform text-lg"
+              className="w-full bg-[#10B981] text-white py-4 rounded-[20px] flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 active:scale-[0.98] transition-transform text-lg"
             >
               <span className="text-xl">✅</span>
               <span className="font-bold">解除告警</span>
@@ -546,10 +546,10 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
                animate={{ opacity: 1, scale: 1 }}
                className="bg-green-50 p-6 rounded-[32px] border border-green-100 flex flex-col gap-4 text-center"
              >
-               <p className="text-sm font-bold text-green-800">已确认长辈安全并解除本次告警？</p>
+               <p className="text-base font-bold text-green-800">已确认长辈安全并解除本次告警？</p>
                <div className="flex gap-3">
-                 <button onClick={() => setShowResolveConfirm(false)} className="flex-1 bg-white py-3 rounded-2xl text-gray-500 font-bold border border-gray-100 active:scale-95 transition-transform">取消</button>
-                 <button onClick={onResolve} className="flex-1 bg-green-600 py-3 rounded-2xl text-white font-bold shadow-md active:scale-95 transition-transform">确认解除</button>
+                 <button onClick={() => setShowResolveConfirm(false)} className="flex-1 bg-white py-3 rounded-[24px] text-gray-500 font-bold border border-gray-100 active:scale-95 transition-transform">取消</button>
+                 <button onClick={onResolve} className="flex-1 bg-[#10B981] py-3 rounded-[24px] text-white font-bold shadow-md active:scale-95 transition-transform">确认解除</button>
                </div>
              </motion.div>
           )}
@@ -568,10 +568,10 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
                  animate={{ opacity: 1, y: 0 }}
                  className="bg-gray-100 p-4 rounded-[20px] flex flex-col gap-3"
                >
-                 <p className="text-sm font-bold text-gray-700">确认这是一次误报吗？</p>
+                 <p className="text-base font-bold text-gray-700">确认这是一次误报吗？</p>
                  <div className="flex gap-3">
-                   <button onClick={() => setShowFalseAlarmConfirm(false)} className="flex-1 bg-white py-2 rounded-xl text-gray-500 font-bold shadow-sm">取消</button>
-                   <button onClick={onResolve} className="flex-1 bg-gray-300 py-2 rounded-xl text-gray-700 font-bold shadow-sm">标记为误报</button>
+                   <button onClick={() => setShowFalseAlarmConfirm(false)} className="flex-1 bg-white py-2 rounded-[24px] text-gray-500 font-bold shadow-sm">取消</button>
+                   <button onClick={onResolve} className="flex-1 bg-gray-300 py-2 rounded-[24px] text-gray-700 font-bold shadow-sm">标记为误报</button>
                  </div>
                </motion.div>
             )}
@@ -619,7 +619,7 @@ const VoiceMessageView = ({ onClose }: { onClose: () => void }) => {
             🎙️
           </button>
         </div>
-        <p className="text-sm text-[#024481] font-bold">长按底部按钮录制</p>
+        <p className="text-base text-[#024481] font-bold">长按底部按钮录制</p>
       </div>
       <div className="p-10 text-center">
         <button onClick={onClose} className="text-gray-400 font-bold">完成并退出</button>
@@ -738,7 +738,7 @@ const GuardianView = ({
             initial={{ opacity: 0, scale: 0.9, y: 20, x: "-50%" }}
             animate={{ opacity: 1, scale: 1, y: 0, x: "-50%" }}
             exit={{ opacity: 0, scale: 0.9, y: -20, x: "-50%" }}
-            className="fixed top-1/2 left-1/2 bg-gray-800 text-white px-6 py-3 rounded-full text-sm font-bold z-[150] shadow-xl text-nowrap"
+            className="fixed top-1/2 left-1/2 bg-gray-800 text-white px-6 py-3 rounded-full text-base font-bold z-[150] shadow-xl text-nowrap"
           >
             {localToast}
           </motion.div>
@@ -759,24 +759,24 @@ const GuardianView = ({
             >
               <div className="flex items-center gap-3">
                 <span className="relative flex h-4 w-4">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-4 w-4 bg-red-600"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E11D48] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-[#E11D48]"></span>
                 </span>
                 <div className="text-left">
-                  <p className="text-red-700 font-black text-sm">疑似跌倒 严重告警</p>
-                  <p className="text-red-400 text-[10px] font-bold">13:00 卧室区域</p>
+                  <p className="text-red-700 font-black text-base">疑似跌倒 严重告警</p>
+                  <p className="text-red-400 text-xs font-bold">13:00 卧室区域</p>
                 </div>
               </div>
-              <span className="bg-red-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm">立即处理</span>
+              <span className="bg-[#E11D48] text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm">立即处理</span>
             </button>
           ) : (
             <div className="w-full bg-green-50 border border-green-100 px-5 py-4 rounded-[24px] flex items-center gap-3 shadow-md shadow-green-100">
-              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold shadow-sm">
+              <div className="w-8 h-8 bg-[#10B981] rounded-full flex items-center justify-center text-white font-bold shadow-sm">
                 ✅
               </div>
               <div>
-                <p className="text-green-800 font-bold text-sm">守护状态：正常</p>
-                <p className="text-green-600/60 text-[10px] font-medium">系统已恢复实时监测，环境安全</p>
+                <p className="text-green-800 font-bold text-base">守护状态：正常</p>
+                <p className="text-[#10B981]/60 text-xs font-medium">系统已恢复实时监测，环境安全</p>
               </div>
             </div>
           )}
@@ -791,7 +791,7 @@ const GuardianView = ({
              style={{ opacity: pullOpacity, height: pullHeight }}
              className="w-16 h-1 bg-[#024481]/20 rounded-full mb-2"
            />
-           <motion.p style={{ opacity: pullOpacity }} className="text-[10px] text-[#024481]/40 font-bold uppercase tracking-widest">
+           <motion.p style={{ opacity: pullOpacity }} className="text-xs text-[#024481]/40 font-bold uppercase tracking-widest">
              {pullStatus === 'ready' ? '松开立即抓拍' : '继续下拉抓拍照片'}
            </motion.p>
         </div>
@@ -807,27 +807,10 @@ const GuardianView = ({
         >
           <div className="flex justify-between items-center px-1">
             <h2 className="text-xl font-bold text-[#024481] flex items-center gap-2">
-              <span>🏠</span>
               <span>安心时刻</span>
             </h2>
             <div className="flex items-center gap-2">
-              <span className="text-gray-400 text-[10px] bg-gray-50 px-2 py-1 rounded-md font-medium">智能识别: 老人正处于客厅</span>
-              {/* 刷新按钮 */}
-              <button 
-                onClick={handleRefresh}
-                disabled={isCapturing || isDeviceOffline}
-                className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 cursor-pointer transition-all ${
-                  isCapturing ? 'bg-blue-50 text-[#024481]' : 'bg-white text-gray-400 hover:text-[#024481] hover:bg-blue-50'
-                } active:scale-95 disabled:opacity-50`}
-              >
-                <motion.span
-                  animate={isCapturing ? { rotate: 360 } : {}}
-                  transition={isCapturing ? { repeat: Infinity, duration: 1, ease: "linear" } : {}}
-                  className="text-lg"
-                >
-                  🔄
-                </motion.span>
-              </button>
+              <span className="text-gray-400 text-xs bg-gray-50 px-2 py-1 rounded-md font-medium">智能识别: 老人正处于客厅</span>
             </div>
           </div>
 
@@ -894,15 +877,15 @@ const GuardianView = ({
                     <div className="flex justify-between items-start">
                       <div className="flex flex-col">
                         <span className="text-white/80 text-[9px] font-bold tracking-widest uppercase">嘉和智护 实时抓拍</span>
-                        <span className="text-white/40 text-[8px] font-medium">机位: 1号智能移动机器人 (客厅)</span>
+                        <span className="text-white/40 text-xs font-medium">机位: 1号智能移动机器人 (客厅)</span>
                       </div>
-                      <div className="bg-white/10 backdrop-blur-md text-white text-[8px] px-2 py-0.5 rounded-full font-bold border border-white/10 opacity-60">
+                      <div className="bg-white/10 backdrop-blur-md text-white text-xs px-2 py-0.5 rounded-full font-bold border border-white/10 opacity-60">
                         {index === 0 ? '最新' : `${index + 1} / ${images.length}`}
                       </div>
                     </div>
                   </div>
                   
-                  <div className="absolute bottom-2 right-2 p-2 pointer-events-none bg-black/10 backdrop-blur-[2px] rounded-lg">
+                  <div className="absolute bottom-2 right-2 p-2 pointer-events-none bg-black/10 backdrop-blur-[2px] rounded-[24px]">
                     <p className="text-white/60 text-[9px] font-medium tracking-tighter">
                       {new Date().toLocaleDateString()} {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
@@ -913,12 +896,9 @@ const GuardianView = ({
           )}
           
           <button 
-            onClick={handleRefresh}
-            className="flex items-center justify-center gap-2 py-1 text-center text-[10px] text-gray-400 font-bold pb-2 uppercase tracking-widest active:scale-95 transition-transform"
+            className="flex items-center justify-center gap-2 py-1 text-center text-xs text-gray-400 font-bold pb-2 uppercase tracking-widest pointer-events-none"
           >
-            <span>✨</span>
-            <span>{isCapturing ? '正在尝试建立加密物理连接...' : '下拉或点击立即抓拍照片'}</span>
-            <span>✨</span>
+            <span>{isCapturing ? '正在尝试建立加密物理连接...' : '下拉立即抓拍照片'}</span>
           </button>
         </motion.div>
       </div>
@@ -926,9 +906,12 @@ const GuardianView = ({
       {/* 今日概况：关键健康指标摘要 */}
       <div className="space-y-4">
         <div className="flex items-center justify-between px-1">
-          <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase">今日概况</h3>
+          <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase mb-2">今日概况</h3>
+        </div>
+
+        <div className="relative overflow-hidden">
           {!isAnonymous && (
-            <div className="flex gap-1.5">
+            <div className="absolute top-6 right-6 z-10 flex gap-1.5">
               {[0, 1, 2, 3].map(idx => (
                 <div 
                   key={idx}
@@ -937,9 +920,6 @@ const GuardianView = ({
               ))}
             </div>
           )}
-        </div>
-
-        <div className="relative overflow-hidden">
           <div 
             className="flex transition-transform duration-500 ease-out"
           >
@@ -969,25 +949,25 @@ const GuardianView = ({
                 <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl bg-red-50 flex items-center justify-center text-xl">💓</div>
+                      <div className="w-10 h-10 rounded-[24px] bg-red-50 flex items-center justify-center text-xl">💓</div>
                       <div>
                         <h4 className="font-bold text-gray-800">心率 / 呼吸</h4>
-                        <p className="text-[10px] text-gray-400 font-bold uppercase">毫米波雷达实时监测</p>
+                        <p className="text-xs text-gray-400 font-bold uppercase">毫米波雷达实时监测</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded-full font-bold">正常</span>
-                      <p className="text-[10px] text-gray-300 mt-1">同步于刚刚</p>
+                      <span className="text-xs bg-green-50 text-[#10B981] px-2 py-0.5 rounded-full font-bold">正常</span>
+                      <p className="text-xs text-gray-300 mt-1">同步于刚刚</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 py-2 border-y border-gray-50">
                     <div>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">平均心率</p>
-                      <p className="text-xl font-black text-gray-800">72<span className="text-[10px] ml-1 font-bold">bpm</span></p>
+                      <p className="text-xs text-gray-400 font-bold uppercase tracking-tight">平均心率</p>
+                      <p className="text-xl font-black text-gray-800">72<span className="text-xs ml-1 font-bold">bpm</span></p>
                     </div>
                     <div>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">平均呼吸</p>
-                      <p className="text-xl font-black text-gray-800">18<span className="text-[10px] ml-1 font-bold">次/分</span></p>
+                      <p className="text-xs text-gray-400 font-bold uppercase tracking-tight">平均呼吸</p>
+                      <p className="text-xl font-black text-gray-800">18<span className="text-xs ml-1 font-bold">次/分</span></p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -1001,7 +981,7 @@ const GuardianView = ({
                         />
                       ))}
                     </div>
-                    <p className="text-[11px] text-gray-500 font-medium">生命体征平稳，未检测到异常波动。</p>
+                    <p className="text-xs text-gray-500 font-medium">生命体征平稳，未检测到异常波动。</p>
                   </div>
                 </div>
               </div>
@@ -1012,28 +992,28 @@ const GuardianView = ({
                 <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl bg-blue-50 flex items-center justify-center text-xl">🌙</div>
+                      <div className="w-10 h-10 rounded-[24px] bg-blue-50 flex items-center justify-center text-xl">🌙</div>
                       <div>
                         <h4 className="font-bold text-gray-800">睡眠质量</h4>
-                        <p className="text-[10px] text-gray-400 font-bold">昨晚睡眠监测数据</p>
+                        <p className="text-xs text-gray-400 font-bold">昨晚睡眠监测数据</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xl font-black text-[#024481]">78<span className="text-[10px] ml-1 font-bold">分</span></p>
-                      <p className="text-[10px] text-blue-500 font-bold bg-blue-50 px-2 py-0.5 rounded-full">良好</p>
+                      <p className="text-xl font-black text-[#024481]">78<span className="text-xs ml-1 font-bold">分</span></p>
+                      <p className="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-0.5 rounded-full">良好</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 py-2 border-y border-gray-50">
                     <div>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase">睡眠时长</p>
+                      <p className="text-xs text-gray-400 font-bold uppercase">睡眠时长</p>
                       <p className="text-lg font-bold text-gray-700">6h 20min</p>
                     </div>
                     <div>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase">深睡比例</p>
+                      <p className="text-xs text-gray-400 font-bold uppercase">深睡比例</p>
                       <p className="text-lg font-bold text-gray-700">22%</p>
                     </div>
                   </div>
-                  <p className="text-[11px] text-gray-500 leading-relaxed italic">“深度睡眠比例略低，建议晚间睡前适当增加泡脚行为。”</p>
+                  <p className="text-xs text-gray-500 leading-relaxed italic">“深度睡眠比例略低，建议晚间睡前适当增加泡脚行为。”</p>
                 </div>
               </div>
 
@@ -1045,27 +1025,27 @@ const GuardianView = ({
                 <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center text-xl">💊</div>
+                      <div className="w-10 h-10 rounded-[24px] bg-emerald-50 flex items-center justify-center text-xl">💊</div>
                       <div>
                         <h4 className="font-bold text-gray-800">今日用药</h4>
-                        <p className="text-[10px] text-gray-400 font-bold">服药计划完成度计数</p>
+                        <p className="text-xs text-gray-400 font-bold">服药计划完成度计数</p>
                       </div>
                     </div>
                     <div className="relative">
                       <p className="text-xl font-black text-emerald-600">3/4</p>
-                      <span className="absolute -top-1 -right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-sm"></span>
+                      <span className="absolute -top-1 -right-2 w-2 h-2 bg-[#E11D48] rounded-full animate-pulse shadow-sm"></span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                  <div className="flex items-center gap-3 p-3 bg-emerald-50/50 rounded-[24px] border border-emerald-100">
                     <div className="flex -space-x-1">
-                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-[10px]">✅</div>
-                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-[10px]">✅</div>
-                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-[10px]">✅</div>
-                      <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[10px]">⏳</div>
+                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-xs">✅</div>
+                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-xs">✅</div>
+                      <div className="w-6 h-6 rounded-full bg-emerald-400 border-2 border-white flex items-center justify-center text-xs">✅</div>
+                      <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs">⏳</div>
                     </div>
-                    <p className="text-[11px] text-emerald-700 font-bold">待服 1 次：降压药 (睡前)</p>
+                    <p className="text-xs text-emerald-700 font-bold">待服 1 次：降压药 (睡前)</p>
                   </div>
-                  <p className="text-[11px] text-gray-500 leading-relaxed italic">今日表现不错，最后一项目前暂未到开始时间。</p>
+                  <p className="text-xs text-gray-500 leading-relaxed italic">今日表现不错，最后一项目前暂未到开始时间。</p>
                 </div>
               </div>
 
@@ -1077,23 +1057,23 @@ const GuardianView = ({
                 <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex flex-col gap-4 active:scale-[0.98] transition-all cursor-pointer">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl bg-orange-50 flex items-center justify-center text-xl">🩺</div>
+                      <div className="w-10 h-10 rounded-[24px] bg-orange-50 flex items-center justify-center text-xl">🩺</div>
                       <div>
                         <h4 className="font-bold text-gray-800">最新血压</h4>
-                        <p className="text-[10px] text-gray-400 font-bold tracking-tight">自动同步于 今早 08:30</p>
+                        <p className="text-xs text-gray-400 font-bold tracking-tight">自动同步于 今早 08:30</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                        <span className="w-2.5 h-2.5 bg-orange-400 rounded-full shadow-[0_0_8px_rgba(251,146,60,0.5)]"></span>
-                       <span className="text-xs font-bold text-orange-500">轻度偏高</span>
+                       <span className="text-xs font-bold text-[#F59E0B]">轻度偏高</span>
                     </div>
                   </div>
                   <div className="flex items-baseline gap-2 py-2">
-                    <p className="text-4xl font-black text-orange-500">148/86</p>
+                    <p className="text-4xl font-black text-[#F59E0B]">148/86</p>
                     <p className="text-xs text-gray-400 font-bold">mmHg</p>
                   </div>
-                  <div className="p-3 bg-orange-50 rounded-2xl border border-orange-100/50">
-                    <p className="text-[11px] text-orange-700 leading-relaxed font-medium">
+                  <div className="p-3 bg-orange-50 rounded-[24px] border border-orange-100/50">
+                    <p className="text-xs text-orange-700 leading-relaxed font-medium">
                       ⚠️ 检测到今日血压偏高。建议提醒长辈按时服用降压药物，并保持静息观察，如不适请及时致电紧急联系人。
                     </p>
                   </div>
@@ -1115,8 +1095,8 @@ const GuardianView = ({
             className="bg-white text-gray-700 border border-gray-100 py-4 rounded-[20px] flex flex-col items-center gap-1 card-shadow active:scale-95 transition-all w-full"
           >
             <span className="text-3xl mb-1">📞</span>
-            <span className="font-bold text-sm">呼叫小和</span>
-            <span className="text-[10px] text-gray-400">发起视频通话</span>
+            <span className="font-bold text-base">视频通话</span>
+            <span className="text-xs text-gray-400">发起视频通话</span>
           </button>
           <motion.button 
             onClick={handleRefresh}
@@ -1125,16 +1105,16 @@ const GuardianView = ({
             className={`bg-white text-gray-700 border border-gray-100 py-4 rounded-[20px] flex flex-col items-center gap-1 card-shadow active:scale-95 transition-all w-full ${isCapturing ? 'opacity-50 pointer-events-none' : ''}`}
           >
             <span className="text-3xl mb-1">📷</span>
-            <span className="font-bold text-sm">看看爸妈</span>
-            <span className="text-[10px] text-gray-400">查看最新近况</span>
+            <span className="font-bold text-base">看看家人</span>
+            <span className="text-xs text-gray-400">查看最新近况</span>
           </motion.button>
           <button 
              onClick={() => onAction('voiceMessage')}
             className="bg-white text-gray-700 border border-gray-100 py-4 rounded-[20px] flex flex-col items-center gap-1 card-shadow active:scale-95 transition-all w-full"
           >
             <span className="text-3xl mb-1">🎙️</span>
-            <span className="font-bold text-sm">发送语音</span>
-            <span className="text-[10px] text-gray-400">语音消息留言</span>
+            <span className="font-bold text-base">发送语音</span>
+            <span className="text-xs text-gray-400">语音消息留言</span>
           </button>
         </div>
       </div>
@@ -1142,19 +1122,18 @@ const GuardianView = ({
       {/* 消息提醒入口 */}
       <div 
         onClick={() => onAction('notifications')}
-        className="bg-white rounded-2xl p-4 card-shadow flex items-center justify-between border border-red-50 active:scale-[0.98] transition-transform cursor-pointer"
+        className="bg-white rounded-[24px] p-4 card-shadow flex items-center justify-between border border-red-50 active:scale-[0.98] transition-transform cursor-pointer"
       >
         <div className="flex items-center gap-3">
            <div className="relative">
              <span className="text-2xl">🔔</span>
-             <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+             <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-[#E11D48] border-2 border-white rounded-full"></span>
            </div>
            <div>
-             <p className="text-sm font-bold text-gray-800">最新提醒</p>
+             <p className="text-base font-bold text-gray-800">最新提醒</p>
              <p className="text-xs text-gray-500">今早血压偏高148/86，请关注</p>
            </div>
         </div>
-        <span className="text-gray-400">➡️</span>
       </div>
     </motion.div>
   );
@@ -1167,7 +1146,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
       <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
         <div className="text-6xl mb-6">📊</div>
         <h2 className="text-xl font-black text-gray-800 mb-2">暂无健康数据</h2>
-        <p className="text-gray-500 text-sm">机器人监测后，将为您生成每日健康报表。</p>
+        <p className="text-gray-500 text-base">机器人监测后，将为您生成每日健康报表。</p>
       </div>
     );
   }
@@ -1211,11 +1190,11 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
 
   const renderNormalRange = () => {
     switch(metricTab) {
-      case 'bp': return <p className="text-[10px] text-gray-400 mt-1">正常范围: 收缩压90-139 / 舒张压60-89</p>;
-      case 'bs': return <p className="text-[10px] text-gray-400 mt-1">正常范围: 空腹 3.9-6.1 mmol/L</p>;
-      case 'hr': return <p className="text-[10px] text-gray-400 mt-1">正常范围: 60-100 次/分</p>;
-      case 'resp': return <p className="text-[10px] text-gray-400 mt-1">正常范围: 12-20 次/分</p>;
-      default: return null;
+      case 'bp': return '正常范围: 收缩压90-139 / 舒张压60-89';
+      case 'bs': return '正常范围: 空腹 3.9-6.1 mmol/L';
+      case 'hr': return '正常范围: 60-100 次/分';
+      case 'resp': return '正常范围: 12-20 次/分';
+      default: return '';
     }
   };
 
@@ -1265,8 +1244,8 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
       className="space-y-6 pb-24"
     >
     <div className="flex flex-col gap-1">
-      <h2 className="text-2xl font-bold text-gray-800">健康管理</h2>
-      <p className="text-gray-500 text-sm">为您悉心守护，享受惬意健康的每一天</p>
+      <h2 className="text-2xl font-bold text-gray-800">健康关怀</h2>
+      <p className="text-gray-500 text-base">为您悉心守护，享受惬意健康的每一天</p>
     </div>
 
     {/* 依从性反馈 */}
@@ -1280,19 +1259,19 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
         <div className="absolute inset-0 rounded-full" style={{ clipPath: 'polygon(50% 50%, 0 0, 50% 0)', background: '#7c3aed' }}></div>
         <div className="w-[92px] h-[92px] bg-white rounded-full flex flex-col items-center justify-center z-10">
           <span className="text-3xl font-extrabold text-gray-800 leading-none">95</span>
-          <span className="text-[10px] text-gray-400 font-bold mt-1">综合评分</span>
+          <span className="text-xs text-gray-400 font-bold mt-1">综合评分</span>
         </div>
       </div>
       <div className="flex-1 space-y-2">
         <h3 className="font-bold text-lg">本周依从性</h3>
-        <p className="text-[#0d6c42] text-sm font-bold flex items-center gap-1">
+        <p className="text-[#0d6c42] text-base font-bold flex items-center gap-1">
           <span>📈</span> 比上周 +5%
         </p>
         <div className="grid grid-cols-2 gap-x-2 gap-y-2 mt-2">
-          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#0d6c42]"></span><span className="text-[10px] text-gray-500">用药 40%</span></div>
-          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#2a5c9a]"></span><span className="text-[10px] text-gray-500">监测 30%</span></div>
-          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f97316]"></span><span className="text-[10px] text-gray-500">运动 20%</span></div>
-          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#7c3aed]"></span><span className="text-[10px] text-gray-500">饮食 10%</span></div>
+          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#0d6c42]"></span><span className="text-xs text-gray-500">用药 40%</span></div>
+          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#2a5c9a]"></span><span className="text-xs text-gray-500">监测 30%</span></div>
+          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f97316]"></span><span className="text-xs text-gray-500">运动 20%</span></div>
+          <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#7c3aed]"></span><span className="text-xs text-gray-500">饮食 10%</span></div>
         </div>
       </div>
     </div>
@@ -1303,7 +1282,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
         <h3 className="font-bold text-lg text-gray-800">今日用药</h3>
         <button 
           onClick={onCalendarClick}
-          className="text-[#024481] font-bold text-sm flex items-center gap-1 p-2 active:bg-blue-50 rounded-lg transition-colors"
+          className="text-[#024481] font-bold text-base flex items-center gap-1 p-2 active:bg-blue-50 rounded-[24px] transition-colors"
         >查看日历 📅</button>
       </div>
       
@@ -1358,7 +1337,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
             onClick={() => setExpandedMed(!expandedMed)}
             className="w-full text-center py-2 group active:scale-95 transition-transform"
           >
-            <span className="text-[10px] font-bold text-[#024481] uppercase tracking-widest bg-blue-50 px-3 py-1.5 rounded-full group-hover:bg-blue-100 transition-colors">
+            <span className="text-xs font-bold text-[#024481] uppercase tracking-widest bg-blue-50 px-3 py-1.5 rounded-full group-hover:bg-blue-100 transition-colors">
               {expandedMed ? '收起部分清单 ⌃' : `查看更多 (${todayMedsDisplay.length - 3}) ⌵`}
             </span>
           </button>
@@ -1370,11 +1349,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
     <div className="bg-white rounded-[24px] p-6 card-shadow space-y-4 border border-gray-50">
       <div className="flex justify-between items-center">
         <div>
-          <div className="flex items-center gap-2">
-            <h3 className="font-bold text-lg">体征趋势</h3>
-            <span className="text-xl">📈</span>
-          </div>
-          {renderNormalRange()}
+          <h3 className="font-bold text-lg">体征趋势</h3>
         </div>
         <div className="flex bg-gray-100 rounded-full p-1 border border-gray-200 shadow-inner">
           <button 
@@ -1388,10 +1363,10 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
         </div>
       </div>
       <div className="flex bg-gray-100 p-1 rounded-full overflow-hidden shadow-inner border border-gray-100">
-        <button onClick={() => setMetricTab('bp')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-sm transition-colors ${metricTab === 'bp' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>血压</button>
-        <button onClick={() => setMetricTab('bs')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-sm transition-colors ${metricTab === 'bs' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>血糖</button>
-        <button onClick={() => setMetricTab('hr')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-sm transition-colors ${metricTab === 'hr' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>心率</button>
-        <button onClick={() => setMetricTab('resp')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-sm transition-colors ${metricTab === 'resp' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>呼吸</button>
+        <button onClick={() => setMetricTab('bp')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-base transition-colors ${metricTab === 'bp' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>血压</button>
+        <button onClick={() => setMetricTab('bs')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-base transition-colors ${metricTab === 'bs' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>血糖</button>
+        <button onClick={() => setMetricTab('hr')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-base transition-colors ${metricTab === 'hr' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>心率</button>
+        <button onClick={() => setMetricTab('resp')} className={`flex-1 py-1.5 px-3 rounded-full font-bold text-base transition-colors ${metricTab === 'resp' ? 'bg-white text-[#024481] shadow-sm' : 'bg-transparent text-gray-500 shadow-none'}`}>呼吸</button>
       </div>
       <div className="h-48 w-full mt-4 relative">
         {/* 数据缺失提示层 */}
@@ -1402,7 +1377,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
               className="flex-1 flex flex-col items-center justify-end h-full group"
             >
               <div className="w-[1px] h-[60%] border-l border-dashed border-gray-200 relative">
-                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full text-[8px] text-gray-300 font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">无数据</span>
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full text-xs text-gray-300 font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">无数据</span>
               </div>
             </div>
           ))}
@@ -1418,21 +1393,24 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
                   const data = payload[0].payload;
                   if (data.isMissing) {
                     return (
-                      <div className="bg-white/90 backdrop-blur-md p-2 rounded-lg shadow-xl border border-gray-100 text-[10px]">
+                      <div className="bg-white/90 backdrop-blur-md p-2 rounded-[24px] shadow-xl border border-gray-100 text-xs">
                         <p className="font-bold text-gray-400">{data.name}</p>
                         <p className="text-gray-300 italic mt-1">⚠️ 该时段数据缺失</p>
                       </div>
                     );
                   }
                   return (
-                    <div className="bg-white/90 backdrop-blur-md p-3 rounded-xl shadow-xl border border-gray-50 flex flex-col gap-1">
-                      <p className="text-[10px] font-bold text-gray-400 border-b border-gray-50 pb-1 mb-1">{data.name}</p>
+                    <div className="bg-white/90 backdrop-blur-md p-3 rounded-[24px] shadow-xl border border-gray-50 flex flex-col gap-1">
+                      <p className="text-xs font-bold text-gray-400 border-b border-gray-50 pb-1 mb-1">{data.name}</p>
                       {payload.filter((p: any) => p.name && !p.name.endsWith('_link')).map((p: any) => (
                         <div key={p.name} className="flex items-center justify-between gap-4">
-                          <span className="text-[10px] font-medium text-gray-500">{p.name}:</span>
+                          <span className="text-xs font-medium text-gray-500">{p.name}:</span>
                           <span className="text-xs font-black text-[#024481]">{p.value}</span>
                         </div>
                       ))}
+                      <div className="mt-1 pt-1 border-t border-gray-50 text-[10px] text-gray-400">
+                        {renderNormalRange()}
+                      </div>
                     </div>
                   );
                 }
@@ -1475,7 +1453,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
               exit={{ opacity: 0, x: -20 }}
               className="relative overflow-hidden rounded-[24px]"
             >
-              <div className="absolute right-0 inset-y-0 w-24 bg-red-500 flex items-center justify-center">
+              <div className="absolute right-0 inset-y-0 w-24 bg-[#E11D48] flex items-center justify-center">
                 <span className="text-white text-xs font-bold">🗑️ 删除</span>
               </div>
               <motion.div 
@@ -1496,8 +1474,8 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
                   <span className="text-[12px] text-gray-400">{record.time}</span>
                 </div>
                 <div className="flex justify-between items-end">
-                  <p className="text-3xl text-[#dc2626] font-bold">{record.value} <span className="text-sm font-normal text-gray-500">{record.unit}</span></p>
-                  <div className="bg-[#dcfce7] px-2 py-1 rounded text-[10px] text-[#16a34a] font-bold">{record.detail}</div>
+                  <p className="text-3xl text-[#dc2626] font-bold">{record.value} <span className="text-base font-normal text-gray-500">{record.unit}</span></p>
+                  <div className="bg-[#dcfce7] px-2 py-1 rounded text-xs text-[#16a34a] font-bold">{record.detail}</div>
                 </div>
               </motion.div>
             </motion.div>
@@ -1520,20 +1498,20 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
             animate={{ scale: 1, opacity: 1 }}
             className="bg-white rounded-[32px] p-8 w-full max-w-sm text-center shadow-2xl"
           >
-            <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">⚠️</div>
+            <div className="w-16 h-16 bg-red-100 text-[#E11D48] rounded-full flex items-center justify-center text-3xl mx-auto mb-4">⚠️</div>
             <h3 className="text-lg font-bold text-gray-800">确认删除此条异常记录？</h3>
-            <p className="text-sm text-gray-400 mt-2">删除后将无法找回该条记录。</p>
+            <p className="text-base text-gray-400 mt-2">删除后将无法找回该条记录。</p>
             <div className="flex gap-3 mt-6">
               <button 
                 onClick={() => setDeleteConfirmId(null)}
-                className="flex-1 py-4 bg-gray-100 rounded-2xl font-bold text-gray-500 active:scale-95 transition-transform"
+                className="flex-1 py-4 bg-gray-100 rounded-[24px] font-bold text-gray-500 active:scale-95 transition-transform"
               >取消</button>
               <button 
                 onClick={() => {
                   setAbnormalRecords(prev => prev.filter(r => r.id !== deleteConfirmId));
                   setDeleteConfirmId(null);
                 }}
-                className="flex-1 py-4 bg-red-500 text-white rounded-2xl font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform"
+                className="flex-1 py-4 bg-[#E11D48] text-white rounded-[24px] font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform"
               >确认删除</button>
             </div>
           </motion.div>
@@ -1551,7 +1529,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
       <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
         <div className="text-6xl mb-6">💬</div>
         <h2 className="text-xl font-black text-gray-800 mb-2">暂无聊天记录</h2>
-        <p className="text-gray-500 text-sm">快去和机器人聊聊天吧！</p>
+        <p className="text-gray-500 text-base">快去和机器人聊聊天吧！</p>
       </div>
     );
   }
@@ -1603,8 +1581,8 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
       {/* 4.5.1 运动周历 */}
       <div className="rounded-[24px] bg-white p-6 card-shadow border border-gray-50 space-y-4">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="font-bold text-lg flex items-center gap-2">🏋️‍♀️ 运动周历</h3>
-          <span className="text-sm font-bold text-gray-500">目标：4/7天</span>
+          <h3 className="font-bold text-lg">运动周历</h3>
+          <span className="text-base font-bold text-gray-500">目标：4/7天</span>
         </div>
         <div className="grid grid-cols-7 gap-2">
           {exerciseData.map((d, i) => (
@@ -1614,20 +1592,15 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               onClick={() => setSelectedExercise(d)}
               className="flex flex-col items-center gap-2 cursor-pointer"
             >
-              <span className="text-[10px] font-bold text-gray-400">{d.day}</span>
+              <span className="text-xs font-bold text-gray-400">{d.day}</span>
               <div className={`w-full aspect-square rounded-full transition-all ${
-                d.level === 'high' ? 'bg-[#0d6c42]' : 
-                d.level === 'medium' ? 'bg-[#4ade80]' : 
-                d.level === 'low' ? 'bg-[#bbf7d0]' : 'bg-gray-100 border border-gray-200'
-              } ${selectedExercise?.day === d.day ? 'ring-2 ring-blue-400 ring-offset-2' : ''}`}></div>
+                d.level !== 'none' ? 'bg-[#10B981]' : 'bg-gray-100 border border-gray-200'
+              } ${selectedExercise?.day === d.day ? 'ring-2 ring-[#024481] ring-offset-2' : ''}`}></div>
             </motion.div>
           ))}
         </div>
         <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center gap-2 text-sm text-[#0d6c42] font-bold">
-            <span>🔥 连续运动 5 天</span>
-          </div>
-          <p className="text-[10px] text-gray-400">点击查看每日详情</p>
+          <p className="text-xs text-gray-400">点击查看每日详情</p>
         </div>
 
         {/* 运动详情浮层 */}
@@ -1637,38 +1610,45 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="bg-emerald-50 rounded-2xl p-4 border border-emerald-100 space-y-3 relative"
+              className="bg-emerald-50 rounded-[24px] p-4 border border-emerald-100 space-y-3 relative"
             >
               <button onClick={() => setSelectedExercise(null)} className="absolute top-3 right-3 text-emerald-300 hover:text-emerald-500">✕</button>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-emerald-800">{selectedExercise.day === '今日' ? '今日' : `周${selectedExercise.day}`} 运动详情</span>
-                <span className="text-[10px] bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded font-bold">{selectedExercise.type}</span>
+                <span className="text-base font-bold text-emerald-800">{selectedExercise.day === '今日' ? '今日' : `周${selectedExercise.day}`} 运动详情</span>
+                <span className="text-xs bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded font-bold">{selectedExercise.type}</span>
               </div>
               <div className="grid grid-cols-4 gap-2">
                 <div className="text-center">
-                  <p className="text-[8px] text-emerald-600 font-bold uppercase">时长</p>
+                  <p className="text-xs text-emerald-600 font-bold uppercase">时长</p>
                   <p className="text-xs font-black text-emerald-900">{selectedExercise.duration}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-[8px] text-emerald-600 font-bold uppercase">动作</p>
+                  <p className="text-xs text-emerald-600 font-bold uppercase">动作</p>
                   <p className="text-xs font-black text-emerald-900">{selectedExercise.moves}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-[8px] text-emerald-600 font-bold uppercase">感受</p>
+                  <p className="text-xs text-emerald-600 font-bold uppercase">感受</p>
                   <p className="text-xs font-black text-emerald-900">{selectedExercise.feeling}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-[8px] text-emerald-600 font-bold uppercase">热量</p>
+                  <p className="text-xs text-emerald-600 font-bold uppercase">热量</p>
                   <p className="text-xs font-black text-emerald-900">{selectedExercise.calories}</p>
                 </div>
               </div>
-              <div className="flex justify-end pt-2 border-t border-emerald-100 mt-2">
+              <div className="flex justify-end pt-2 border-t border-emerald-100 mt-2 gap-4">
                 <button 
                   onClick={(e) => toggleLike(`exercise_${selectedExercise.day}`, e)} 
                   className={`flex items-center gap-1 text-xs font-bold transition-colors ${likedItems[`exercise_${selectedExercise.day}`] ? 'text-emerald-600' : 'text-emerald-400'}`}
                 >
                   <span className={`${likedItems[`exercise_${selectedExercise.day}`] ? 'scale-125' : ''} transition-transform`}>{likedItems[`exercise_${selectedExercise.day}`] ? '❤️' : '🤍'}</span>
                   <span>{likedItems[`exercise_${selectedExercise.day}`] ? '已点赞' : '点赞'}</span>
+                </button>
+                <button 
+                  onClick={(e) => { e.stopPropagation(); onAction('voiceMessage'); }}
+                  className="flex items-center gap-1 text-xs font-bold text-gray-500 hover:text-emerald-600 transition-colors"
+                >
+                  <span className="text-base">🎙️</span>
+                  <span>发送语音</span>
                 </button>
               </div>
             </motion.div>
@@ -1681,9 +1661,8 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
         <div className="flex justify-between items-center">
           <div>
             <h3 className="font-bold text-gray-800">情绪脸谱</h3>
-            <p className="text-[10px] text-gray-400 font-bold uppercase mt-1">Multi-modal Emotion Analytics</p>
           </div>
-          <span className="text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded-full font-bold">本周良好</span>
+          <span className="text-xs bg-green-50 text-[#10B981] px-2 py-0.5 rounded-full font-bold">本周良好</span>
         </div>
 
         {/* 表情图标横向排列 */}
@@ -1695,10 +1674,10 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               onClick={() => setSelectedEmotion(item)}
               className="flex flex-col items-center gap-2 group"
             >
-              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center text-xl transition-all ${selectedEmotion?.day === item.day ? 'bg-blue-50 scale-110 shadow-sm' : 'bg-gray-50'}`}>
+              <div className={`w-10 h-10 rounded-[24px] flex items-center justify-center text-xl transition-all ${selectedEmotion?.day === item.day ? 'bg-blue-50 scale-110 shadow-sm' : 'bg-gray-50'}`}>
                 {item.emoji}
               </div>
-              <span className={`text-[10px] font-bold ${selectedEmotion?.day === item.day ? 'text-[#024481]' : 'text-gray-400'}`}>{item.day}</span>
+              <span className={`text-xs font-bold ${selectedEmotion?.day === item.day ? 'text-[#024481]' : 'text-gray-400'}`}>{item.day}</span>
             </motion.button>
           ))}
         </div>
@@ -1714,8 +1693,8 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="bg-white/90 backdrop-blur-md p-2 rounded-lg shadow-xl border border-gray-100 text-[10px] flex items-center gap-2">
-                        <span className="text-sm">{data.emoji}</span>
+                      <div className="bg-white/90 backdrop-blur-md p-2 rounded-[24px] shadow-xl border border-gray-100 text-xs flex items-center gap-2">
+                        <span className="text-base">{data.emoji}</span>
                         <span className="font-bold text-gray-500">{data.day}</span>
                       </div>
                     );
@@ -1744,7 +1723,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden"
             >
-              <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-100/50 space-y-3 relative">
+              <div className="bg-blue-50/50 rounded-[24px] p-4 border border-blue-100/50 space-y-3 relative">
                 <button 
                   onClick={() => setSelectedEmotion(null)}
                   className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
@@ -1752,26 +1731,33 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                   ✕
                 </button>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-[#024481]">{selectedEmotion.day} 情绪溯源</span>
+                  <span className="text-base font-bold text-[#024481]">{selectedEmotion.day} 情绪溯源</span>
                   <span className="text-lg">{selectedEmotion.emoji}</span>
                 </div>
                 <div className="space-y-2">
                   <div>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">标注原因</p>
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">标注原因</p>
                     <p className="text-xs text-gray-700 font-medium">{selectedEmotion.reason}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">陪伴摘要</p>
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">陪伴摘要</p>
                     <p className="text-xs text-gray-700 font-medium leading-relaxed">{selectedEmotion.summary}</p>
                   </div>
                 </div>
-                <div className="flex justify-end pt-2 border-t border-blue-100/50 mt-2">
+                <div className="flex justify-end pt-2 border-t border-blue-100/50 mt-2 gap-4">
                   <button 
                     onClick={(e) => toggleLike(`emotion_${selectedEmotion.day}`, e)} 
                     className={`flex items-center gap-1 text-xs font-bold transition-colors ${likedItems[`emotion_${selectedEmotion.day}`] ? 'text-blue-600' : 'text-blue-400'}`}
                   >
                     <span className={`${likedItems[`emotion_${selectedEmotion.day}`] ? 'scale-125' : ''} transition-transform`}>{likedItems[`emotion_${selectedEmotion.day}`] ? '❤️' : '🤍'}</span>
                     <span>{likedItems[`emotion_${selectedEmotion.day}`] ? '已点赞' : '点赞'}</span>
+                  </button>
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); onAction('voiceMessage'); }}
+                    className="flex items-center gap-1 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors"
+                  >
+                    <span className="text-base">🎙️</span>
+                    <span>发送语音</span>
                   </button>
                 </div>
               </div>
@@ -1785,8 +1771,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-3xl shadow-sm">🤖</div>
           <div>
-            <h3 className="font-bold text-[#024481]">小和的关怀</h3>
-            <p className="text-[10px] text-blue-400 font-bold uppercase">AI Health Insights</p>
+            <h3 className="font-bold text-[#024481]">AI关怀</h3>
           </div>
         </div>
         <p className="text-base text-blue-900 leading-relaxed font-medium italic">
@@ -1794,7 +1779,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
         </p>
         <button 
           onClick={() => onAction('healthReport')}
-          className="w-full py-3 bg-[#024481] text-white rounded-2xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-md"
+          className="w-full py-3 bg-[#024481] text-white rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-md"
         >
           <span>📄</span> 生成周报PDF报告
         </button>
@@ -1803,8 +1788,11 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
       {/* 4.5.4 回忆金句卡片 (左右滑动切换，参考今日概况样式) */}
       <div className="space-y-4">
         <div className="flex items-center justify-between px-1">
-          <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase">传家记忆金句</h3>
-          <div className="flex gap-1.5">
+          <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase mb-2">传家记忆金句</h3>
+        </div>
+
+        <div className="relative overflow-hidden">
+          <div className="absolute top-6 right-6 z-10 flex gap-1.5">
             {quotes.map((_, idx) => (
               <div 
                 key={idx}
@@ -1812,9 +1800,6 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               />
             ))}
           </div>
-        </div>
-
-        <div className="relative overflow-hidden">
           <div 
             className="flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-1"
             onScroll={(e) => {
@@ -1831,9 +1816,8 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                 >
                   <span className="absolute -top-4 -left-2 text-[80px] font-serif text-[#024481]/10 select-none group-hover:text-[#024481]/20 transition-colors">“</span>
                   <div className="relative z-10 space-y-4">
-                    <div className="flex justify-between items-center">
-                      <h2 className="font-bold text-[#024481] text-sm">最新采集金句</h2>
-                      <div className="text-[10px] bg-gray-50 text-gray-400 px-2 py-0.5 rounded font-bold">话题：{quote.topic}</div>
+                    <div className="flex justify-between items-center pr-12">
+                      <h2 className="font-bold text-[#024481] text-base">最新</h2>
                     </div>
                     <p className="text-lg text-gray-800 leading-snug italic font-medium">
                       “{quote.source}说：{quote.text}”
@@ -1841,14 +1825,26 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                   </div>
                   <div className="relative z-10 flex justify-between items-center pt-4 border-t border-gray-50 mt-4">
                     <div className="flex flex-col">
-                      <span className="text-[10px] text-gray-400 font-bold uppercase">采集时间：{quote.date}</span>
-                      <button 
-                        onClick={(e) => toggleLike(`quote_${idx}`, e)} 
-                        className={`flex items-center gap-1 text-[10px] font-bold transition-colors mt-2 ${likedItems[`quote_${idx}`] ? 'text-blue-600' : 'text-gray-400'}`}
-                      >
-                        <span className={`${likedItems[`quote_${idx}`] ? 'scale-125' : ''} transition-transform`}>{likedItems[`quote_${idx}`] ? '❤️' : '🤍'}</span>
-                        <span>{likedItems[`quote_${idx}`] ? '已收到你的赞' : '点赞'}</span>
-                      </button>
+                      <div className="flex items-center gap-2 mb-1 text-xs text-gray-400 font-bold uppercase">
+                        <span>话题：{quote.topic}</span>
+                        <span>采集时间：{quote.date}</span>
+                      </div>
+                      <div className="flex items-center gap-4 mt-2">
+                        <button 
+                          onClick={(e) => toggleLike(`quote_${idx}`, e)} 
+                          className={`flex items-center gap-1 text-xs font-bold transition-colors ${likedItems[`quote_${idx}`] ? 'text-blue-600' : 'text-gray-400'}`}
+                        >
+                          <span className={`${likedItems[`quote_${idx}`] ? 'scale-125' : ''} transition-transform`}>{likedItems[`quote_${idx}`] ? '❤️' : '🤍'}</span>
+                          <span>{likedItems[`quote_${idx}`] ? '已收到你的赞' : '点赞'}</span>
+                        </button>
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); onAction('voiceMessage'); }}
+                          className="flex items-center gap-1 text-xs font-bold text-gray-500 hover:text-blue-600 transition-colors"
+                        >
+                          <span className="text-xs">🎙️</span>
+                          <span>发送语音</span>
+                        </button>
+                      </div>
                     </div>
                     <span className="text-xs text-[#024481] font-bold">查看传家记忆 ➔</span>
                   </div>
@@ -1858,26 +1854,6 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
             ))}
           </div>
         </div>
-      </div>
-
-      {/* 4.5.5 鼓励按钮 */}
-      <div className="grid grid-cols-2 gap-4">
-        <button 
-          onClick={(e) => toggleLike('mom', e)}
-          className={`h-[90px] rounded-[24px] flex flex-col items-center justify-center gap-1 text-sm font-bold transition-all shadow-sm ${likedItems['mom'] ? 'bg-pink-100 text-pink-600 scale-105' : 'bg-white border border-gray-100 text-gray-700 active:scale-95'}`}
-        >
-          <span className="text-2xl mb-0.5">{likedItems['mom'] ? '💖' : '❤️'}</span>
-          <span>给妈妈点赞</span>
-          <span className={`text-[10px] ${likedItems['mom'] ? 'text-pink-400' : 'text-gray-400'}`}>小和会为您送达</span>
-        </button>
-        <button 
-          onClick={() => onAction('voiceMessage')}
-          className="h-[90px] rounded-[24px] bg-white border border-gray-100 text-gray-700 flex flex-col items-center justify-center gap-1 text-sm font-bold shadow-sm active:scale-95 transition-transform active:bg-gray-50"
-        >
-          <span className="text-2xl mb-0.5">🎙️</span>
-          <span>发送语音鼓励</span>
-          <span className="text-[10px] text-gray-400">小和会为您送达</span>
-        </button>
       </div>
     </motion.div>
   );
@@ -1929,16 +1905,16 @@ const EmergencyContactsView = ({
         {isMainAccount && (
           <button 
             onClick={() => setIsAdding(true)}
-            className="text-blue-600 font-bold text-sm"
+            className="text-blue-600 font-bold text-base"
           >添加</button>
         )}
       </header>
 
       <main className="flex-1 p-6">
         {isMainAccount ? (
-          <p className="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-wider">长按右侧图标拖动排序（首位为默认呼叫人）</p>
+          <p className="text-xs text-gray-400 mb-4 font-bold uppercase tracking-wider">长按右侧图标拖动排序（首位为默认呼叫人）</p>
         ) : (
-          <p className="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-wider">只读模式，仅主账号可编辑</p>
+          <p className="text-xs text-gray-400 mb-4 font-bold uppercase tracking-wider">只读模式，仅主账号可编辑</p>
         )}
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 px-10 text-center">
@@ -1946,13 +1922,13 @@ const EmergencyContactsView = ({
               🏥
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">未设置紧急联系人</h3>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-[240px]">
+            <p className="text-base text-gray-500 leading-relaxed max-w-[240px]">
               紧急联系人是重要的安全保障。当机器人发现异常情况或长辈触发求助时，将第一时间自动拨打他们的电话。
             </p>
             {isMainAccount && (
               <button 
                 onClick={() => setIsAdding(true)}
-                className="mt-10 bg-red-500 text-white px-10 py-4 rounded-3xl font-bold shadow-xl shadow-red-200 active:scale-95 transition-transform"
+                className="mt-10 bg-[#E11D48] text-white px-10 py-4 rounded-3xl font-bold shadow-xl shadow-red-200 active:scale-95 transition-transform"
               >
                 设置第一位联系人
               </button>
@@ -1969,10 +1945,10 @@ const EmergencyContactsView = ({
                 key={item.id} 
                 value={item}
                 drag={isMainAccount ? "y" : false}
-                className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center justify-between shadow-sm active:shadow-md transition-shadow"
+                className="bg-white p-4 rounded-[24px] border border-gray-100 flex items-center justify-between shadow-sm active:shadow-md transition-shadow"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-500 font-bold">🚑</div>
+                  <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-[#E11D48] font-bold">🚑</div>
                   <div>
                     <p className="font-bold text-gray-800">{item.name} <span className="text-xs text-gray-400 font-normal ml-1">({item.relation})</span></p>
                     <p className="text-xs text-gray-500 mt-0.5">{item.phone}</p>
@@ -1998,25 +1974,25 @@ const EmergencyContactsView = ({
                   placeholder="姓名"
                   value={newContact.name}
                   onChange={e => setNewContact({...newContact, name: e.target.value})}
-                  className="w-full bg-gray-50 rounded-2xl p-4 text-sm font-bold border-none"
+                  className="w-full bg-gray-50 rounded-[24px] p-4 text-base font-bold border-none"
                 />
                 <input 
                   placeholder="关系 (如：大儿子)"
                   value={newContact.relation}
                   onChange={e => setNewContact({...newContact, relation: e.target.value})}
-                  className="w-full bg-gray-50 rounded-2xl p-4 text-sm font-bold border-none"
+                  className="w-full bg-gray-50 rounded-[24px] p-4 text-base font-bold border-none"
                 />
                 <input 
                   placeholder="手机号"
                   type="tel"
                   value={newContact.phone}
                   onChange={e => setNewContact({...newContact, phone: e.target.value})}
-                  className="w-full bg-gray-50 rounded-2xl p-4 text-sm font-bold border-none"
+                  className="w-full bg-gray-50 rounded-[24px] p-4 text-base font-bold border-none"
                 />
               </div>
               <div className="flex gap-3">
                 <button onClick={() => setIsAdding(false)} className="flex-1 py-4 text-gray-400 font-bold">取消</button>
-                <button onClick={handleAdd} className="flex-1 py-4 bg-[#024481] text-white rounded-2xl font-bold shadow-lg">确认添加</button>
+                <button onClick={handleAdd} className="flex-1 py-4 bg-[#024481] text-white rounded-[24px] font-bold shadow-lg">确认添加</button>
               </div>
             </div>
           </div>
@@ -2042,9 +2018,9 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'onTime': return 'bg-green-500';
+      case 'onTime': return 'bg-[#10B981]';
       case 'delayed': return 'bg-yellow-400';
-      case 'missed': return 'bg-red-500';
+      case 'missed': return 'bg-[#E11D48]';
       default: return 'bg-gray-200';
     }
   };
@@ -2074,7 +2050,7 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
           <button onClick={onClose} className="text-xl">⬅️</button>
           <h2 className="text-xl font-bold text-[#024481]">用药日历</h2>
         </div>
-        <div className="text-sm font-bold text-gray-500">2024年5月</div>
+        <div className="text-base font-bold text-gray-500">2024年5月</div>
       </header>
 
       <main className="flex-1 p-6 space-y-6 overflow-y-auto">
@@ -2082,7 +2058,7 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
         <div className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50">
           <div className="grid grid-cols-7 gap-y-4 mb-4">
             {['一', '二', '三', '四', '五', '六', '日'].map(w => (
-              <div key={w} className="text-[10px] font-bold text-gray-400 text-center">{w}</div>
+              <div key={w} className="text-xs font-bold text-gray-400 text-center">{w}</div>
             ))}
             {Array.from({ length: startDayOffset }).map((_, i) => (
               <div key={`empty-${i}`} />
@@ -2109,10 +2085,10 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
           </div>
 
           <div className="flex justify-center gap-4 pt-4 border-t border-gray-50">
-            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500"></span><span className="text-[10px] text-gray-400">全部按时</span></div>
-            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-yellow-400"></span><span className="text-[10px] text-gray-400">有延迟</span></div>
-            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-red-500"></span><span className="text-[10px] text-gray-400">有漏服</span></div>
-            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-gray-200"></span><span className="text-[10px] text-gray-400">无计划</span></div>
+            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-[#10B981]"></span><span className="text-xs text-gray-400">全部按时</span></div>
+            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-yellow-400"></span><span className="text-xs text-gray-400">有延迟</span></div>
+            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-[#E11D48]"></span><span className="text-xs text-gray-400">有漏服</span></div>
+            <div className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-gray-200"></span><span className="text-xs text-gray-400">无计划</span></div>
           </div>
         </div>
 
@@ -2126,19 +2102,19 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
               <div key={idx} className="bg-white p-4 rounded-[24px] border border-gray-50 card-shadow flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl ${
-                    item.status === '已服用' ? 'bg-green-50 text-green-600' : 
-                    item.status === '漏服' ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'
+                    item.status === '已服用' ? 'bg-green-50 text-[#10B981]' : 
+                    item.status === '漏服' ? 'bg-red-50 text-[#E11D48]' : 'bg-blue-50 text-blue-600'
                   }`}>
                     {item.name.includes('阿司匹林') ? '💊' : item.name.includes('维生素') ? '🧴' : '🌿'}
                   </div>
                   <div>
                     <p className="font-bold text-gray-800">{item.name}</p>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">
                       计划 {item.planTime} | 实际 {item.actualTime}
                     </p>
                   </div>
                 </div>
-                <span className={`text-[10px] font-bold px-2 py-1 rounded-full ${
+                <span className={`text-xs font-bold px-2 py-1 rounded-full ${
                   item.status === '已服用' ? 'bg-green-100 text-green-700' : 
                   item.status === '漏服' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
                 }`}>
@@ -2227,9 +2203,9 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
       </header>
 
       <main className="flex-1 p-6 space-y-4 overflow-y-auto">
-        <div className="bg-blue-50/50 p-4 rounded-2xl border border-blue-100 flex items-start gap-3 mb-2">
+        <div className="bg-blue-50/50 p-4 rounded-[24px] border border-blue-100 flex items-start gap-3 mb-2">
           <span className="text-lg">🛡️</span>
-          <p className="text-[10px] text-blue-600 leading-relaxed font-medium">
+          <p className="text-xs text-blue-600 leading-relaxed font-medium">
             系统深度集成了多维度感知算法，确保在紧急时刻能第一时间通过多种路径通知到您。
           </p>
         </div>
@@ -2238,19 +2214,19 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
           <div key={cat.id} className="bg-white rounded-[28px] p-5 shadow-sm border border-gray-50 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl ${cat.isLocked ? 'bg-red-50' : 'bg-gray-50'}`}>
+                <div className={`w-10 h-10 rounded-[24px] flex items-center justify-center text-xl ${cat.isLocked ? 'bg-red-50' : 'bg-gray-50'}`}>
                   {cat.icon}
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-800">{cat.title}</h3>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase">{cat.method}</p>
+                  <p className="text-xs text-gray-400 font-bold uppercase">{cat.method}</p>
                 </div>
               </div>
               
               {cat.isLocked ? (
                 <div className="bg-gray-100 px-3 py-1.5 rounded-full flex items-center gap-1">
-                  <span className="text-[10px] text-gray-400 font-bold">始终开启</span>
-                  <span className="text-[10px]">🔒</span>
+                  <span className="text-xs text-gray-400 font-bold">始终开启</span>
+                  <span className="text-xs">🔒</span>
                 </div>
               ) : (
                 <button 
@@ -2267,16 +2243,16 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
 
             <div className="pt-4 border-t border-gray-50">
               <div className="flex items-start gap-2">
-                <span className="text-[10px] text-gray-300 mt-0.5">场景:</span>
+                <span className="text-xs text-gray-300 mt-0.5">场景:</span>
                 <p className="text-xs text-gray-600 font-medium">{cat.scenario}</p>
               </div>
-              <p className="text-[10px] text-gray-400 mt-1 italic">{cat.description}</p>
+              <p className="text-xs text-gray-400 mt-1 italic">{cat.description}</p>
             </div>
           </div>
         ))}
 
         <div className="p-8 text-center">
-          <p className="text-[10px] text-gray-300">嘉和智护 极简守护OS · 告警模块 v1.0</p>
+          <p className="text-xs text-gray-300">嘉和智护 极简守护OS · 告警模块 v1.0</p>
         </div>
       </main>
     </motion.div>
@@ -2314,14 +2290,14 @@ const FamilyMembersView = ({
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
           <button onClick={onClose} className="text-xl">⬅️</button>
-          <h2 className="text-xl font-bold text-[#024481]">照护分享</h2>
+          <h2 className="text-xl font-bold text-[#024481]">家人信息</h2>
         </div>
         <button onClick={handleInvite} className="bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">邀请家人</button>
       </header>
 
       <main className="flex-1 p-6 space-y-4">
         {members.map(member => (
-          <div key={member.id} className="bg-white p-4 rounded-2xl flex items-center justify-between border border-gray-50">
+          <div key={member.id} className="bg-white p-4 rounded-[24px] flex items-center justify-between border border-gray-50">
             <div className="flex items-center gap-3">
               <img src={member.avatar} className="w-12 h-12 rounded-full border-2 border-blue-50" alt={member.name} referrerPolicy="no-referrer" />
               <div>
@@ -2338,11 +2314,11 @@ const FamilyMembersView = ({
           <div className="flex justify-center gap-4 mt-4">
              <div className="flex flex-col items-center gap-1 opacity-60 grayscale scale-90">
                <span className="text-2xl">💬</span>
-               <span className="text-[8px] font-bold text-gray-500 uppercase">微信</span>
+               <span className="text-xs font-bold text-gray-500 uppercase">微信</span>
              </div>
              <div className="flex flex-col items-center gap-1 opacity-60 grayscale scale-90">
                <span className="text-2xl">🐧</span>
-               <span className="text-[8px] font-bold text-gray-500 uppercase">手机QQ</span>
+               <span className="text-xs font-bold text-gray-500 uppercase">手机QQ</span>
              </div>
           </div>
         </div>
@@ -2537,7 +2513,7 @@ const MedicationPlanView = ({
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0 sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg">
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg">
             {'<'}
           </button>
           <h2 className="text-xl font-bold text-[#024481]">用药计划</h2>
@@ -2546,7 +2522,7 @@ const MedicationPlanView = ({
           <div className="flex items-center gap-2">
             <button 
               onClick={() => fileInputRef.current?.click()}
-              className="px-4 h-10 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center gap-2 text-sm font-bold active:scale-95 transition-transform"
+              className="px-4 h-10 bg-green-50 text-[#10B981] rounded-[24px] flex items-center justify-center gap-2 text-base font-bold active:scale-95 transition-transform"
               title="拍照识别"
             >
               <span>📷</span>
@@ -2554,7 +2530,7 @@ const MedicationPlanView = ({
             </button>
             <button 
               onClick={handleAddClick}
-              className="w-10 h-10 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-2xl active:scale-95 transition-transform"
+              className="w-10 h-10 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-2xl active:scale-95 transition-transform"
             >
               +
             </button>
@@ -2592,7 +2568,7 @@ const MedicationPlanView = ({
           </div>
         )}
         {!isMainAccount && (
-          <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl flex items-center gap-3">
+          <div className="bg-orange-50 border border-orange-100 p-4 rounded-[24px] flex items-center gap-3">
             <span className="text-xl">🔒</span>
             <p className="text-xs text-orange-600 font-bold">只读模式，仅主账号可编辑医嘱</p>
           </div>
@@ -2607,11 +2583,11 @@ const MedicationPlanView = ({
             >
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-inner shrink-0 ${med.enabled === false ? 'bg-gray-100' : 'bg-blue-50'}`}>
+                  <div className={`w-14 h-14 rounded-[24px] flex items-center justify-center text-3xl shadow-inner shrink-0 ${med.enabled === false ? 'bg-gray-100' : 'bg-blue-50'}`}>
                     {med.imageUrl && med.enabled !== false ? (
                       <img 
                         src={med.imageUrl} 
-                        className="w-full h-full object-cover rounded-2xl" 
+                        className="w-full h-full object-cover rounded-[24px]" 
                         alt={med.name} 
                         referrerPolicy="no-referrer"
                         onClick={(e) => { e.stopPropagation(); setFullScreenImage(med.imageUrl!); }}
@@ -2631,7 +2607,7 @@ const MedicationPlanView = ({
                     <div className="flex items-center gap-2">
                       <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
                       {med.status && med.enabled !== false && (
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                           med.status === 'taken' ? 'bg-green-100 text-green-700' :
                           med.status === 'missed' ? 'bg-red-100 text-red-700' :
                           med.status === 'delayed' ? 'bg-orange-100 text-orange-700' :
@@ -2654,13 +2630,13 @@ const MedicationPlanView = ({
                     </div>
                     <div className="flex flex-col gap-0.5 mt-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] bg-blue-50 text-blue-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">每日推送</span>
+                        <span className="text-xs bg-blue-50 text-blue-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">每日推送</span>
                         <p className="text-xs text-gray-400 font-medium">
                           {med.times.join(' • ')}
                         </p>
                       </div>
                       {(med.startDate || med.endDate) && (
-                        <p className="text-[10px] text-gray-300 font-medium">
+                        <p className="text-xs text-gray-300 font-medium">
                           📅 {med.startDate || '未设'} 至 {med.endDate || '未设'}
                         </p>
                       )}
@@ -2671,7 +2647,7 @@ const MedicationPlanView = ({
                   {isMainAccount && (
                     <button 
                       onClick={(e) => { e.stopPropagation(); toggleEnabled(med.id); }}
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${med.enabled === false ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`}
+                      className={`w-10 h-10 rounded-[24px] flex items-center justify-center transition-all ${med.enabled === false ? 'bg-green-100 text-[#10B981]' : 'bg-gray-100 text-gray-400'}`}
                     >
                       {med.enabled === false ? '▶️' : '⏸️'}
                     </button>
@@ -2680,12 +2656,12 @@ const MedicationPlanView = ({
                 </div>
               </div>
               
-              <div className="flex items-center justify-between bg-gray-50/50 p-4 rounded-2xl border border-gray-100/50">
+              <div className="flex items-center justify-between bg-gray-50/50 p-4 rounded-[24px] border border-gray-100/50">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-gray-400">单次剂量</span>
-                  <span className="text-sm font-bold text-gray-700">{med.dosage}</span>
+                  <span className="text-base font-bold text-gray-700">{med.dosage}</span>
                 </div>
-                <span className="text-[10px] text-gray-300 font-medium italic">点击进入维护 📝</span>
+                <span className="text-xs text-gray-300 font-medium italic">点击进入维护 📝</span>
               </div>
             </div>
           ))}
@@ -2703,10 +2679,10 @@ const MedicationPlanView = ({
 
         <div className="bg-[#024481] p-6 rounded-[32px] flex items-center justify-between shadow-xl shadow-blue-900/20">
            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-2xl">🤖</div>
+              <div className="w-12 h-12 bg-white/10 rounded-[24px] flex items-center justify-center text-2xl">🤖</div>
               <div>
-                <p className="text-white text-sm font-bold tracking-wide">同步至机器人端</p>
-                <p className="text-white/50 text-[10px] mt-0.5">修改后将自动推送语音提醒至终端</p>
+                <p className="text-white text-base font-bold tracking-wide">同步至机器人端</p>
+                <p className="text-white/50 text-xs mt-0.5">修改后将自动推送语音提醒至终端</p>
               </div>
            </div>
            <div className="w-2.5 h-2.5 rounded-full bg-green-400 shadow-[0_0_12px_rgba(74,222,128,0.5)] animate-pulse"></div>
@@ -2725,7 +2701,7 @@ const MedicationPlanView = ({
           >
             <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
               <div className="flex items-center gap-4">
-                <button onClick={() => { setIsAdding(false); setEditingMed(null); }} className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform">
+                <button onClick={() => { setIsAdding(false); setEditingMed(null); }} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform">
                   {'<'}
                 </button>
                 <h2 className="text-xl font-bold text-[#024481]">{isAdding ? '新增用药' : '维护医嘱'}</h2>
@@ -2733,7 +2709,7 @@ const MedicationPlanView = ({
               <button 
                 onClick={saveMedication}
                 disabled={!form.name || !form.dosage}
-                className={`px-6 py-2 rounded-2xl font-bold transition-all ${(!form.name || !form.dosage) ? 'bg-gray-100 text-gray-300' : 'bg-[#024481] text-white shadow-lg shadow-blue-900/20 active:scale-95'}`}
+                className={`px-6 py-2 rounded-[24px] font-bold transition-all ${(!form.name || !form.dosage) ? 'bg-gray-100 text-gray-300' : 'bg-[#024481] text-white shadow-lg shadow-blue-900/20 active:scale-95'}`}
               >
                 保存
               </button>
@@ -2755,7 +2731,7 @@ const MedicationPlanView = ({
                       </div>
                       <button 
                         onClick={(e) => { e.stopPropagation(); setForm({ ...form, imageUrl: undefined }); }}
-                        className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-md text-red-500 rounded-full flex items-center justify-center font-bold shadow-lg"
+                        className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-md text-[#E11D48] rounded-full flex items-center justify-center font-bold shadow-lg"
                       >
                         ×
                       </button>
@@ -2771,7 +2747,7 @@ const MedicationPlanView = ({
                     value={form.name}
                     placeholder="例如：缬沙坦胶囊"
                     onChange={e => setForm({ ...form, name: e.target.value })}
-                    className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
+                    className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
                   />
                 </div>
 
@@ -2783,7 +2759,7 @@ const MedicationPlanView = ({
                     value={form.dosage}
                     placeholder="例如：1粒"
                     onChange={e => setForm({ ...form, dosage: e.target.value })}
-                    className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
+                    className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
                   />
                 </div>
 
@@ -2795,7 +2771,7 @@ const MedicationPlanView = ({
                       type="date"
                       value={form.startDate}
                       onChange={e => setForm({ ...form, startDate: e.target.value })}
-                      className="w-full bg-gray-50 border-none rounded-2xl px-4 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none text-sm"
+                      className="w-full bg-gray-50 border-none rounded-[24px] px-4 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none text-base"
                     />
                   </div>
                   <div className="space-y-3">
@@ -2804,7 +2780,7 @@ const MedicationPlanView = ({
                       type="date"
                       value={form.endDate}
                       onChange={e => setForm({ ...form, endDate: e.target.value })}
-                      className="w-full bg-gray-50 border-none rounded-2xl px-4 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none text-sm"
+                      className="w-full bg-gray-50 border-none rounded-[24px] px-4 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none text-base"
                     />
                   </div>
                 </div>
@@ -2822,12 +2798,12 @@ const MedicationPlanView = ({
                           type="time"
                           value={time}
                           onChange={e => updateTime(idx, e.target.value)}
-                          className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
+                          className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-4 text-gray-700 font-bold focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
                         />
                         {form.times!.length > 1 && (
                           <button 
                             onClick={() => removeTime(idx)}
-                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-100 text-red-500 rounded-full text-xs flex items-center justify-center font-bold"
+                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-100 text-[#E11D48] rounded-full text-xs flex items-center justify-center font-bold"
                           >
                             ×
                           </button>
@@ -2841,7 +2817,7 @@ const MedicationPlanView = ({
               {!isAdding && editingMed && (
                 <button 
                   onClick={() => deleteMedication(editingMed.id)}
-                  className="w-full py-5 bg-red-50 text-red-500 rounded-[32px] font-bold active:scale-[0.98] transition-transform flex items-center justify-center gap-2 border border-red-100 mt-4"
+                  className="w-full py-5 bg-red-50 text-[#E11D48] rounded-[32px] font-bold active:scale-[0.98] transition-transform flex items-center justify-center gap-2 border border-red-100 mt-4"
                 >
                   <span className="text-lg">🗑️</span>
                   <span>删除此用药计划</span>
@@ -2888,19 +2864,19 @@ const LegalNoticeView = ({
           <p className="text-xs text-gray-400 mt-2">嘉和智护OS · 极简版说明</p>
         </div>
         
-        <div className="flex-1 overflow-y-auto text-sm text-gray-600 leading-relaxed space-y-4 px-2">
+        <div className="flex-1 overflow-y-auto text-base text-gray-600 leading-relaxed space-y-4 px-2">
           <p>1. <strong>数据安全</strong>：我们将采取工业级标准对您的健康数据进行加密存储。</p>
           <p>2. <strong>隐私边界</strong>：机器人采集的音频与视频仅用于实时通话与AI跌倒检测，绝不另作他用。</p>
           <p>3. <strong>知情同意</strong>：您可以随时在“个人中心”撤回各项数据授权。</p>
           <p>4. <strong>服务范围</strong>：本系统旨在辅助照护，不能替代专业医疗诊断。</p>
           {type === 'privacy' && (
             <div className="pt-6 border-t border-gray-50 flex flex-col gap-3">
-              <p className="text-[10px] text-gray-400 mb-1">您也可以根据需要执行以下操作：</p>
+              <p className="text-xs text-gray-400 mb-1">您也可以根据需要执行以下操作：</p>
               <button 
                 onClick={() => {
                   onViewLogs?.();
                 }}
-                className="w-full py-3 text-[#024481] font-bold text-xs bg-blue-50 rounded-xl active:scale-95 transition-transform"
+                className="w-full py-3 text-[#024481] font-bold text-xs bg-blue-50 rounded-[24px] active:scale-95 transition-transform"
               >查看摄像头调用详情</button>
               {isMainAccount && (
                 <button 
@@ -2908,17 +2884,17 @@ const LegalNoticeView = ({
                     onClose();
                     onDeleteData?.();
                   }}
-                  className="w-full py-3 text-red-500 font-bold text-xs bg-red-50 rounded-xl active:scale-95 transition-transform"
+                  className="w-full py-3 text-[#E11D48] font-bold text-xs bg-red-50 rounded-[24px] active:scale-95 transition-transform"
                 >清理历史数据</button>
               )}
             </div>
           )}
-          <p className="text-[10px] text-gray-400 pt-4 border-t border-gray-100">© 2026 嘉和智健（北京）科技有限公司 版权所有</p>
+          <p className="text-xs text-gray-400 pt-4 border-t border-gray-100">© 2026 嘉和智健（北京）科技有限公司 版权所有</p>
         </div>
         
         <button 
           onClick={onClose}
-          className="w-full py-4 bg-gray-100 rounded-2xl font-bold text-gray-600 active:scale-95 transition-transform"
+          className="w-full py-4 bg-gray-100 rounded-[24px] font-bold text-gray-600 active:scale-95 transition-transform"
         >我知道了</button>
       </div>
     </motion.div>
@@ -2943,16 +2919,16 @@ const CameraAccessLogsView = ({ logs, onClose }: { logs: CameraLog[], onClose: (
 
       <main className="flex-1 p-6 space-y-6 overflow-y-auto">
         <div className="bg-white rounded-[32px] p-6 space-y-4 border border-gray-100 shadow-sm">
-           <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center py-2 border-b border-gray-50">
+           <p className="text-xs text-gray-400 font-bold uppercase tracking-widest text-center py-2 border-b border-gray-50">
              隐私保障：端到端加密传输 🔒
            </p>
            <div className="space-y-4">
              {logs.length > 0 ? logs.map(log => (
                <div key={log.id} className="flex items-center justify-between py-4 border-b border-gray-50 last:border-0">
                  <div className="flex items-center gap-4">
-                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl font-bold ${
-                     log.source === '告警' ? 'bg-red-50 text-red-500' : 
-                     log.source === '通话' ? 'bg-blue-50 text-blue-500' : 'bg-green-50 text-green-500'
+                   <div className={`w-10 h-10 rounded-[24px] flex items-center justify-center text-xl font-bold ${
+                     log.source === '告警' ? 'bg-red-50 text-[#E11D48]' : 
+                     log.source === '通话' ? 'bg-blue-50 text-blue-500' : 'bg-green-50 text-[#10B981]'
                    }`}>
                      {log.source === '告警' ? '🚨' : log.source === '通话' ? '📞' : '📷'}
                    </div>
@@ -2970,7 +2946,7 @@ const CameraAccessLogsView = ({ logs, onClose }: { logs: CameraLog[], onClose: (
         </div>
         
         <div className="p-4 bg-blue-50/50 rounded-[24px] border border-blue-100/50">
-          <p className="text-[10px] text-blue-600 leading-relaxed text-center font-medium">
+          <p className="text-xs text-blue-600 leading-relaxed text-center font-medium">
             提示：采集的音视频仅用于实时通话与跌倒检测，暂不在云端进行持久化存储。
           </p>
         </div>
@@ -3030,19 +3006,19 @@ const RobotDetailView = ({
         </div>
         <button 
           onClick={() => onSave({ ...robot, nickname })}
-          className="bg-[#024481] text-white px-6 py-2 rounded-full font-black text-sm shadow-xl shadow-blue-100"
+          className="bg-[#024481] text-white px-6 py-2 rounded-full font-black text-base shadow-xl shadow-blue-100"
         >保存修改</button>
       </header>
 
       <main className="flex-1 p-6 space-y-6 overflow-y-auto">
         <div className="bg-white rounded-[32px] p-6 space-y-4 border border-gray-50 shadow-sm">
            <div className="space-y-1.5 text-left">
-             <label className="text-[10px] font-black text-gray-400 ml-1 uppercase tracking-widest">机器人名称</label>
+             <label className="text-xs font-black text-gray-400 ml-1 uppercase tracking-widest">机器人名称</label>
              <input 
                value={nickname}
                onChange={e => setNickname(e.target.value)}
                disabled={!isMainAccount}
-               className={`w-full ${!isMainAccount ? 'bg-gray-100 text-gray-400' : 'bg-gray-50 text-[#024481] focus:ring-2 focus:ring-blue-100'} border-none rounded-2xl p-4 text-sm font-black`}
+               className={`w-full ${!isMainAccount ? 'bg-gray-100 text-gray-400' : 'bg-gray-50 text-[#024481] focus:ring-2 focus:ring-blue-100'} border-none rounded-[24px] p-4 text-base font-black`}
              />
            </div>
            <div className="flex justify-between items-center px-1">
@@ -3057,17 +3033,17 @@ const RobotDetailView = ({
 
         <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex items-center justify-between">
            <div className="flex items-center gap-4">
-             <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-xl">💿</div>
+             <div className="w-10 h-10 bg-blue-50 rounded-[24px] flex items-center justify-center text-xl">💿</div>
              <div>
-               <p className="text-sm font-black text-gray-800">系统固件</p>
-               <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">Version {robot.version}</p>
+               <p className="text-base font-black text-gray-800">系统固件</p>
+               <p className="text-xs text-gray-400 font-bold uppercase tracking-tight">Version {robot.version}</p>
              </div>
            </div>
            {isMainAccount && (
              <button 
                onClick={handleOTA}
                disabled={upgrading}
-               className={`px-5 py-2 rounded-2xl text-[10px] font-black transition-all ${
+               className={`px-5 py-2 rounded-[24px] text-xs font-black transition-all ${
                  upgrading ? 'bg-gray-100 text-gray-400' : 'bg-blue-600 text-white shadow-lg active:scale-95'
                }`}
              >
@@ -3086,7 +3062,7 @@ const RobotDetailView = ({
           </button>
           <button 
             onClick={() => confirm('确定要关闭机器人吗？') && alert('已发送远程关机指令')}
-            className="bg-white p-6 rounded-[32px] flex flex-col items-center justify-center gap-3 border border-gray-50 shadow-sm active:bg-gray-50 transition-colors text-red-500"
+            className="bg-white p-6 rounded-[32px] flex flex-col items-center justify-center gap-3 border border-gray-50 shadow-sm active:bg-gray-50 transition-colors text-[#E11D48]"
           >
             <span className="text-2xl">🔌</span>
             <span className="text-xs font-black">远程关机</span>
@@ -3097,15 +3073,15 @@ const RobotDetailView = ({
           <div className="pt-4">
             <button 
               onClick={() => setShowDeleteConfirm(true)}
-              className="w-full py-4 text-red-500 font-black text-xs tracking-widest bg-red-50 rounded-2xl active:scale-95 transition-transform"
+              className="w-full py-4 text-[#E11D48] font-black text-xs tracking-widest bg-red-50 rounded-[24px] active:scale-95 transition-transform"
             >❌ 解除设备绑定</button>
-            <p className="text-center text-[10px] text-gray-300 font-bold mt-4 leading-relaxed px-4">
+            <p className="text-center text-xs text-gray-300 font-bold mt-4 leading-relaxed px-4">
               解除绑定后，该设备的历史轨迹和录音数据将被安全抹除。
             </p>
           </div>
         ) : (
           <div className="pt-4 text-center">
-            <p className="text-[10px] text-gray-400 font-bold mt-4 leading-relaxed px-4">
+            <p className="text-xs text-gray-400 font-bold mt-4 leading-relaxed px-4">
               当前账号为分享账号，无法解除设备绑定或修改设备参数。
             </p>
           </div>
@@ -3122,10 +3098,10 @@ const RobotDetailView = ({
             className="absolute inset-0 z-[200] bg-black/80 backdrop-blur-md flex items-center justify-center p-6"
           >
             <div className="bg-white rounded-[40px] w-full p-8 space-y-6 text-center">
-              <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center text-3xl mx-auto">⚠️</div>
+              <div className="w-16 h-16 bg-red-100 text-[#E11D48] rounded-full flex items-center justify-center text-3xl mx-auto">⚠️</div>
               <div className="space-y-1">
                 <h3 className="text-lg font-black text-gray-900 tracking-tight">确认解除绑定？</h3>
-                <p className="text-[10px] text-gray-400 font-bold leading-relaxed px-4">此操作不可撤销，请输入您的登录密码确认身份。</p>
+                <p className="text-xs text-gray-400 font-bold leading-relaxed px-4">此操作不可撤销，请输入您的登录密码确认身份。</p>
               </div>
               
               <div className="space-y-2">
@@ -3135,17 +3111,17 @@ const RobotDetailView = ({
                   autoFocus
                   value={password}
                   onChange={e => { setPassword(e.target.value); setPasswordError(''); }}
-                  className={`w-full h-14 bg-gray-50 border-none rounded-2xl p-4 text-sm font-black text-center tracking-[0.5em] focus:ring-2 ${passwordError ? 'ring-2 ring-red-300 animate-shake' : 'focus:ring-blue-100'}`}
+                  className={`w-full h-14 bg-gray-50 border-none rounded-[24px] p-4 text-base font-black text-center tracking-[0.5em] focus:ring-2 ${passwordError ? 'ring-2 ring-red-300 animate-shake' : 'focus:ring-blue-100'}`}
                 />
-                {passwordError && <p className="text-[10px] text-red-500 font-bold animate-pulse">{passwordError}</p>}
-                <p className="text-[8px] text-gray-300 font-bold">默认演示密码: 123456</p>
+                {passwordError && <p className="text-xs text-[#E11D48] font-bold animate-pulse">{passwordError}</p>}
+                <p className="text-xs text-gray-300 font-bold">默认演示密码: 123456</p>
               </div>
 
               <div className="flex gap-4">
                 <button onClick={() => setShowDeleteConfirm(false)} className="flex-1 py-4 text-gray-400 font-black text-xs uppercase tracking-widest leading-none">返回</button>
                 <button 
                   onClick={handleConfirmDelete}
-                  className="flex-1 py-4 bg-red-500 text-white rounded-2xl font-black text-xs shadow-xl shadow-red-200 active:scale-95 transition-transform"
+                  className="flex-1 py-4 bg-[#E11D48] text-white rounded-[24px] font-black text-xs shadow-xl shadow-red-200 active:scale-95 transition-transform"
                 >确认解绑</button>
               </div>
             </div>
@@ -3183,27 +3159,27 @@ const DeleteConfirmDialog = ({
       className="absolute inset-0 z-[200] bg-black/80 backdrop-blur-md flex items-center justify-center p-6 text-center"
     >
       <div className="bg-white rounded-[40px] w-full max-xs p-8 space-y-6">
-        <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">⚠️</div>
+        <div className="w-16 h-16 bg-red-100 text-[#E11D48] rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">⚠️</div>
         <div className="space-y-2">
           <h3 className="text-lg font-bold text-gray-800">重要安全确认</h3>
           <p className="text-xs text-gray-400 leading-relaxed">删除历史数据将永久移除所有健康趋势与录音，操作不可撤销。</p>
         </div>
         
         <div className="space-y-2 text-left">
-          <label className="text-[10px] font-bold text-gray-400 ml-1">请输入登录密码验证</label>
+          <label className="text-xs font-bold text-gray-400 ml-1">请输入登录密码验证</label>
           <input 
             type="password"
             placeholder="默认密码 123456"
             value={password}
             onChange={e => { setPassword(e.target.value); setError(''); }}
-            className={`w-full bg-gray-50 border-none rounded-2xl p-4 text-sm font-bold text-center tracking-widest ${error ? 'ring-1 ring-red-300' : ''}`}
+            className={`w-full bg-gray-50 border-none rounded-[24px] p-4 text-base font-bold text-center tracking-widest ${error ? 'ring-1 ring-red-300' : ''}`}
           />
-          {error && <p className="text-[10px] text-red-500 text-center font-medium">{error}</p>}
+          {error && <p className="text-xs text-[#E11D48] text-center font-medium">{error}</p>}
         </div>
 
         <div className="flex gap-3 pt-2">
-          <button onClick={onClose} className="flex-1 py-4 text-gray-400 font-bold text-sm">取消</button>
-          <button onClick={handleConfirm} className="flex-1 py-4 bg-red-500 text-white rounded-2xl font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform text-sm">确认清理</button>
+          <button onClick={onClose} className="flex-1 py-4 text-gray-400 font-bold text-base">取消</button>
+          <button onClick={handleConfirm} className="flex-1 py-4 bg-[#E11D48] text-white rounded-[24px] font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform text-base">确认清理</button>
         </div>
       </div>
     </motion.div>
@@ -3323,27 +3299,27 @@ const ElderlyProfileEditView = ({
               onSave(formData);
               onClose();
             }}
-            className="bg-[#024481] text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-md active:scale-95 transition-transform"
+            className="bg-[#024481] text-white px-4 py-1.5 rounded-full text-base font-bold shadow-md active:scale-95 transition-transform"
           >保存</button>
         </div>
       </header>
 
       <main className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] p-4 space-y-4 pb-12">
         {isScanning && (
-          <div className="bg-[#024481] text-white p-3 rounded-xl flex items-center justify-center gap-3 animate-pulse shadow-lg text-sm">
+          <div className="bg-[#024481] text-white p-3 rounded-[24px] flex items-center justify-center gap-3 animate-pulse shadow-lg text-base">
              <span className="animate-spin text-lg">⚙️</span> 正在AI解析电子病历档案...
           </div>
         )}
 
         {/* 核心基础信息 */}
-        <div className="bg-white rounded-2xl p-4 border border-gray-100 space-y-3">
+        <div className="bg-white rounded-[24px] p-4 border border-gray-100 space-y-3">
           <div className="flex items-center gap-4 mb-2">
              <div 
                className="relative shrink-0 cursor-pointer active:scale-95 transition-transform"
                onClick={handleAvatarSelect}
              >
                <img src={formData.avatar} className="w-14 h-14 rounded-full object-cover border-2 border-blue-50" alt="avatar" referrerPolicy="no-referrer" />
-               <div className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-1 rounded-full text-[8px]">📷</div>
+               <div className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-1 rounded-full text-xs">📷</div>
              </div>
              <div className="flex-1 space-y-2">
                 <input 
@@ -3351,7 +3327,7 @@ const ElderlyProfileEditView = ({
                   placeholder="姓名 (必填)"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 text-sm font-bold focus:ring-1 focus:ring-blue-200"
+                  className="w-full bg-gray-50 border-none rounded-[24px] px-3 py-2 text-base font-bold focus:ring-1 focus:ring-blue-200"
                 />
                 <input 
                   type="tel" 
@@ -3359,27 +3335,27 @@ const ElderlyProfileEditView = ({
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full bg-gray-50 border-none rounded-lg px-3 py-2 text-sm font-bold focus:ring-1 focus:ring-blue-200"
+                  className="w-full bg-gray-50 border-none rounded-[24px] px-3 py-2 text-base font-bold focus:ring-1 focus:ring-blue-200"
                 />
              </div>
           </div>
           
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-[10px] text-gray-400 font-bold ml-1 uppercase">年龄</label>
+              <label className="text-xs text-gray-400 font-bold ml-1 uppercase">年龄</label>
               <input 
                 type="number" 
                 value={formData.age}
                 onChange={(e) => setFormData({...formData, age: Number(e.target.value)})}
-                className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm font-bold"
+                className="w-full bg-gray-50 rounded-[24px] px-3 py-2 text-base font-bold"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] text-gray-400 font-bold ml-1 uppercase">血型</label>
+              <label className="text-xs text-gray-400 font-bold ml-1 uppercase">血型</label>
               <select 
                 value={formData.bloodType}
                 onChange={(e) => setFormData({...formData, bloodType: e.target.value})}
-                className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm font-bold appearance-none"
+                className="w-full bg-gray-50 rounded-[24px] px-3 py-2 text-base font-bold appearance-none"
               >
                 <option value="A型血">A型</option>
                 <option value="B型血">B型</option>
@@ -3397,58 +3373,58 @@ const ElderlyProfileEditView = ({
              健康档案详情
           </h3>
           
-          <div className="bg-white rounded-2xl p-4 border border-gray-100 space-y-4">
+          <div className="bg-white rounded-[24px] p-4 border border-gray-100 space-y-4">
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-400 font-bold ml-1">既往病史</label>
+              <label className="text-xs text-gray-400 font-bold ml-1">既往病史</label>
               <textarea 
                 rows={2}
                 value={formData.medicalHistory}
                 onChange={(e) => setFormData({...formData, medicalHistory: e.target.value})}
-                className="w-full bg-gray-50 rounded-xl p-3 text-xs leading-relaxed focus:ring-1 focus:ring-blue-100 border-none outline-none resize-none"
+                className="w-full bg-gray-50 rounded-[24px] p-3 text-xs leading-relaxed focus:ring-1 focus:ring-blue-100 border-none outline-none resize-none"
                 placeholder="手术史、重大疾病..."
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-400 font-bold ml-1">慢性病管理</label>
+              <label className="text-xs text-gray-400 font-bold ml-1">慢性病管理</label>
               <input 
                 type="text"
                 value={formData.chronicDiseases}
                 onChange={(e) => setFormData({...formData, chronicDiseases: e.target.value})}
-                className="w-full bg-gray-50 rounded-xl p-3 text-xs focus:ring-1 focus:ring-blue-100 border-none outline-none"
+                className="w-full bg-gray-50 rounded-[24px] p-3 text-xs focus:ring-1 focus:ring-blue-100 border-none outline-none"
                 placeholder="如：高血压、糖尿病"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-400 font-bold ml-1 italic text-red-400">⚠️ 过敏源</label>
+              <label className="text-xs text-gray-400 font-bold ml-1 italic text-red-400">⚠️ 过敏源</label>
               <input 
                 type="text"
                 value={formData.allergies}
                 onChange={(e) => setFormData({...formData, allergies: e.target.value})}
-                className="w-full bg-red-50/30 rounded-xl p-3 text-xs text-red-600 focus:ring-1 focus:ring-red-100 border-none outline-none font-medium"
+                className="w-full bg-red-50/30 rounded-[24px] p-3 text-xs text-[#E11D48] focus:ring-1 focus:ring-red-100 border-none outline-none font-medium"
                 placeholder="药物、食物过敏..."
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-400 font-bold ml-1">医嘱</label>
+              <label className="text-xs text-gray-400 font-bold ml-1">医嘱</label>
               <textarea 
                 rows={2}
                 value={formData.medications}
                 onChange={(e) => setFormData({...formData, medications: e.target.value})}
-                className="w-full bg-blue-50/30 rounded-xl p-3 text-xs text-blue-800 leading-relaxed border-none outline-none resize-none"
+                className="w-full bg-blue-50/30 rounded-[24px] p-3 text-xs text-blue-800 leading-relaxed border-none outline-none resize-none"
                 placeholder="药物名称、频次、剂量"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-400 font-bold ml-1">运动饮食管理</label>
+              <label className="text-xs text-gray-400 font-bold ml-1">运动饮食管理</label>
               <textarea 
                 rows={2}
                 value={formData.dietExercise || ''}
                 onChange={(e) => setFormData({...formData, dietExercise: e.target.value})}
-                className="w-full bg-green-50/30 rounded-xl p-3 text-xs text-green-800 leading-relaxed border-none outline-none resize-none"
+                className="w-full bg-green-50/30 rounded-[24px] p-3 text-xs text-green-800 leading-relaxed border-none outline-none resize-none"
                 placeholder="饮食建议、运动计划..."
               />
             </div>
@@ -3461,34 +3437,34 @@ const ElderlyProfileEditView = ({
              <span className="w-1 h-3 bg-[#024481] rounded-full inline-block"></span>
              评估与环境
           </h3>
-          <div className="bg-white rounded-2xl p-4 border border-gray-100 space-y-4">
+          <div className="bg-white rounded-[24px] p-4 border border-gray-100 space-y-4">
              <div className="grid grid-cols-3 gap-2">
                {['健康良好', '一般', '需关注'].map(h => (
                  <button
                    key={h}
                    onClick={() => setFormData({...formData, healthStatus: h})}
-                   className={`py-2 rounded-lg text-[10px] font-bold transition-all ${formData.healthStatus === h ? 'bg-blue-600 text-white' : 'bg-gray-50 text-gray-400'}`}
+                   className={`py-2 rounded-[24px] text-xs font-bold transition-all ${formData.healthStatus === h ? 'bg-blue-600 text-white' : 'bg-gray-50 text-gray-400'}`}
                  >{h}</button>
                ))}
              </div>
 
              <div className="space-y-1.5">
-               <label className="text-[10px] text-gray-400 font-bold ml-1">生活能力评估</label>
+               <label className="text-xs text-gray-400 font-bold ml-1">生活能力评估</label>
                <input 
                  type="text"
                  value={formData.livingAbility}
                  onChange={(e) => setFormData({...formData, livingAbility: e.target.value})}
-                 className="w-full bg-gray-50 rounded-xl p-3 text-xs border-none outline-none"
+                 className="w-full bg-gray-50 rounded-[24px] p-3 text-xs border-none outline-none"
                />
              </div>
 
              <div className="space-y-1.5">
-               <label className="text-[10px] text-gray-400 font-bold ml-1">风险提示</label>
+               <label className="text-xs text-gray-400 font-bold ml-1">风险提示</label>
                <input 
                  type="text"
                  value={formData.riskAssessment}
                  onChange={(e) => setFormData({...formData, riskAssessment: e.target.value})}
-                 className="w-full bg-gray-50 rounded-xl p-3 text-xs border-none outline-none"
+                 className="w-full bg-gray-50 rounded-[24px] p-3 text-xs border-none outline-none"
                />
              </div>
           </div>
@@ -3549,7 +3525,7 @@ const DeviceManagementView = ({
             </h4>
             <button 
               onClick={onAddRobot}
-              className="text-[10px] text-blue-600 font-bold bg-blue-50 px-3 py-1 rounded-full active:scale-95 transition-transform"
+              className="text-xs text-blue-600 font-bold bg-blue-50 px-3 py-1 rounded-full active:scale-95 transition-transform"
             >＋ 绑定机器人</button>
           </div>
           {robots.map(robot => (
@@ -3560,17 +3536,17 @@ const DeviceManagementView = ({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-transform ${activeRobotId === robot.id ? 'bg-white/20' : 'bg-gray-50'}`}>
+                  <div className={`w-12 h-12 rounded-[24px] flex items-center justify-center text-2xl transition-transform ${activeRobotId === robot.id ? 'bg-white/20' : 'bg-gray-50'}`}>
                     🤖
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                       <p className={`font-bold transition-all ${activeRobotId === robot.id ? 'text-white text-base' : 'text-gray-800 text-sm'}`}>{robot.nickname}</p>
-                       {activeRobotId === robot.id && <span className="bg-[#0d6c42] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase">默认显示</span>}
+                       <p className={`font-bold transition-all ${activeRobotId === robot.id ? 'text-white text-base' : 'text-gray-800 text-base'}`}>{robot.nickname}</p>
+                       {activeRobotId === robot.id && <span className="bg-[#0d6c42] text-white text-xs font-bold px-1.5 py-0.5 rounded-full uppercase">默认显示</span>}
                     </div>
                     <div className="flex items-center gap-1.5 mt-1">
                        <span className={`w-1.5 h-1.5 rounded-full ${robot.status === 'online' ? (activeRobotId === robot.id ? 'bg-green-400' : 'bg-[#0d6c42]') + ' animate-pulse' : 'bg-gray-300'}`}></span>
-                       <span className={`text-[10px] font-bold ${activeRobotId === robot.id ? 'text-white/60' : (robot.status === 'online' ? 'text-[#0d6c42]' : 'text-gray-400')}`}>
+                       <span className={`text-xs font-bold ${activeRobotId === robot.id ? 'text-white/60' : (robot.status === 'online' ? 'text-[#0d6c42]' : 'text-gray-400')}`}>
                          {robot.status === 'online' ? '在线运行中' : '离线/深度休眠'}
                        </span>
                     </div>
@@ -3581,18 +3557,18 @@ const DeviceManagementView = ({
                     e.stopPropagation();
                     onRobotDetail(robot);
                   }}
-                  className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider transition-all active:scale-90 ${activeRobotId === robot.id ? 'bg-white text-[#024481] shadow-sm' : 'bg-gray-100 text-gray-400'}`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all active:scale-90 ${activeRobotId === robot.id ? 'bg-white text-[#024481] shadow-sm' : 'bg-gray-100 text-gray-400'}`}
                 >管理</button>
               </div>
               {activeRobotId === robot.id && (
                 <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-2">
-                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl flex items-center justify-center gap-2">
+                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-[24px] flex items-center justify-center gap-2">
                     <span className="text-xs font-bold text-white/60 uppercase tracking-tighter">电量</span>
                     <div className="w-10 h-2 bg-white/20 rounded-full overflow-hidden">
                        <div className="h-full bg-green-400" style={{ width: `${robot.battery}%` }}></div>
                     </div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-white">
+                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-[24px] flex items-center justify-center gap-2 text-xs font-bold text-white">
                     📶 {robot.network}
                   </div>
                 </div>
@@ -3605,12 +3581,12 @@ const DeviceManagementView = ({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h4 className="text-xs font-bold text-gray-400 flex items-center gap-2">
-              <span className="w-1 h-1 bg-green-500 rounded-full"></span>
+              <span className="w-1 h-1 bg-[#10B981] rounded-full"></span>
               智能平台与健康硬件
             </h4>
             <button 
               onClick={onAddSmartDevice}
-              className="text-[10px] text-green-600 font-bold bg-green-50 px-3 py-1 rounded-full active:scale-95 transition-transform"
+              className="text-xs text-[#10B981] font-bold bg-green-50 px-3 py-1 rounded-full active:scale-95 transition-transform"
             >＋ 绑定硬件</button>
           </div>
           <div className="space-y-3">
@@ -3621,37 +3597,37 @@ const DeviceManagementView = ({
             ].map(d => (
               <div 
                 key={d.id}
-                className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center justify-between group active:bg-blue-50/50 transition-all cursor-default shadow-sm"
+                className="bg-white p-4 rounded-[24px] border border-gray-100 flex items-center justify-between group active:bg-blue-50/50 transition-all cursor-default shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl group-active:scale-90 transition-transform">
+                  <div className="w-12 h-12 bg-gray-50 rounded-[24px] flex items-center justify-center text-2xl group-active:scale-90 transition-transform">
                     {d.icon}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <p className="font-bold text-gray-800 text-sm">{d.name}</p>
-                      <span className={`text-[8px] px-1.5 py-0.5 rounded font-bold ${d.color === 'blue' ? 'bg-blue-50 text-blue-600' : d.color === 'orange' ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}`}>
+                      <p className="font-bold text-gray-800 text-base">{d.name}</p>
+                      <span className={`text-xs px-1.5 py-0.5 rounded font-bold ${d.color === 'blue' ? 'bg-blue-50 text-blue-600' : d.color === 'orange' ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-[#10B981]'}`}>
                         {d.platform}
                       </span>
                     </div>
-                    <p className={`text-[10px] font-medium mt-0.5 ${d.color === 'green' || d.color === 'blue' ? 'text-[#0d6c42]' : 'text-gray-400'}`}>
+                    <p className={`text-xs font-medium mt-0.5 ${d.color === 'green' || d.color === 'blue' ? 'text-[#0d6c42]' : 'text-gray-400'}`}>
                       {d.val}
                     </p>
                   </div>
                 </div>
                 <button 
                   onClick={() => onDeviceManage(d)}
-                  className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-gray-50 text-gray-400 border border-gray-100 active:scale-90 transition-transform"
+                  className="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-gray-50 text-gray-400 border border-gray-100 active:scale-90 transition-transform"
                 >管理</button>
               </div>
             ))}
 
             <div 
               onClick={onAddPlatform}
-              className="bg-dashed border-2 border-dashed border-gray-100 p-4 rounded-2xl flex items-center justify-center gap-2 active:bg-gray-50 transition-colors group cursor-pointer"
+              className="bg-dashed border-2 border-dashed border-gray-100 p-4 rounded-[24px] flex items-center justify-center gap-2 active:bg-gray-50 transition-colors group cursor-pointer"
             >
               <span className="text-lg text-gray-300 group-hover:scale-110 transition-transform">➕</span>
-              <p className="text-[10px] font-bold text-gray-400">对接华为或小米账号获取健康数据</p>
+              <p className="text-xs font-bold text-gray-400">对接华为或小米账号获取健康数据</p>
             </div>
           </div>
         </div>
@@ -3697,26 +3673,26 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
             <p className="text-xs text-gray-400 mt-1">序列号: {device.id || 'SN-772839441'}</p>
           </div>
           <div className="flex gap-2">
-            <span className="bg-green-50 text-[#0d6c42] text-[10px] font-bold px-3 py-1 rounded-full border border-green-100 italic">Connected</span>
-            <span className="bg-blue-50 text-blue-600 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-100">Battery 85%</span>
+            <span className="bg-green-50 text-[#0d6c42] text-xs font-bold px-3 py-1 rounded-full border border-green-100 italic">Connected</span>
+            <span className="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-100">Battery 85%</span>
           </div>
         </div>
 
         {/* 管理选项组 */}
         <div className="space-y-3">
-          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">数据与同步</p>
+          <p className="text-xs text-gray-400 font-bold uppercase tracking-widest px-1">数据与同步</p>
           <button 
             onClick={handleSync}
             disabled={isSyncing}
             className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all"
           >
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl">
+              <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-xl">
                 {isSyncing ? '⏳' : '🔄'}
               </div>
               <div className="text-left">
-                <p className="font-bold text-gray-800 text-sm">立即同步数据</p>
-                <p className="text-[10px] text-gray-400 mt-1">同步上次测量后的所有离线记录</p>
+                <p className="font-bold text-gray-800 text-base">立即同步数据</p>
+                <p className="text-xs text-gray-400 mt-1">同步上次测量后的所有离线记录</p>
               </div>
             </div>
             <span className="text-gray-300">❯</span>
@@ -3724,10 +3700,10 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
 
           <button className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-xl">📊</div>
+              <div className="w-10 h-10 bg-orange-50 text-orange-600 rounded-[24px] flex items-center justify-center text-xl">📊</div>
               <div className="text-left">
-                <p className="font-bold text-gray-800 text-sm">测量趋势分析</p>
-                <p className="text-[10px] text-gray-400 mt-1">查看该设备的历史全量数据报表</p>
+                <p className="font-bold text-gray-800 text-base">测量趋势分析</p>
+                <p className="text-xs text-gray-400 mt-1">查看该设备的历史全量数据报表</p>
               </div>
             </div>
             <span className="text-gray-300">❯</span>
@@ -3735,13 +3711,13 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
         </div>
 
         <div className="space-y-3">
-          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">安全设置</p>
+          <p className="text-xs text-gray-400 font-bold uppercase tracking-widest px-1">安全设置</p>
           <button className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center text-xl">🔔</div>
+              <div className="w-10 h-10 bg-red-50 text-[#E11D48] rounded-[24px] flex items-center justify-center text-xl">🔔</div>
               <div className="text-left">
-                <p className="font-bold text-gray-800 text-sm">告警阈值设定</p>
-                <p className="text-[10px] text-gray-400 mt-1">当测量值超过范围时自动呼叫家人</p>
+                <p className="font-bold text-gray-800 text-base">告警阈值设定</p>
+                <p className="text-xs text-gray-400 mt-1">当测量值超过范围时自动呼叫家人</p>
               </div>
             </div>
             <span className="text-gray-300">❯</span>
@@ -3756,7 +3732,7 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
                 onDisconnect();
               }
             }}
-            className="w-full py-4 text-red-500 font-bold border-2 border-red-50/50 rounded-[24px] active:bg-red-50 transition-colors"
+            className="w-full py-4 text-[#E11D48] font-bold border-2 border-red-50/50 rounded-[24px] active:bg-red-50 transition-colors"
           >
             解除设备绑定
           </button>
@@ -3793,14 +3769,14 @@ const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
       
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         <div className="bg-blue-50/50 p-5 rounded-[24px] border border-blue-100 flex items-start gap-4">
-          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-xl shadow-sm">💡</div>
+          <div className="w-10 h-10 bg-white rounded-[24px] flex items-center justify-center text-xl shadow-sm">💡</div>
           <p className="text-xs text-blue-700 leading-relaxed font-medium">
             授权后，系统将自动从第三方平台获取长辈的基础生理指标（步数、心率、呼吸等），协助机器人为您生成更精准的健康报告。
           </p>
         </div>
 
         <div className="space-y-4">
-          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">可选平台列表</p>
+          <p className="text-xs text-gray-400 font-bold uppercase tracking-widest px-1">可选平台列表</p>
           {platforms.map(p => (
             <button 
               key={p.id}
@@ -3808,16 +3784,16 @@ const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
               className="w-full bg-white p-5 rounded-[28px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all group shadow-sm hover:shadow-md"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-2xl group-active:scale-90 transition-transform">
+                <div className="w-12 h-12 bg-gray-50 rounded-[24px] flex items-center justify-center text-2xl group-active:scale-90 transition-transform">
                   {p.icon}
                 </div>
                 <div className="text-left">
-                  <p className="font-bold text-gray-800 text-sm">{p.name}</p>
-                  <p className="text-[10px] text-gray-400 mt-1">{p.detail}</p>
+                  <p className="font-bold text-gray-800 text-base">{p.name}</p>
+                  <p className="text-xs text-gray-400 mt-1">{p.detail}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${p.status === '未连接' ? 'text-blue-600 bg-blue-50' : 'text-gray-400 bg-gray-50'}`}>
+                <span className={`text-xs font-bold px-3 py-1 rounded-full ${p.status === '未连接' ? 'text-blue-600 bg-blue-50' : 'text-gray-400 bg-gray-50'}`}>
                   {p.status}
                 </span>
                 <span className="text-gray-300">❯</span>
@@ -3828,7 +3804,7 @@ const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
 
         <div className="mt-12 text-center pb-12">
           <div className="w-12 h-1 bg-gray-200 mx-auto rounded-full mb-4"></div>
-          <p className="text-[10px] text-gray-300 font-medium">数据加密传输中 · 由嘉和智护安全中心提供技术支持</p>
+          <p className="text-xs text-gray-300 font-medium">数据加密传输中 · 由嘉和智护安全中心提供技术支持</p>
         </div>
       </div>
     </motion.div>
@@ -3884,8 +3860,8 @@ const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
         ) : (
           <div className="space-y-4">
             <div className="flex items-center justify-between px-1">
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">发现可用设备 ({devices.length})</p>
-              <button className="text-[10px] text-blue-600 font-bold" onClick={() => { setScanning(true); setDevices([]); }}>重新搜索</button>
+              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">发现可用设备 ({devices.length})</p>
+              <button className="text-xs text-blue-600 font-bold" onClick={() => { setScanning(true); setDevices([]); }}>重新搜索</button>
             </div>
             {devices.map(d => (
               <button 
@@ -3894,13 +3870,13 @@ const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
                 className="w-full bg-white p-5 rounded-[28px] border border-gray-100 flex items-center justify-between active:scale-[0.98] transition-transform shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-2xl">🩺</div>
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-2xl">🩺</div>
                   <div className="text-left">
-                    <p className="font-bold text-gray-800 text-sm">{d.name}</p>
-                    <p className="text-[10px] text-gray-400 mt-1">{d.type} · 信号稳定</p>
+                    <p className="font-bold text-gray-800 text-base">{d.name}</p>
+                    <p className="text-xs text-gray-400 mt-1">{d.type} · 信号稳定</p>
                   </div>
                 </div>
-                <div className="bg-[#024481] text-white text-[10px] font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-100">绑定</div>
+                <div className="bg-[#024481] text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-100">绑定</div>
               </button>
             ))}
 
@@ -4007,18 +3983,18 @@ const AddRobotView = ({
 
            {/* 序列号录入 */}
            <div className="space-y-1.5">
-             <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">设备序列号 (SN)</label>
+             <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">设备序列号 (SN)</label>
              <div className="flex gap-2">
                <input 
                  type="text" 
                  placeholder="请输入序列号"
                  value={formData.sn}
                  onChange={(e) => setFormData({...formData, sn: e.target.value})}
-                 className="flex-1 bg-gray-50 border-none rounded-2xl p-4 text-sm font-bold focus:ring-2 focus:ring-blue-100"
+                 className="flex-1 bg-gray-50 border-none rounded-[24px] p-4 text-base font-bold focus:ring-2 focus:ring-blue-100"
                />
                <button 
                  onClick={handleScanSN}
-                 className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl active:scale-95 transition-transform"
+                 className="w-14 h-14 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-xl active:scale-95 transition-transform"
                >
                  📷
                </button>
@@ -4028,13 +4004,13 @@ const AddRobotView = ({
             
            {/* 机器人昵称 */}
            <div className="space-y-1.5">
-             <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">机器人名称</label>
+             <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">机器人名称</label>
              <input 
                type="text" 
                placeholder="给机器人起个名字"
                value={formData.nickname}
                onChange={(e) => setFormData({...formData, nickname: e.target.value})}
-               className="w-full bg-gray-50 border-none rounded-2xl p-4 text-sm font-bold focus:ring-2 focus:ring-blue-100"
+               className="w-full bg-gray-50 border-none rounded-[24px] p-4 text-base font-bold focus:ring-2 focus:ring-blue-100"
              />
            </div>
         </div>
@@ -4042,7 +4018,7 @@ const AddRobotView = ({
         {/* 服务商信息 */}
         <div className="bg-white rounded-[32px] p-6 border border-gray-50 card-shadow space-y-4">
            <div className="flex items-center gap-2 mb-1">
-             <span className="w-1 h-3 bg-green-500 rounded-full"></span>
+             <span className="w-1 h-3 bg-[#10B981] rounded-full"></span>
              <h3 className="text-xs font-bold text-gray-800">服务人员信息 (必填)</h3>
            </div>
            <div className="space-y-3">
@@ -4051,14 +4027,14 @@ const AddRobotView = ({
                placeholder="服务人员姓名"
                value={formData.serviceProviderName}
                onChange={(e) => setFormData({...formData, serviceProviderName: e.target.value})}
-               className="w-full bg-gray-50 border-none rounded-2xl p-4 text-sm font-bold"
+               className="w-full bg-gray-50 border-none rounded-[24px] p-4 text-base font-bold"
              />
              <input 
                type="tel" 
                placeholder="服务人员手机号"
                value={formData.serviceProviderPhone}
                onChange={(e) => setFormData({...formData, serviceProviderPhone: e.target.value})}
-               className="w-full bg-gray-50 border-none rounded-2xl p-4 text-sm font-bold"
+               className="w-full bg-gray-50 border-none rounded-[24px] p-4 text-base font-bold"
              />
            </div>
         </div>
@@ -4066,7 +4042,7 @@ const AddRobotView = ({
         <button 
           disabled={!formData.sn || !formData.serviceProviderName || !formData.serviceProviderPhone}
           onClick={handleConfirm}
-          className="w-full py-4 bg-[#024481] text-white rounded-2xl font-bold shadow-xl shadow-blue-100 active:scale-[0.98] transition-all disabled:opacity-30"
+          className="w-full py-4 bg-[#024481] text-white rounded-[24px] font-bold shadow-xl shadow-blue-100 active:scale-[0.98] transition-all disabled:opacity-30"
         >
           确认绑定设备
         </button>
@@ -4113,7 +4089,7 @@ const AddRobotView = ({
                  className="absolute left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#00f249]/20 transform -translate-y-full z-10"
                />
             </div>
-            <p className="text-white/60 mt-10 text-sm font-bold tracking-widest text-center">将二维码/条码放入框内<br/><span className="text-xs font-normal opacity-80 mt-2 block">即可自动扫描识别并绑定</span></p>
+            <p className="text-white/60 mt-10 text-base font-bold tracking-widest text-center">将二维码/条码放入框内<br/><span className="text-xs font-normal opacity-80 mt-2 block">即可自动扫描识别并绑定</span></p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -4189,7 +4165,7 @@ const AddRobotView = ({
                 {bindingState.step === 'binding' && '同步安全数据'}
                 {bindingState.step === 'success' && '成功绑定'}
               </h4>
-              <p className="text-gray-400 text-sm leading-relaxed font-medium">
+              <p className="text-gray-400 text-base leading-relaxed font-medium">
                 {bindingState.step === 'searching' && '正在通过 5G 信号匹配您身边的机器人...'}
                 {bindingState.step === 'connecting' && '正在与设备终端进行握手验证，请稍候'}
                 {bindingState.step === 'binding' && '正在为您分配专属照护空间，同步健康模型'}
@@ -4275,24 +4251,23 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
           {/* 页眉 */}
           <div className="flex justify-between items-start border-b-2 border-blue-50 pb-6">
             <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-3">小和</div>
-              <h1 className="text-2xl font-black text-gray-900 italic">HEALTH REPORT</h1>
-              <p className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase mt-1">Professional Assessment</p>
+              <div className="w-12 h-12 rounded-[24px] bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-3">小和</div>
+              <h1 className="text-2xl font-black text-gray-900">健康评估报告</h1>
             </div>
             <div className="text-right">
               <p className="text-xs font-bold text-gray-400">报告周期</p>
-              <p className="text-sm font-black text-[#1e293b]">{reportData.dateRange}</p>
-              <div className="mt-4 inline-block px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold">状态：{reportData.overallStatus}</div>
+              <p className="text-base font-black text-[#1e293b]">{reportData.dateRange}</p>
+              <div className="mt-4 inline-block px-3 py-1 bg-green-100 text-green-700 rounded-[24px] text-xs font-bold">状态：{reportData.overallStatus}</div>
             </div>
           </div>
 
           {/* 综述 */}
           <section className="space-y-3">
-             <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2">
+             <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
                <span className="w-1 h-4 bg-blue-500 rounded-full"></span>
                AI 综合评估
              </h3>
-             <p className="text-sm text-gray-600 leading-loose bg-blue-50/50 p-4 rounded-2xl italic">
+             <p className="text-base text-gray-600 leading-loose bg-blue-50/50 p-4 rounded-[24px] italic">
                “{reportData.statusDesc}”
              </p>
           </section>
@@ -4300,12 +4275,12 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
           {/* 指标卡片 */}
           <div className="grid grid-cols-2 gap-4">
             {reportData.metrics.map((m, i) => (
-              <div key={i} className="p-4 bg-gray-50/50 rounded-2xl border border-gray-100 flex flex-col gap-1">
+              <div key={i} className="p-4 bg-gray-50/50 rounded-[24px] border border-gray-100 flex flex-col gap-1">
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-xl">{m.icon}</span>
-                  <span className="text-[8px] bg-white px-1.5 py-0.5 rounded font-bold text-gray-400">{m.status}</span>
+                  <span className="text-xs bg-white px-1.5 py-0.5 rounded font-bold text-gray-400">{m.status}</span>
                 </div>
-                <p className="text-[10px] text-gray-400 font-bold">{m.name}</p>
+                <p className="text-xs text-gray-400 font-bold">{m.name}</p>
                 <p className="text-base font-black text-gray-800">{m.value}</p>
               </div>
             ))}
@@ -4313,7 +4288,7 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
 
           {/* 本周亮点 */}
           <section className="space-y-3">
-             <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2">
+             <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
                <span className="w-1 h-4 bg-emerald-500 rounded-full"></span>
                本周亮点
              </h3>
@@ -4329,13 +4304,13 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
 
           {/* 专业建议 */}
           <section className="space-y-3">
-             <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2">
-               <span className="w-1 h-4 bg-orange-500 rounded-full"></span>
+             <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
+               <span className="w-1 h-4 bg-[#F59E0B] rounded-full"></span>
                下周建议
              </h3>
              <div className="space-y-2">
                {reportData.suggestions.map((s, i) => (
-                 <div key={i} className="p-3 bg-orange-50/30 rounded-xl text-xs text-gray-700 leading-relaxed border-l-2 border-orange-200">
+                 <div key={i} className="p-3 bg-orange-50/30 rounded-[24px] text-xs text-gray-700 leading-relaxed border-l-2 border-orange-200">
                    {s}
                  </div>
                ))}
@@ -4345,14 +4320,13 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
           {/* 印章/页脚 */}
           <div className="pt-8 border-t border-gray-100 flex justify-between items-end">
             <div className="space-y-1">
-              <p className="text-[10px] text-gray-400 font-bold">检测设备：JH-Care X1 智能机器人</p>
-              <p className="text-[10px] text-gray-400 font-bold">生成时间：2026.05.11 08:45:12</p>
+              <p className="text-xs text-gray-400 font-bold">检测设备：JH-Care X1 智能机器人</p>
+              <p className="text-xs text-gray-400 font-bold">生成时间：2026.05.11 08:45:12</p>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 border-2 border-blue-200 rounded-full flex items-center justify-center -mb-4 opacity-30 select-none">
-                <span className="text-[8px] font-black text-blue-500 text-center scale-90">小和 AI<br/>健康评估<br/>专用章</span>
+                <span className="text-xs font-black text-blue-500 text-center scale-90">小和 AI<br/>健康评估<br/>专用章</span>
               </div>
-              <p className="text-[10px] font-black text-[#024481] italic">Xiao He AI Care</p>
             </div>
           </div>
         </div>
@@ -4361,13 +4335,13 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
       <footer className="p-6 bg-white border-t border-gray-100 flex gap-4">
         <button 
           onClick={handleWeChatClick}
-          className="flex-1 py-4 bg-gray-100 text-gray-700 rounded-2xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+          className="flex-1 py-4 bg-gray-100 text-gray-700 rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
         >
           <span>📤</span> 分享转发
         </button>
         <button 
           onClick={() => alert('PDF 正在下载中...')}
-          className="flex-1 py-4 bg-[#024481] text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-100 active:scale-95 transition-transform"
+          className="flex-1 py-4 bg-[#024481] text-white rounded-[24px] font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-100 active:scale-95 transition-transform"
         >
           <span>📥</span> 立即下载
         </button>
@@ -4459,27 +4433,27 @@ const LoginRegisterView = ({
       <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full space-y-6">
         <div className="space-y-4">
           <div className="flex justify-between items-start">
-            <div className="w-16 h-16 bg-[#024481] rounded-2xl flex items-center justify-center text-3xl shadow-xl shadow-blue-100 shrink-0">🏠</div>
+            <div className="w-16 h-16 bg-[#024481] rounded-[24px] flex items-center justify-center text-3xl shadow-xl shadow-blue-100 shrink-0">🏠</div>
             <div className="flex flex-col gap-2 items-end">
               {isLogin && (
                 <>
                   <div className="flex flex-col gap-1.5 w-full items-end">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase">全场景演示区</span>
+                    <span className="text-xs text-gray-400 font-bold uppercase">全场景演示区</span>
                     <div className="grid grid-cols-2 gap-2 w-full max-w-[200px]">
                       <button 
                         type="button"
                         onClick={fillMainAccountDemo}
-                        className="text-[10px] bg-blue-500 text-white px-2 py-1.5 rounded-lg font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-blue-500/30"
+                        className="text-xs bg-blue-500 text-white px-2 py-1.5 rounded-[24px] font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-blue-500/30"
                       ><span>👑</span>主账号模式</button>
                       <button 
                         type="button"
                         onClick={fillSharedAccountDemo}
-                        className="text-[10px] bg-indigo-500 text-white px-2 py-1.5 rounded-lg font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-indigo-500/30"
+                        className="text-xs bg-indigo-500 text-white px-2 py-1.5 rounded-[24px] font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-indigo-500/30"
                       ><span>👥</span>分享号模式</button>
                       <button 
                         type="button"
                         onClick={fillAbnormalAccountDemo}
-                        className="text-[10px] bg-amber-500 text-white px-2 py-1.5 rounded-lg font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-amber-500/30 col-span-2"
+                        className="text-xs bg-amber-500 text-white px-2 py-1.5 rounded-[24px] font-black uppercase tracking-wider active:scale-95 transition-all text-center flex items-center justify-center gap-1 shadow-md shadow-amber-500/30 col-span-2"
                       ><span>⚠️</span>账号异常模式</button>
                     </div>
                   </div>
@@ -4488,14 +4462,14 @@ const LoginRegisterView = ({
                     <button 
                       type="button"
                       onClick={fillDemoAccount}
-                      className="text-[10px] bg-blue-50 text-[#024481] px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
+                      className="text-xs bg-blue-50 text-[#024481] px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
                     >老演示</button>
                     <button 
                       type="button"
                       onClick={() => {
                         onAnonymousLogin();
                       }}
-                      className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
+                      className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
                     >匿名模式</button>
                     <button 
                       type="button"
@@ -4505,7 +4479,7 @@ const LoginRegisterView = ({
                         onSetRobots([]);
                         onSetLoggedIn(true);
                       }}
-                      className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
+                      className="text-xs bg-emerald-50 text-emerald-600 px-2 py-1 rounded font-black uppercase tracking-wider active:scale-95 transition-all text-center"
                     >快速绑定</button>
                   </div>
                 </>
@@ -4514,32 +4488,32 @@ const LoginRegisterView = ({
           </div>
           <div className="space-y-1">
             <h1 className="text-3xl font-black text-gray-900 tracking-tight">{isLogin ? '欢迎回来' : '开启守护'}</h1>
-            <p className="text-gray-400 font-bold text-sm">家和万事兴 · 欢迎使用嘉和智护OS系统</p>
+            <p className="text-gray-400 font-bold text-base">家和万事兴 · 欢迎使用嘉和智护OS系统</p>
           </div>
         </div>
 
         {/* 登录方式切换 - 仅在登录状态显示 */}
         {isLogin && (
-          <div className="flex bg-gray-50 p-1.5 rounded-2xl">
+          <div className="flex bg-gray-50 p-1.5 rounded-[24px]">
             <button 
               onClick={() => setLoginMethod('sms')}
-              className={`flex-1 py-3 text-xs font-black rounded-xl transition-all ${loginMethod === 'sms' ? 'bg-white text-[#024481] shadow-sm' : 'text-gray-400'}`}
+              className={`flex-1 py-3 text-xs font-black rounded-[24px] transition-all ${loginMethod === 'sms' ? 'bg-white text-[#024481] shadow-sm' : 'text-gray-400'}`}
             >验证码登录</button>
             <button 
               onClick={() => setLoginMethod('password')}
-              className={`flex-1 py-3 text-xs font-black rounded-xl transition-all ${loginMethod === 'password' ? 'bg-white text-[#024481] shadow-sm' : 'text-gray-400'}`}
+              className={`flex-1 py-3 text-xs font-black rounded-[24px] transition-all ${loginMethod === 'password' ? 'bg-white text-[#024481] shadow-sm' : 'text-gray-400'}`}
             >密码登录</button>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-1.5">
-            <label className="text-[10px] text-gray-400 font-black uppercase tracking-widest px-1">手机号码</label>
+            <label className="text-xs text-gray-400 font-black uppercase tracking-widest px-1">手机号码</label>
             <input 
               type="tel" 
               placeholder="请输入 11 位手机号"
               required
-              className="w-full h-14 bg-gray-50 border-none rounded-2xl px-6 text-sm font-bold focus:ring-2 focus:ring-[#024481] transition-all"
+              className="w-full h-14 bg-gray-50 border-none rounded-[24px] px-6 text-base font-bold focus:ring-2 focus:ring-[#024481] transition-all"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
@@ -4547,16 +4521,16 @@ const LoginRegisterView = ({
 
           {(isLogin && loginMethod === 'sms') || !isLogin ? (
              <div className="space-y-1.5">
-                <label className="text-[10px] text-gray-400 font-black uppercase tracking-widest px-1">短信验证码</label>
+                <label className="text-xs text-gray-400 font-black uppercase tracking-widest px-1">短信验证码</label>
                 <div className="flex gap-2">
                   <input 
                     type="text" 
                     placeholder="6位验证码"
-                    className="flex-1 h-14 bg-gray-50 border-none rounded-2xl px-6 text-sm font-bold focus:ring-2 focus:ring-[#024481] transition-all"
+                    className="flex-1 h-14 bg-gray-50 border-none rounded-[24px] px-6 text-base font-bold focus:ring-2 focus:ring-[#024481] transition-all"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                   />
-                  <button type="button" className="px-5 h-14 bg-gray-100 text-gray-600 rounded-2xl text-xs font-bold active:scale-95 transition-transform">获取码</button>
+                  <button type="button" className="px-5 h-14 bg-gray-100 text-gray-600 rounded-[24px] text-xs font-bold active:scale-95 transition-transform">获取码</button>
                 </div>
              </div>
           ) : null}
@@ -4564,14 +4538,14 @@ const LoginRegisterView = ({
           {(isLogin && loginMethod === 'password') || !isLogin ? (
             <div className="space-y-1.5">
               <div className="flex justify-between px-1">
-                <label className="text-[10px] text-gray-400 font-black uppercase tracking-widest">{!isLogin ? '设置密码' : '登录密码'}</label>
-                {isLogin && <button type="button" className="text-[10px] text-gray-400 font-bold">忘记密码？</button>}
+                <label className="text-xs text-gray-400 font-black uppercase tracking-widest">{!isLogin ? '设置密码' : '登录密码'}</label>
+                {isLogin && <button type="button" className="text-xs text-gray-400 font-bold">忘记密码？</button>}
               </div>
               <input 
                 type="password" 
                 placeholder={isLogin ? "请输入密码" : "6-12位字母数字"}
                 required
-                className="w-full h-14 bg-gray-50 border-none rounded-2xl px-6 text-sm font-bold focus:ring-2 focus:ring-[#024481] transition-all"
+                className="w-full h-14 bg-gray-50 border-none rounded-[24px] px-6 text-base font-bold focus:ring-2 focus:ring-[#024481] transition-all"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               />
@@ -4581,7 +4555,7 @@ const LoginRegisterView = ({
           <div className="pt-2">
             <button 
               disabled={loading}
-              className="w-full h-14 bg-[#024481] text-white rounded-2xl font-black text-sm shadow-xl shadow-blue-100 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full h-14 bg-[#024481] text-white rounded-[24px] font-black text-base shadow-xl shadow-blue-100 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -4608,17 +4582,17 @@ const LoginRegisterView = ({
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="flex-1 h-[1px] bg-gray-100"></div>
-              <span className="text-[10px] text-gray-300 font-black uppercase tracking-widest">第三方快捷入口</span>
+              <span className="text-xs text-gray-300 font-black uppercase tracking-widest">第三方快捷入口</span>
               <div className="flex-1 h-[1px] bg-gray-100"></div>
             </div>
             <div className="flex justify-center gap-12">
               <button onClick={fillDemoAccount} className="flex flex-col items-center gap-2 active:scale-90 transition-transform">
                 <div className="w-14 h-14 rounded-full bg-[#f7f7f7] flex items-center justify-center text-3xl shadow-sm">💬</div>
-                <span className="text-[10px] text-gray-400 font-bold italic">WeChat</span>
+                <span className="text-xs text-gray-400 font-bold italic">WeChat</span>
               </button>
               <button onClick={fillDemoAccount} className="flex flex-col items-center gap-2 active:scale-90 transition-transform">
                 <div className="w-14 h-14 rounded-full bg-[#f7f7f7] flex items-center justify-center text-3xl shadow-sm">📱</div>
-                <span className="text-[10px] text-gray-400 font-bold italic">Apple ID</span>
+                <span className="text-xs text-gray-400 font-bold italic">Apple ID</span>
               </button>
             </div>
           </div>
@@ -4626,7 +4600,7 @@ const LoginRegisterView = ({
       </div>
 
       <footer className="py-8 text-center mt-auto">
-        <p className="text-[10px] text-gray-300 font-medium leading-relaxed max-w-[240px] mx-auto">
+        <p className="text-xs text-gray-300 font-medium leading-relaxed max-w-[240px] mx-auto">
           登录即代表同意 <span className="text-gray-400 font-bold">服务协议</span> 与 <span className="text-gray-400 font-bold">隐私政策</span><br/>
           嘉和智护 OS · 安全合规审计
         </p>
@@ -4732,14 +4706,14 @@ const ProfileView = ({
               <h4 className="text-center font-bold text-gray-800 text-lg mb-2">更新头像</h4>
               <button 
                 onClick={triggerFileInput}
-                className="w-full py-4 bg-gray-50 rounded-2xl flex items-center justify-center gap-3 active:scale-95 transition-transform"
+                className="w-full py-4 bg-gray-50 rounded-[24px] flex items-center justify-center gap-3 active:scale-95 transition-transform"
               >
                 <span className="text-xl">📸</span>
                 <span className="font-bold text-gray-700">拍照</span>
               </button>
               <button 
                 onClick={triggerFileInput}
-                className="w-full py-4 bg-gray-50 rounded-2xl flex items-center justify-center gap-3 active:scale-95 transition-transform"
+                className="w-full py-4 bg-gray-50 rounded-[24px] flex items-center justify-center gap-3 active:scale-95 transition-transform"
               >
                 <span className="text-xl">🖼️</span>
                 <span className="font-bold text-gray-700">从相册选择</span>
@@ -4765,10 +4739,10 @@ const ProfileView = ({
             <div className={`w-14 h-14 rounded-full border-2 ${activeIdx === idx ? 'border-[#024481]' : 'border-transparent'} p-0.5 relative`}>
               <img src={p.avatar} className="w-full h-full rounded-full object-cover" alt={p.name} referrerPolicy="no-referrer" />
               {activeIdx === idx && (
-                <span className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-0.5 rounded-full text-[8px]">✔️</span>
+                <span className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-0.5 rounded-full text-xs">✔️</span>
               )}
             </div>
-            <span className={`text-[10px] font-bold ${activeIdx === idx ? 'text-[#024481]' : 'text-gray-400'}`}>
+            <span className={`text-xs font-bold ${activeIdx === idx ? 'text-[#024481]' : 'text-gray-400'}`}>
               {p.name}{activeIdx === idx && ' (已选)'}
             </span>
           </button>
@@ -4778,7 +4752,7 @@ const ProfileView = ({
           className="flex flex-col items-center gap-2 min-w-[70px] opacity-40 active:scale-95 transition-transform"
         >
            <div className="w-14 h-14 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-2xl text-gray-400 font-light">＋</div>
-           <span className="text-[10px] font-bold text-gray-400">添加</span>
+           <span className="text-xs font-bold text-gray-400">添加</span>
         </button>
       </div>
 
@@ -4786,7 +4760,7 @@ const ProfileView = ({
       <div className="flex flex-col items-center">
         <div className="relative">
           <div 
-            onClick={() => setShowAvatarMenu(true)}
+            onClick={onEditClick}
             className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden cursor-pointer active:scale-95 transition-transform"
           >
             <img 
@@ -4814,17 +4788,17 @@ const ProfileView = ({
         {/* 数据概览 */}
         <div className="w-full bg-transparent flex justify-between items-center text-center px-4">
           <div className="flex-1">
-            <div className="text-[11px] text-[#8e9eba] font-bold tracking-wider mb-2">守护天数</div>
+            <div className="text-xs text-[#8e9eba] font-bold tracking-wider mb-2">守护天数</div>
             <div className="text-[28px] font-medium text-[#1e293b]">452</div>
           </div>
           <div className="w-px h-10 bg-[#e2e8f0]"></div>
           <div className="flex-1">
-            <div className="text-[11px] text-[#8e9eba] font-bold tracking-wider mb-2">关联机器人</div>
+            <div className="text-xs text-[#8e9eba] font-bold tracking-wider mb-2">关联机器人</div>
             <div className="text-[28px] font-medium text-[#1e293b]">{robots.length}</div>
           </div>
           <div className="w-px h-10 bg-[#e2e8f0]"></div>
           <div className="flex-1">
-            <div className="text-[11px] text-[#8e9eba] font-bold tracking-wider mb-2">依从性评分</div>
+            <div className="text-xs text-[#8e9eba] font-bold tracking-wider mb-2">依从性评分</div>
             <div className="text-[28px] font-medium text-[#3b82f6]">优秀</div>
           </div>
         </div>
@@ -4840,12 +4814,12 @@ const ProfileView = ({
           className="w-full flex items-center justify-between p-4 bg-transparent active:bg-gray-50 rounded-[24px] transition-colors group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-50 text-[#024481] rounded-2xl flex items-center justify-center text-2xl shadow-inner">
+            <div className="w-12 h-12 bg-blue-50 text-[#024481] rounded-[24px] flex items-center justify-center text-2xl shadow-inner">
               🤖
             </div>
             <div className="text-left">
-              <p className="font-bold text-gray-800 text-sm">进入设备中心</p>
-              <p className="text-[10px] text-gray-400 mt-0.5">管理机器人 ({robots.length})、健康硬件 (3) 及数据平台</p>
+              <p className="font-bold text-gray-800 text-base">进入设备中心</p>
+              <p className="text-xs text-gray-400 mt-0.5">管理机器人 ({robots.length})、健康硬件 (3) 及数据平台</p>
             </div>
           </div>
           <span className="text-gray-300">❯</span>
@@ -4865,7 +4839,7 @@ const ProfileView = ({
           className="w-full p-5 flex items-center justify-between border-b border-gray-50 active:bg-gray-50"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center text-xl">🚑</div>
+            <div className="w-10 h-10 bg-red-50 text-[#E11D48] rounded-[24px] flex items-center justify-center text-xl">🚑</div>
             <span className="font-bold text-gray-700">紧急联系人</span>
           </div>
           <div className="flex items-center gap-2">
@@ -4879,8 +4853,8 @@ const ProfileView = ({
           className="w-full p-5 flex items-center justify-between border-b border-gray-50 active:bg-gray-50"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-xl">🏘️</div>
-            <span className="font-bold text-gray-700">照护分享</span>
+            <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-[24px] flex items-center justify-center text-xl">🏘️</div>
+            <span className="font-bold text-gray-700">家人信息</span>
           </div>
           <span className="text-gray-300">❯</span>
         </button>
@@ -4890,7 +4864,7 @@ const ProfileView = ({
           className="w-full p-5 flex items-center justify-between active:bg-gray-50"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-green-50 text-green-500 rounded-xl flex items-center justify-center text-xl">💊</div>
+            <div className="w-10 h-10 bg-green-50 text-[#10B981] rounded-[24px] flex items-center justify-center text-xl">💊</div>
             <span className="font-bold text-gray-700">用药计划</span>
           </div>
           <span className="text-gray-300">❯</span>
@@ -4907,10 +4881,10 @@ const ProfileView = ({
         onClick={() => onAddRobotClick('alarmSettings')}
       >
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-xl">📢</div>
+          <div className="w-12 h-12 rounded-[24px] bg-blue-50 flex items-center justify-center text-xl">📢</div>
           <div>
-            <h3 className="font-bold text-gray-800 text-sm">通知设置</h3>
-            <p className="text-[10px] text-gray-400 mt-1">管理推送、短信及语音告警方式</p>
+            <h3 className="font-bold text-gray-800 text-base">通知设置</h3>
+            <p className="text-xs text-gray-400 mt-1">管理推送、短信及语音告警方式</p>
           </div>
         </div>
         <span className="text-gray-300">❯</span>
@@ -4924,16 +4898,16 @@ const ProfileView = ({
         onClick={() => onAddRobotClick('accountSettings' as any)}
       >
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-xl overflow-hidden shadow-inner">
+          <div className="w-12 h-12 rounded-[24px] bg-gray-50 flex items-center justify-center text-xl overflow-hidden shadow-inner">
             <img src={userProfile.avatar} className="w-full h-full object-cover" alt="用户" referrerPolicy="no-referrer" />
           </div>
           <div>
-            <h3 className="font-bold text-gray-800 text-sm">账号设置</h3>
-            <p className="text-[10px] text-gray-400 mt-1">管理昵称、手机号及身份关系</p>
+            <h3 className="font-bold text-gray-800 text-base">账号设置</h3>
+            <p className="text-xs text-gray-400 mt-1">管理昵称、手机号及身份关系</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-1 rounded-lg">{userProfile.relation}</span>
+          <span className="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-1 rounded-[24px]">{userProfile.relation}</span>
           <span className="text-gray-300">❯</span>
         </div>
       </div>
@@ -4955,9 +4929,9 @@ const ProfileView = ({
       <div className="px-6 pb-4">
         <button 
           onClick={onLogout}
-          className="w-full py-4 text-red-500 font-bold text-sm bg-red-50 rounded-[24px] active:scale-95 transition-transform"
+          className="w-full py-4 text-[#E11D48] font-bold text-base bg-red-50 rounded-[24px] active:scale-95 transition-transform"
         >退出当前账号</button>
-        <p className="text-center text-[10px] text-gray-400 mt-4 px-4 leading-relaxed">
+        <p className="text-center text-xs text-gray-400 mt-4 px-4 leading-relaxed">
           嘉和智护OS 极简陪伴版 v1.2.4<br/>
           安全加密连接中 🔒
         </p>
@@ -5016,7 +4990,7 @@ const AccountSettingsView = ({
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0 sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg">
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg">
             {'<'}
           </button>
           <h2 className="text-xl font-bold text-[#024481]">账号设置</h2>
@@ -5058,7 +5032,7 @@ const AccountSettingsView = ({
           >
             <span className="font-bold text-gray-700">昵称</span>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-500">{userProfile.name}</span>
+              <span className="text-base text-gray-500">{userProfile.name}</span>
               <span className="text-gray-300">❯</span>
             </div>
           </button>
@@ -5070,7 +5044,7 @@ const AccountSettingsView = ({
           >
             <span className="font-bold text-gray-700">手机号</span>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-500">{ userProfile.phone || '未设置' }</span>
+              <span className="text-base text-gray-500">{ userProfile.phone || '未设置' }</span>
               <span className="text-gray-300">❯</span>
             </div>
           </button>
@@ -5087,14 +5061,14 @@ const AccountSettingsView = ({
           >
             <span className="font-bold text-gray-700">与长辈的关系</span>
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-500">{userProfile.relation}</span>
+              <span className="text-base text-gray-500">{userProfile.relation}</span>
               <span className="text-gray-300">❯</span>
             </div>
           </button>
         </div>
 
         <div className="p-4 text-center">
-          <p className="text-[10px] text-gray-300 font-medium">账号信息仅用于通知接收和身份核验</p>
+          <p className="text-xs text-gray-300 font-medium">账号信息仅用于通知接收和身份核验</p>
         </div>
       </main>
 
@@ -5123,7 +5097,7 @@ const AccountSettingsView = ({
                     <button
                       key={option}
                       onClick={() => saveEdit(option)}
-                      className={`w-full py-4 rounded-2xl font-bold transition-all ${
+                      className={`w-full py-4 rounded-[24px] font-bold transition-all ${
                         editingField.value === option 
                         ? 'bg-blue-50 text-[#024481] border-2 border-blue-100' 
                         : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
@@ -5142,7 +5116,7 @@ const AccountSettingsView = ({
                       value={editingField.value}
                       onChange={(e) => setEditingField({ ...editingField, value: e.target.value })}
                       placeholder={`请输入新的${editingField.label}`}
-                      className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-gray-700 font-medium focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
+                      className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-4 text-gray-700 font-medium focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
                     />
                   </div>
                   <div className="flex gap-4">
@@ -5154,7 +5128,7 @@ const AccountSettingsView = ({
                     </button>
                     <button 
                       onClick={() => saveEdit()}
-                      className="flex-1 py-4 bg-[#024481] text-white rounded-2xl font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-transform"
+                      className="flex-1 py-4 bg-[#024481] text-white rounded-[24px] font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-transform"
                     >
                       确定
                     </button>
@@ -5199,14 +5173,14 @@ const NotificationsView = ({
       className="absolute inset-0 z-[100] bg-white flex flex-col font-sans"
     >
       <header className="bg-white flex items-center justify-between px-4 py-4 relative border-b border-gray-50 shrink-0">
-        <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg">
+        <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg">
           {'<'}
         </button>
         <h2 className="text-xl font-bold text-center text-black">消息通知</h2>
         <div className="flex items-center gap-3 shrink-0">
-          <button onClick={onMarkAllRead} className="text-[10px] text-blue-500 font-bold whitespace-nowrap active:opacity-70">全部已读</button>
-          <button onClick={onClearAll} className="text-[10px] text-red-500 font-bold whitespace-nowrap active:opacity-70">一键清除</button>
-          <button className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-500 font-bold text-lg active:scale-95 transition-transform">
+          <button onClick={onMarkAllRead} className="text-xs text-blue-500 font-bold whitespace-nowrap active:opacity-70">全部已读</button>
+          <button onClick={onClearAll} className="text-xs text-[#E11D48] font-bold whitespace-nowrap active:opacity-70">一键清除</button>
+          <button className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold text-lg active:scale-95 transition-transform">
             ⚙️
           </button>
         </div>
@@ -5215,12 +5189,12 @@ const NotificationsView = ({
       <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {/* 搜索框 */}
         <div className="px-5 py-4">
-          <div className="bg-[#f7f7f9] flex items-center gap-2 px-4 py-3.5 rounded-2xl border border-gray-100">
+          <div className="bg-[#f7f7f9] flex items-center gap-2 px-4 py-3.5 rounded-[24px] border border-gray-100">
             <span className="text-lg text-gray-400">🔍</span>
             <input 
               type="text" 
               placeholder="搜索通知标题或关键词..." 
-              className="bg-transparent border-none outline-none text-sm w-full placeholder:text-gray-400 font-medium" 
+              className="bg-transparent border-none outline-none text-base w-full placeholder:text-gray-400 font-medium" 
             />
           </div>
         </div>
@@ -5231,7 +5205,7 @@ const NotificationsView = ({
             <button 
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`${activeTab === tab ? 'bg-[#1c1c1e] text-white' : 'bg-white border border-gray-100 text-gray-400'} px-8 py-2.5 rounded-xl text-sm font-bold shrink-0 transition-colors`}
+              className={`${activeTab === tab ? 'bg-[#1c1c1e] text-white' : 'bg-white border border-gray-100 text-gray-400'} px-8 py-2.5 rounded-[24px] text-base font-bold shrink-0 transition-colors`}
             >
               {tab}
             </button>
@@ -5254,7 +5228,7 @@ const NotificationsView = ({
                 } rounded-[24px] p-5 flex flex-col gap-4 overflow-hidden`}
               >
                 <div className="flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm ${
+                  <div className={`w-12 h-12 rounded-[24px] flex items-center justify-center shrink-0 shadow-sm ${
                     notif.type === '告警' ? 'bg-[#fb2c58] shadow-red-200' :
                     notif.type === '提示' ? 'bg-[#ff9500] shadow-orange-200' :
                     'bg-[#2b7fff] shadow-blue-200'
@@ -5273,11 +5247,11 @@ const NotificationsView = ({
                       </h3>
                       <span className={`${
                         isCritical ? 'bg-[#ffccd6] text-[#e6194b] border-[#ffb3c1]' : 'bg-[#f0f0f5] text-gray-500 border-none'
-                      } text-[10px] font-bold px-2 py-1 rounded-full border shrink-0`}>
+                      } text-xs font-bold px-2 py-1 rounded-full border shrink-0`}>
                         {notif.time}
                       </span>
                     </div>
-                    <p className={`text-sm font-medium leading-relaxed tracking-wide ${
+                    <p className={`text-base font-medium leading-relaxed tracking-wide ${
                       isCritical ? 'text-[#e6194b]' : 'text-gray-400'
                     }`}>
                       {notif.message}
@@ -5293,13 +5267,13 @@ const NotificationsView = ({
                         onMarkAsRead(notif.id);
                         onAlertClick({ time: notif.time, type: 'health', status: 'critical', message: '心率与呼吸异常' });
                       }}
-                      className="flex-[1.2] bg-[#0066ff] text-white py-3 rounded-2xl text-xs font-bold active:scale-95 transition-transform"
+                      className="flex-[1.2] bg-[#0066ff] text-white py-3 rounded-[24px] text-xs font-bold active:scale-95 transition-transform"
                     >
                       立即查看
                     </button>
                     <button 
                       onClick={(e) => e.stopPropagation()}
-                      className="flex-1 bg-white text-gray-600 py-3 rounded-2xl text-xs font-bold shadow-sm border border-gray-100 active:scale-95 transition-transform"
+                      className="flex-1 bg-white text-gray-600 py-3 rounded-[24px] text-xs font-bold shadow-sm border border-gray-100 active:scale-95 transition-transform"
                     >
                       呼叫 120
                     </button>
@@ -5647,7 +5621,7 @@ export default function App() {
           className="bg-white rounded-[32px] w-full max-w-sm p-8 shadow-2xl overflow-hidden relative"
         >
           <div className="flex flex-col items-center gap-4">
-             <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-4xl">🤖</div>
+             <div className="w-16 h-16 bg-blue-50 rounded-[24px] flex items-center justify-center text-4xl">🤖</div>
              <div className="text-center">
                <h3 className="text-xl font-bold text-gray-800">修改机器人昵称</h3>
                <p className="text-xs text-gray-400 mt-1">给这台设备取个好记的名字吧</p>
@@ -5657,12 +5631,12 @@ export default function App() {
                autoFocus
                defaultValue={editingRobot.nickname}
                id="robotNicknameInput"
-               className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-center text-lg font-bold focus:ring-2 focus:ring-blue-100"
+               className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-4 text-center text-lg font-bold focus:ring-2 focus:ring-blue-100"
              />
              <div className="flex gap-3 w-full mt-4">
                <button 
                  onClick={() => setEditingRobot(null)}
-                 className="flex-1 py-4 rounded-2xl bg-gray-100 text-gray-500 font-bold active:scale-95 transition-transform"
+                 className="flex-1 py-4 rounded-[24px] bg-gray-100 text-gray-500 font-bold active:scale-95 transition-transform"
                >取消</button>
                <button 
                  onClick={() => {
@@ -5672,7 +5646,7 @@ export default function App() {
                    }
                    setEditingRobot(null);
                  }}
-                 className="flex-1 py-4 rounded-2xl bg-[#024481] text-white font-bold shadow-lg shadow-blue-200 active:scale-95 transition-transform"
+                 className="flex-1 py-4 rounded-[24px] bg-[#024481] text-white font-bold shadow-lg shadow-blue-200 active:scale-95 transition-transform"
                >确认</button>
              </div>
           </div>
@@ -5689,7 +5663,7 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.9, y: 20, x: "-50%" }}
             animate={{ opacity: 1, scale: 1, y: 0, x: "-50%" }}
             exit={{ opacity: 0, scale: 0.9, y: -20, x: "-50%" }}
-            className="fixed top-12 left-1/2 bg-gray-800 text-white px-6 py-3 rounded-full text-sm font-bold z-[200] shadow-xl text-nowrap"
+            className="fixed top-12 left-1/2 bg-gray-800 text-white px-6 py-3 rounded-full text-base font-bold z-[200] shadow-xl text-nowrap"
           >
             {globalToast}
           </motion.div>
@@ -5908,10 +5882,10 @@ export default function App() {
             className="absolute inset-0 z-[250] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6"
           >
             <div className="bg-white rounded-[40px] w-full max-w-sm p-8 space-y-6 text-center shadow-2xl">
-              <div className="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-2">🗑️</div>
+              <div className="w-20 h-20 bg-red-100 text-[#E11D48] rounded-full flex items-center justify-center text-4xl mx-auto mb-2">🗑️</div>
               <div>
                 <h3 className="text-xl font-bold text-gray-800">确认清理数据？</h3>
-                <p className="text-sm text-gray-400 mt-2">操作后将清除所有历史体征趋势与摄像头通话记录，此操作不可撤销。</p>
+                <p className="text-base text-gray-400 mt-2">操作后将清除所有历史体征趋势与摄像头通话记录，此操作不可撤销。</p>
               </div>
               
               <div className="space-y-3">
@@ -5919,12 +5893,12 @@ export default function App() {
                   type="password" 
                   placeholder="请输入确认密码 (123456)" 
                   id="deleteConfirmPwd"
-                  className="w-full bg-gray-50 border-none rounded-xl p-4 text-center text-sm font-bold focus:ring-1 focus:ring-red-100"
+                  className="w-full bg-gray-50 border-none rounded-[24px] p-4 text-center text-base font-bold focus:ring-1 focus:ring-red-100"
                 />
                 <div className="flex gap-3">
                   <button 
                     onClick={() => setOverlay(null)}
-                    className="flex-1 py-4 bg-gray-100 rounded-2xl font-bold text-gray-500 active:scale-95 transition-transform"
+                    className="flex-1 py-4 bg-gray-100 rounded-[24px] font-bold text-gray-500 active:scale-95 transition-transform"
                   >取消</button>
                   <button 
                     onClick={() => {
@@ -5937,7 +5911,7 @@ export default function App() {
                         alert('密码错误');
                       }
                     }}
-                    className="flex-1 py-4 bg-red-500 text-white rounded-2xl font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform"
+                    className="flex-1 py-4 bg-[#E11D48] text-white rounded-[24px] font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform"
                   >确认清理</button>
                 </div>
               </div>
@@ -5952,12 +5926,12 @@ export default function App() {
           <span className="text-2xl">🌱</span>
           <h1 className="text-xl font-bold text-[#024481]">嘉和智护OS</h1>
         </div>
-        <button onClick={() => handleAction('notifications')} className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center card-shadow active:scale-95 transition-transform relative">
+        <button onClick={() => handleAction('notifications')} className="w-11 h-11 rounded-[24px] bg-white flex items-center justify-center card-shadow active:scale-95 transition-transform relative">
           <span className="text-xl">🔔</span>
           {notifications.some(n => !n.isRead) && (
             <span className="absolute -top-1 -right-1 flex h-4 w-4">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white shadow-sm flex items-center justify-center text-[9px] text-white font-black">
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-[#E11D48] border-2 border-white shadow-sm flex items-center justify-center text-[9px] text-white font-black">
                 {notifications.filter(n => !n.isRead).length}
               </span>
             </span>
@@ -5970,7 +5944,7 @@ export default function App() {
         {isAnonymous && robots.length === 0 && activeTab !== 'profile' && (
           <div className="bg-blue-50 text-[#024481] p-4 rounded-3xl mb-6 flex items-center justify-between shadow-sm">
             <p className="text-xs font-bold">欢迎使用嘉和智护OS，请一步快速绑定机器人。</p>
-            <button onClick={() => setOverlay('addRobot')} className="text-[10px] font-black bg-white rounded-full px-3 py-1.5 shadow-sm">去绑定</button>
+            <button onClick={() => setOverlay('addRobot')} className="text-xs font-black bg-white rounded-full px-3 py-1.5 shadow-sm">去绑定</button>
           </div>
         )}
         <AnimatePresence mode="wait">
@@ -5979,12 +5953,12 @@ export default function App() {
               <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
                  <div className="w-40 h-40 bg-blue-500 rounded-[32px] flex items-center justify-center text-6xl text-white mb-8 shadow-2xl shadow-blue-300">🤖</div>
                  <h2 className="text-2xl font-black text-blue-600 mb-4">欢迎开启智护生活！</h2>
-                 <p className="text-gray-500 font-bold text-sm mb-12">只需简单两步，即可为您或您的长辈开启全方位的智能健康守护。</p>
+                 <p className="text-gray-500 font-bold text-base mb-12">只需简单两步，即可为您或您的长辈开启全方位的智能健康守护。</p>
                  <div className="w-full bg-white rounded-[32px] p-6 shadow-xl border border-blue-50 flex items-center gap-4 text-left">
                     <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white font-black text-xl">1</div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-gray-800 text-sm">绑定机器人 & 建立档案</h4>
-                      <p className="text-[10px] text-gray-400 mt-0.5">连接终端并录入服务人信息以开启AI守护</p>
+                      <h4 className="font-bold text-gray-800 text-base">绑定机器人 & 建立档案</h4>
+                      <p className="text-xs text-gray-400 mt-0.5">连接终端并录入服务人信息以开启AI守护</p>
                     </div>
                     <button onClick={() => setOverlay('addRobot')} className="bg-blue-500 text-white font-bold text-xs px-6 py-3 rounded-full shadow-lg">立即开始</button>
                  </div>
@@ -6019,7 +5993,7 @@ export default function App() {
             }`}
           >
             <span className="text-2xl">{tab.icon}</span>
-            <span className="text-[10px] font-bold tracking-wider">{tab.label}</span>
+            <span className="text-xs font-bold tracking-wider">{tab.label}</span>
             {activeTab === tab.id && (
               <motion.div 
                 layoutId="activeTab"
