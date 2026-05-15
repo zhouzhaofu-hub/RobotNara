@@ -41,6 +41,7 @@ interface Medication {
   times: string[];
   enabled?: boolean;
   imageUrl?: string;
+  status?: 'pending' | 'taken' | 'missed' | 'delayed';
   startDate?: string;
   endDate?: string;
 }
@@ -442,7 +443,7 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
 };
 
 // --- 子组件：告警详情页 ---
-const AlertDetailView = ({ data, onClose }: { data: AlertData; onClose: () => void }) => {
+const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClose: () => void; onResolve: () => void }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [showFalseAlarmConfirm, setShowFalseAlarmConfirm] = useState(false);
   const [showResolveConfirm, setShowResolveConfirm] = useState(false);
@@ -533,7 +534,7 @@ const AlertDetailView = ({ data, onClose }: { data: AlertData; onClose: () => vo
                <p className="text-sm font-bold text-green-800">已确认长辈安全并解除本次告警？</p>
                <div className="flex gap-3">
                  <button onClick={() => setShowResolveConfirm(false)} className="flex-1 bg-white py-3 rounded-2xl text-gray-500 font-bold border border-gray-100 active:scale-95 transition-transform">取消</button>
-                 <button onClick={onClose} className="flex-1 bg-green-600 py-3 rounded-2xl text-white font-bold shadow-md active:scale-95 transition-transform">确认解除</button>
+                 <button onClick={onResolve} className="flex-1 bg-green-600 py-3 rounded-2xl text-white font-bold shadow-md active:scale-95 transition-transform">确认解除</button>
                </div>
              </motion.div>
           )}
@@ -555,7 +556,7 @@ const AlertDetailView = ({ data, onClose }: { data: AlertData; onClose: () => vo
                  <p className="text-sm font-bold text-gray-700">确认这是一次误报吗？</p>
                  <div className="flex gap-3">
                    <button onClick={() => setShowFalseAlarmConfirm(false)} className="flex-1 bg-white py-2 rounded-xl text-gray-500 font-bold shadow-sm">取消</button>
-                   <button onClick={onClose} className="flex-1 bg-gray-300 py-2 rounded-xl text-gray-700 font-bold shadow-sm">标记为误报</button>
+                   <button onClick={onResolve} className="flex-1 bg-gray-300 py-2 rounded-xl text-gray-700 font-bold shadow-sm">标记为误报</button>
                  </div>
                </motion.div>
             )}
@@ -621,7 +622,8 @@ const GuardianView = ({
   onTabSwitch,
   isDeviceOffline = false,
   isAnonymous = false,
-  unreadNotificationsCount = 0
+  unreadNotificationsCount = 0,
+  alarmResolved = false
 }: { 
   onAction: (type: OverlayType) => void;
   onImageClick: (src: string) => void;
@@ -630,6 +632,7 @@ const GuardianView = ({
   isDeviceOffline?: boolean;
   isAnonymous?: boolean;
   unreadNotificationsCount?: number;
+  alarmResolved?: boolean;
 }) => {
   const [isCapturing, setIsCapturing] = useState(false);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
@@ -712,7 +715,7 @@ const GuardianView = ({
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-6 pb-24"
+      className="space-y-6 pb-24 px-6"
     >
       <AnimatePresence>
         {localToast && (
@@ -728,28 +731,45 @@ const GuardianView = ({
       </AnimatePresence>
       {/* 状态栏：显示系统当前健康状况 */}
       {!isAnonymous && (
-        <button 
-          onClick={() => onStatusClick({
-            time: '刚刚',
-            type: '跌倒疑似告警',
-            status: 'critical',
-            message: '系统检测到长辈在卧室可能发生跌倒，请立即确认画面。'
-          })}
-          className="w-full bg-[#fef2f2] border border-[#fee2e2] px-4 py-3 rounded-full flex justify-between items-center shadow-sm active:scale-[0.98] transition-all"
-        >
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-            </span>
-            <span className="text-red-600 font-bold">疑似跌倒告警</span>
-          </div>
-          <span className="text-red-400 text-sm font-bold flex items-center gap-1">点击处理 ➡️</span>
-        </button>
+        <div className="w-full">
+          {!alarmResolved ? (
+            <button 
+              onClick={() => onStatusClick({
+                time: '刚刚',
+                type: '跌倒疑似告警',
+                status: 'critical',
+                message: '系统检测到长辈在卧室可能发生跌倒，请立即确认画面。'
+              })}
+              className="w-full bg-[#fef2f2] border border-[#fee2e2] px-5 py-4 rounded-[24px] flex justify-between items-center shadow-md shadow-red-100 active:scale-[0.98] transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-4 w-4">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-red-600"></span>
+                </span>
+                <div className="text-left">
+                  <p className="text-red-700 font-black text-sm">疑似跌倒 严重告警</p>
+                  <p className="text-red-400 text-[10px] font-bold">13:00 卧室区域</p>
+                </div>
+              </div>
+              <span className="bg-red-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm">立即处理</span>
+            </button>
+          ) : (
+            <div className="w-full bg-green-50 border border-green-100 px-5 py-4 rounded-[24px] flex items-center gap-3 shadow-md shadow-green-100">
+              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold shadow-sm">
+                ✅
+              </div>
+              <div>
+                <p className="text-green-800 font-bold text-sm">守护状态：正常</p>
+                <p className="text-green-600/60 text-[10px] font-medium">系统已恢复实时监测，环境安全</p>
+              </div>
+            </div>
+          )}
+        </div>
       )}
 
       {/* 安心时刻卡片：展示长辈实时抓拍画面 */}
-      <div id="guardian-moment-card" className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 flex flex-col gap-5 mx-6 overflow-hidden relative">
+      <div id="guardian-moment-card" className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 flex flex-col gap-5 overflow-hidden relative">
         {/* 下拉提示背景 */}
         <div className="absolute top-0 left-0 right-0 h-20 flex flex-col items-center justify-center pointer-events-none z-0">
            <motion.div 
@@ -773,7 +793,7 @@ const GuardianView = ({
           <div className="flex justify-between items-center px-1">
             <h2 className="text-xl font-bold text-[#024481] flex items-center gap-2">
               <span>🏠</span>
-              <span>长辈安心时刻</span>
+              <span>安心时刻</span>
             </h2>
             <div className="flex items-center gap-2">
               <span className="text-gray-400 text-[10px] bg-gray-50 px-2 py-1 rounded-md font-medium">智能识别: 老人正处于客厅</span>
@@ -850,25 +870,25 @@ const GuardianView = ({
                 >
                   <img 
                     src={item.url} 
-                    alt="长辈安心时刻" 
+                    alt="安心时刻" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     referrerPolicy="no-referrer"
                   />
                   {/* 图片水印与元数据 */}
-                  <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+                  <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/30 to-transparent pointer-events-none">
                     <div className="flex justify-between items-start">
                       <div className="flex flex-col">
-                        <span className="text-white text-[10px] font-black tracking-widest uppercase opacity-80">嘉和智护 实时抓拍</span>
-                        <span className="text-white/60 text-[8px] font-medium">机位: 1号智能移动机器人 (客厅)</span>
+                        <span className="text-white/80 text-[9px] font-bold tracking-widest uppercase">嘉和智护 实时抓拍</span>
+                        <span className="text-white/40 text-[8px] font-medium">机位: 1号智能移动机器人 (客厅)</span>
                       </div>
-                      <div className="bg-white/20 backdrop-blur-md text-white text-[9px] px-2.5 py-1 rounded-full font-black border border-white/10">
+                      <div className="bg-white/10 backdrop-blur-md text-white text-[8px] px-2 py-0.5 rounded-full font-bold border border-white/10 opacity-60">
                         {index === 0 ? '最新' : `${index + 1} / ${images.length}`}
                       </div>
                     </div>
                   </div>
                   
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
-                    <p className="text-white text-xs font-black tracking-tighter">
+                  <div className="absolute bottom-2 right-2 p-2 pointer-events-none bg-black/10 backdrop-blur-[2px] rounded-lg">
+                    <p className="text-white/60 text-[9px] font-medium tracking-tighter">
                       {new Date().toLocaleDateString()} {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
                   </div>
@@ -1190,13 +1210,34 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
       id: med.id,
       name: med.name,
       time: med.times.join(' • '),
-      icon: med.imageUrl ? '🖼️' : (med.name.includes('阿斯匹林') ? '💊' : med.name.includes('维生素') ? '🧴' : '🌿'),
+      icon: med.imageUrl ? '🖼️' : (
+        med.name.includes('阿司匹林') || med.name.includes('阿斯匹林') ? '💊' : 
+        med.name.includes('维生素') ? '🧴' : 
+        med.name.includes('地平') || med.name.includes('沙坦') ? '🩺' : 
+        '🌿'
+      ),
       imageUrl: med.imageUrl,
-      status: med.enabled === false ? 'pending' : 'done', // 简化处理
-      statusText: med.enabled === false ? '已暂停' : '已按时',
-      color: med.enabled === false ? '#9ca3af' : '#16a34a',
-      bg: med.enabled === false ? '#f3f4f6' : '#f0fdf4',
-      iconBg: med.enabled === false ? '#e5e7eb' : '#dcfce7'
+      status: med.status || (med.enabled === false ? 'pending' : 'pending'),
+      statusText: 
+        med.enabled === false ? '已暂停' :
+        med.status === 'taken' ? '已服用' :
+        med.status === 'missed' ? '未按时' :
+        med.status === 'delayed' ? '有延迟' : '待服用',
+      color: 
+        med.enabled === false ? '#9ca3af' :
+        med.status === 'taken' ? '#16a34a' :
+        med.status === 'missed' ? '#ef4444' :
+        med.status === 'delayed' ? '#f59e0b' : '#3b82f6',
+      bg: 
+        med.enabled === false ? '#f3f4f6' :
+        med.status === 'taken' ? '#f0fdf4' :
+        med.status === 'missed' ? '#fef2f2' :
+        med.status === 'delayed' ? '#fffbeb' : '#f0f9ff',
+      iconBg: 
+        med.enabled === false ? '#e5e7eb' :
+        med.status === 'taken' ? '#dcfce7' :
+        med.status === 'missed' ? '#fee2e2' :
+        med.status === 'delayed' ? '#fef3c7' : '#dbeafe'
     }));
   }, [plan]);
 
@@ -1250,10 +1291,8 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
           className="text-[#024481] font-bold text-sm flex items-center gap-1 p-2 active:bg-blue-50 rounded-lg transition-colors"
         >查看日历 📅</button>
       </div>
-      <button 
-        onClick={() => setExpandedMed(!expandedMed)}
-        className="w-full space-y-3 text-left transition-all duration-300"
-      >
+      
+      <div className="space-y-3">
         {displayList.map((med) => (
           <div key={med.id} className="p-4 rounded-[20px] flex items-center justify-between border-l-4 shadow-sm" style={{ background: med.bg, borderColor: med.color }}>
             <div className="flex items-center gap-3">
@@ -1298,14 +1337,18 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
             </span>
           </div>
         ))}
-        {todayMedsDisplay.length > 3 && !expandedMed && (
-          <div className="text-center py-2">
-            <span className="text-[10px] font-bold text-[#024481] uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">
-              点击展开全部清单 ⌵
+        
+        {todayMedsDisplay.length > 3 && (
+          <button 
+            onClick={() => setExpandedMed(!expandedMed)}
+            className="w-full text-center py-2 group active:scale-95 transition-transform"
+          >
+            <span className="text-[10px] font-bold text-[#024481] uppercase tracking-widest bg-blue-50 px-3 py-1.5 rounded-full group-hover:bg-blue-100 transition-colors">
+              {expandedMed ? '收起部分清单 ⌃' : `查看更多 (${todayMedsDisplay.length - 3}) ⌵`}
             </span>
-          </div>
+          </button>
         )}
-      </button>
+      </div>
     </div>
 
     {/* 体征趋势模拟图 */}
@@ -1882,34 +1925,54 @@ const EmergencyContactsView = ({
         ) : (
           <p className="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-wider">只读模式，仅主账号可编辑</p>
         )}
-        <Reorder.Group axis="y" values={items} onReorder={(newOrder) => {
-          if (!isMainAccount) return;
-          setItems(newOrder);
-          onUpdate(newOrder);
-        }} className="space-y-4">
-          {items.map((item) => (
-            <Reorder.Item 
-              key={item.id} 
-              value={item}
-              drag={isMainAccount ? "y" : false}
-              className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center justify-between shadow-sm active:shadow-md transition-shadow"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-500 font-bold">🚑</div>
-                <div>
-                  <p className="font-bold text-gray-800">{item.name} <span className="text-xs text-gray-400 font-normal ml-1">({item.relation})</span></p>
-                  <p className="text-xs text-gray-500 mt-0.5">{item.phone}</p>
-                </div>
-              </div>
-              {isMainAccount && (
+        {items.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 px-10 text-center">
+            <div className="w-24 h-24 bg-red-50 rounded-full flex items-center justify-center text-5xl mb-6 shadow-sm">
+              🏥
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">未设置紧急联系人</h3>
+            <p className="text-sm text-gray-500 leading-relaxed max-w-[240px]">
+              紧急联系人是重要的安全保障。当机器人发现异常情况或长辈触发求助时，将第一时间自动拨打他们的电话。
+            </p>
+            {isMainAccount && (
+              <button 
+                onClick={() => setIsAdding(true)}
+                className="mt-10 bg-red-500 text-white px-10 py-4 rounded-3xl font-bold shadow-xl shadow-red-200 active:scale-95 transition-transform"
+              >
+                设置第一位联系人
+              </button>
+            )}
+          </div>
+        ) : (
+          <Reorder.Group axis="y" values={items} onReorder={(newOrder) => {
+            if (!isMainAccount) return;
+            setItems(newOrder);
+            onUpdate(newOrder);
+          }} className="space-y-4">
+            {items.map((item) => (
+              <Reorder.Item 
+                key={item.id} 
+                value={item}
+                drag={isMainAccount ? "y" : false}
+                className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center justify-between shadow-sm active:shadow-md transition-shadow"
+              >
                 <div className="flex items-center gap-3">
-                  <button onClick={() => handleDelete(item.id)} className="text-xs text-red-400 p-2">移除</button>
-                  <div className="cursor-grab active:cursor-grabbing text-gray-300">☰</div>
+                  <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-500 font-bold">🚑</div>
+                  <div>
+                    <p className="font-bold text-gray-800">{item.name} <span className="text-xs text-gray-400 font-normal ml-1">({item.relation})</span></p>
+                    <p className="text-xs text-gray-500 mt-0.5">{item.phone}</p>
+                  </div>
                 </div>
-              )}
-            </Reorder.Item>
-          ))}
-        </Reorder.Group>
+                {isMainAccount && (
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => handleDelete(item.id)} className="text-xs text-red-400 p-2">移除</button>
+                    <div className="cursor-grab active:cursor-grabbing text-gray-300">☰</div>
+                  </div>
+                )}
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
+        )}
 
         {isAdding && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[200] flex items-center justify-center p-6">
@@ -2552,6 +2615,18 @@ const MedicationPlanView = ({
                   <div>
                     <div className="flex items-center gap-2">
                       <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
+                      {med.status && med.enabled !== false && (
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                          med.status === 'taken' ? 'bg-green-100 text-green-700' :
+                          med.status === 'missed' ? 'bg-red-100 text-red-700' :
+                          med.status === 'delayed' ? 'bg-orange-100 text-orange-700' :
+                          'bg-blue-100 text-blue-700'
+                        }`}>
+                          {med.status === 'taken' ? '已服用' :
+                           med.status === 'missed' ? '未按时' :
+                           med.status === 'delayed' ? '有延迟' : '待服用'}
+                        </span>
+                      )}
                       {med.imageUrl && med.enabled !== false && (
                         <button 
                           onClick={(e) => { e.stopPropagation(); setFullScreenImage(med.imageUrl!); }}
@@ -3427,6 +3502,10 @@ const AddRobotView = ({
     serviceProviderPhone: ''
   });
   const [isScanningSN, setIsScanningSN] = useState(false);
+  const [bindingState, setBindingState] = useState<{ active: boolean, step: 'searching' | 'connecting' | 'binding' | 'success' }>({
+    active: false,
+    step: 'searching'
+  });
 
   // 验证序列号 (样例: 需为8-12位字母数字组合)
   const isValidSN = (sn: string) => /^[A-Z0-9]{8,12}$/i.test(sn);
@@ -3449,27 +3528,30 @@ const AddRobotView = ({
       alert('请输入有效的8-12位设备序列号');
       return;
     }
-    if (formData.ownerPhone && !isValidPhone(formData.ownerPhone)) {
-      alert('请输入有效的11位长辈手机号');
-      return;
-    }
-    if (formData.serviceProviderPhone && !isValidPhone(formData.serviceProviderPhone)) {
-      alert('请输入有效的11位服务人员手机号');
-      return;
-    }
-    onAdd({
-      id: 'robot-' + Date.now(),
-      name: formData.nickname,
-      nickname: formData.nickname,
-      model: 'JH-Care X1',
-      status: '在线',
-      battery: 100,
-      version: 'v1.0.0',
-      icon: '🤖',
-      network: '5G',
-      ...formData
-    });
-    onClose();
+    
+    // 开始绑定动画流程
+    setBindingState({ active: true, step: 'searching' });
+
+    // 逻辑流：搜索 -> 连接 -> 绑定 -> 成功
+    setTimeout(() => setBindingState(prev => ({ ...prev, step: 'connecting' })), 2000);
+    setTimeout(() => setBindingState(prev => ({ ...prev, step: 'binding' })), 4000);
+    setTimeout(() => setBindingState(prev => ({ ...prev, step: 'success' })), 6000);
+
+    setTimeout(() => {
+      onAdd({
+        id: 'robot-' + Date.now(),
+        name: formData.nickname,
+        nickname: formData.nickname,
+        model: 'JH-Care X1',
+        status: '在线',
+        battery: 100,
+        version: 'v1.0.0',
+        icon: '🤖',
+        network: '5G',
+        ...formData
+      });
+      onClose();
+    }, 7500);
   };
 
   return (
@@ -3600,6 +3682,104 @@ const AddRobotView = ({
                />
             </div>
             <p className="text-white/60 mt-10 text-sm font-bold tracking-widest text-center">将二维码/条码放入框内<br/><span className="text-xs font-normal opacity-80 mt-2 block">即可自动扫描识别并绑定</span></p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 绑定状态过渡动画层 */}
+      <AnimatePresence>
+        {bindingState.active && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-[400] bg-white/90 backdrop-blur-xl flex flex-col items-center justify-center p-10 overflow-hidden"
+          >
+            <div className="relative w-48 h-48 flex items-center justify-center mb-12">
+              {/* 动态扩散环 */}
+              <motion.div 
+                animate={{ 
+                  scale: [1, 1.8],
+                  opacity: [0.6, 0]
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                className="absolute inset-0 rounded-full bg-blue-100"
+              />
+              <motion.div 
+                animate={{ 
+                  scale: [1, 1.6],
+                  opacity: [0.4, 0]
+                }}
+                transition={{ duration: 2, delay: 0.5, repeat: Infinity, ease: "easeOut" }}
+                className="absolute inset-0 rounded-full bg-blue-50"
+              />
+
+              {/* 中心图标 */}
+              <motion.div 
+                animate={{ 
+                  y: [0, -10, 0],
+                  rotate: bindingState.step === 'searching' ? [0, 10, -10, 0] : 0
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="w-28 h-28 bg-white rounded-[36px] shadow-2xl flex items-center justify-center text-6xl z-10 border border-blue-50 relative"
+              >
+                <div key={bindingState.step}>
+                  {bindingState.step === 'searching' && '🔍'}
+                  {bindingState.step === 'connecting' && '⚡'}
+                  {bindingState.step === 'binding' && '🔐'}
+                  {bindingState.step === 'success' && '✨'}
+                </div>
+                
+                {/* 成功时的环绕粒子 */}
+                {bindingState.step === 'success' && (
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1.5, opacity: 0 }}
+                    className="absolute inset-0 border-4 border-green-400 rounded-[36px]"
+                  />
+                )}
+              </motion.div>
+
+              {/* 扫描线动画 */}
+              {bindingState.step === 'searching' && (
+                <motion.div 
+                  animate={{ top: ['0%', '100%', '0%'] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent z-20 blur-sm"
+                />
+              )}
+            </div>
+
+            <div className="text-center space-y-4 max-w-[280px] min-h-[140px]">
+              <h4 className="text-2xl font-bold text-[#024481]">
+                {bindingState.step === 'searching' && '搜寻设备中'}
+                {bindingState.step === 'connecting' && '正在建立连接'}
+                {bindingState.step === 'binding' && '同步安全数据'}
+                {bindingState.step === 'success' && '成功绑定'}
+              </h4>
+              <p className="text-gray-400 text-sm leading-relaxed font-medium">
+                {bindingState.step === 'searching' && '正在通过 5G 信号匹配您身边的机器人...'}
+                {bindingState.step === 'connecting' && '正在与设备终端进行握手验证，请稍候'}
+                {bindingState.step === 'binding' && '正在为您分配专属照护空间，同步健康模型'}
+                {bindingState.step === 'success' && '绑定已完成，您可以开始体验智能照护服务'}
+              </p>
+            </div>
+
+            {/* 进度条 */}
+            <div className="absolute bottom-20 left-10 right-10 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: '0%' }}
+                animate={{ 
+                  width: 
+                    bindingState.step === 'searching' ? '30%' : 
+                    bindingState.step === 'connecting' ? '60%' : 
+                    bindingState.step === 'binding' ? '90%' : '100%',
+                  backgroundColor: bindingState.step === 'success' ? '#22c55e' : '#2563eb'
+                }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="h-full"
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -4284,8 +4464,18 @@ const ProfileView = ({
             </div>
           ))}
           {robots.length === 0 && (
-            <div className="text-center py-8 border-2 border-dashed border-gray-100 rounded-3xl">
-               <p className="text-xs text-gray-400">暂无机器人，请点击上方添加</p>
+            <div className="text-center py-12 border-2 border-dashed border-gray-100 rounded-[32px] bg-gray-50/30">
+               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 opacity-50">
+                 🤖
+               </div>
+               <p className="text-gray-800 font-bold mb-1">尚未关联机器人</p>
+               <p className="text-xs text-gray-400 px-10 leading-relaxed mb-6">关联机器人后，您可以实时查看长辈的居家状态、健康数据及服药提醒执行情况。</p>
+               <button 
+                 onClick={onAddRobotClick}
+                 className="bg-[#024481] text-white px-6 py-2 rounded-full text-xs font-bold shadow-lg shadow-blue-900/10 active:scale-95 transition-transform"
+               >
+                 立即扫描添加
+               </button>
             </div>
           )}
         </div>
@@ -4770,6 +4960,7 @@ export default function App() {
   const [isConnecting, setIsConnecting] = useState(false);
   const [globalToast, setGlobalToast] = useState('');
   const [alertData, setAlertData] = useState<AlertData | null>(null);
+  const [alarmResolved, setAlarmResolved] = useState(false);
   
   // 服务人状态
   const [servicePersonnel, setServicePersonnel] = useState<FamilyMember[]>([
@@ -4894,6 +5085,7 @@ export default function App() {
       dosage: '1粒/次', 
       times: ['08:00'], 
       enabled: true,
+      status: 'taken',
       imageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600&auto=format&fit=crop' 
     },
     { 
@@ -4902,7 +5094,35 @@ export default function App() {
       dosage: '0.5g/次', 
       times: ['08:00', '18:00'], 
       enabled: true,
+      status: 'pending',
       imageUrl: 'https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?q=80&w=600&auto=format&fit=crop'
+    },
+    {
+      id: '3',
+      name: '阿司匹林',
+      dosage: '100mg/次',
+      times: ['20:00'],
+      enabled: true,
+      status: 'pending',
+      imageUrl: 'https://images.unsplash.com/photo-1550572017-ed200f545dec?q=80&w=600&auto=format&fit=crop'
+    },
+    {
+      id: '4',
+      name: '氨氯地平',
+      dosage: '5mg/次',
+      times: ['07:00'],
+      enabled: true,
+      status: 'missed',
+      imageUrl: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?q=80&w=600&auto=format&fit=crop'
+    },
+    {
+      id: '5',
+      name: '维生素B12',
+      dosage: '1片/次',
+      times: ['12:00'],
+      enabled: true,
+      status: 'delayed',
+      imageUrl: 'https://images.unsplash.com/photo-1626285861696-9f0e1a1005bc?q=80&w=600&auto=format&fit=crop'
     }
   ]);
 
@@ -4956,7 +5176,8 @@ export default function App() {
             }}
             onTabSwitch={(tab) => setActiveTab(tab)}
             isDeviceOffline={activeRobot?.status === 'offline'}
-            isAnonymous={isEmptyAnonymous} // 更新此调用
+            isAnonymous={isEmptyAnonymous} 
+            alarmResolved={alarmResolved}
           />
         );
       }
@@ -5141,7 +5362,16 @@ export default function App() {
           />
         )}
         {overlay === 'alertDetail' && alertData && (
-          <AlertDetailView data={alertData} onClose={() => setOverlay(null)} />
+          <AlertDetailView 
+            data={alertData} 
+            onClose={() => setOverlay(null)} 
+            onResolve={() => {
+              setAlarmResolved(true);
+              setOverlay(null);
+              setGlobalToast('告警已解除，状态已转为正常');
+              setTimeout(() => setGlobalToast(''), 3000);
+            }} 
+          />
         )}
         {overlay === 'voiceMessage' && (
           <VoiceMessageView onClose={() => setOverlay(null)} />
