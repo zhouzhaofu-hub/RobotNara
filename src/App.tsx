@@ -10,7 +10,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 
 // --- 类型定义 ---
 type TabType = 'guardian' | 'health' | 'companion' | 'profile';
-type OverlayType = 'alertDetail' | 'videoCall' | 'voiceMessage' | 'imageViewer' | 'notifications' | 'elderlyProfile' | 'addRobot' | 'emergencyContacts' | 'familyMembers' | 'medicationPlan' | 'medicationCalendar' | 'legalNotice' | 'robotDetail' | 'confirmDelete' | 'cameraAccessLogs' | 'alarmSettings' | 'healthReport' | 'memoriesAlbum' | 'accountSettings' | 'smartPlatforms' | 'smartDeviceScan' | 'smartDeviceDetail' | 'deviceManagement';
+type OverlayType = 'alertDetail' | 'videoCall' | 'voiceMessage' | 'imageViewer' | 'notifications' | 'elderlyProfile' | 'addRobot' | 'emergencyContacts' | 'familyMembers' | 'medicationPlan' | 'medicationCalendar' | 'legalNotice' | 'robotDetail' | 'confirmDelete' | 'cameraAccessLogs' | 'alarmSettings' | 'healthReport' | 'memoriesAlbum' | 'smartPlatforms' | 'smartDeviceScan' | 'smartDeviceDetail' | 'deviceManagement';
 
 interface Robot {
   id: string;
@@ -449,8 +449,8 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
         </div>
 
         
-        <div className="text-center pt-4 pb-8">
-           <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">已展示全部记忆</p>
+        <div className="text-center mt-12 mb-8">
+           <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
         </div>
       </main>
     </motion.div>
@@ -975,7 +975,7 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-16 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -1006,12 +1006,12 @@ const GuardianView = ({
                   <div className="flex items-center gap-2">
                     <div className="flex gap-0.5">
                       {[...Array(6)].map((_, i) => (
-                        <motion.div 
-                          key={i}
-                          animate={{ height: [4, 12, 6, 14, 8] }}
-                          transition={{ repeat: Infinity, duration: 1, delay: i * 0.15 }}
-                          className="w-1 bg-red-400 rounded-full"
-                        />
+                         <motion.div 
+                           key={i}
+                           animate={{ height: [4, 12, 6, 14, 8] }}
+                           transition={{ repeat: Infinity, duration: 1, delay: i * 0.15 }}
+                           className="w-1 bg-red-400 rounded-full"
+                         />
                       ))}
                     </div>
                     <p className="text-[10px] text-gray-500 font-medium">生命体征平稳，未检测到异常波动。</p>
@@ -1022,7 +1022,7 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-16 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -1068,7 +1068,7 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-16 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -1104,7 +1104,7 @@ const GuardianView = ({
                 className="w-full shrink-0 snap-center px-1"
                 onClick={() => onTabSwitch('health')}
               >
-                <div className="bg-white rounded-[32px] px-6 pb-6 pt-10 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
+                <div className="bg-white rounded-[32px] px-6 pb-6 pt-16 aspect-[4/3] border border-gray-50 shadow-sm flex flex-col justify-between active:scale-[0.98] transition-all cursor-pointer">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -1193,8 +1193,8 @@ const GuardianView = ({
         </div>
       </div>
 
-      <div className="text-center pt-2">
-        <p className="text-xs text-gray-300 font-bold tracking-widest">— 到底了 —</p>
+      <div className="text-center mt-12 mb-8">
+        <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
       </div>
     </motion.div>
   );
@@ -1545,41 +1545,45 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
       </div>
     </div>
 
-    {/* 删除确认弹窗 */}
-    <AnimatePresence>
-      {deleteConfirmId && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6"
-        >
+      {/* 删除确认弹窗 */}
+      <AnimatePresence>
+        {deleteConfirmId && (
           <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-[32px] p-8 w-full max-w-sm text-center shadow-2xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6"
           >
-            <div className="w-16 h-16 bg-red-100 text-[#E11D48] rounded-full flex items-center justify-center text-3xl mx-auto mb-4">⚠️</div>
-            <h3 className="text-lg font-bold text-gray-800">确认删除此条异常记录？</h3>
-            <p className="text-base text-gray-400 mt-2">删除后将无法找回该条记录。</p>
-            <div className="flex gap-3 mt-6">
-              <button 
-                onClick={() => setDeleteConfirmId(null)}
-                className="flex-1 py-4 bg-gray-100 rounded-[24px] font-bold text-gray-500 active:scale-95 transition-transform"
-              >取消</button>
-              <button 
-                onClick={() => {
-                  setAbnormalRecords(prev => prev.filter(r => r.id !== deleteConfirmId));
-                  setDeleteConfirmId(null);
-                }}
-                className="flex-1 py-4 bg-[#E11D48] text-white rounded-[24px] font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform"
-              >确认删除</button>
-            </div>
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-white rounded-[32px] p-8 w-full max-w-sm text-center shadow-2xl"
+            >
+              <div className="w-16 h-16 bg-red-100 text-[#E11D48] rounded-full flex items-center justify-center text-3xl mx-auto mb-4">⚠️</div>
+              <h3 className="text-lg font-bold text-gray-800">确认删除此条异常记录？</h3>
+              <p className="text-base text-gray-400 mt-2">删除后将无法找回该条记录。</p>
+              <div className="flex gap-3 mt-6">
+                <button 
+                  onClick={() => setDeleteConfirmId(null)}
+                  className="flex-1 py-4 bg-gray-100 rounded-[24px] font-bold text-gray-500 active:scale-95 transition-transform"
+                >取消</button>
+                <button 
+                  onClick={() => {
+                    setAbnormalRecords(prev => prev.filter(r => r.id !== deleteConfirmId));
+                    setDeleteConfirmId(null);
+                  }}
+                  className="flex-1 py-4 bg-[#E11D48] text-white rounded-[24px] font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform"
+                >确认删除</button>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="text-center mt-12 mb-8">
+        <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
+      </div>
+    </motion.div>
   );
 };
 
@@ -1830,9 +1834,8 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
       {/* 4.5.3 AI健康关怀卡片 */}
       <div className="rounded-[32px] bg-blue-50/80 p-6 card-shadow border border-blue-100/50 flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-3xl shadow-sm">🤖</div>
           <div>
-            <h3 className="font-bold text-[#024481]">AI关怀</h3>
+            <h3 className="font-bold text-[#024481]">AI健康关怀</h3>
           </div>
         </div>
         <p className="text-base text-blue-900 leading-relaxed font-medium italic">
@@ -1852,17 +1855,14 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
           <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase mb-2">传家记忆金句</h3>
         </div>
 
-        <div className="relative overflow-hidden">
-          <div className="absolute top-6 right-6 z-10 flex gap-1.5">
-            {quotes.map((_, idx) => (
-              <div 
-                key={idx}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeQuoteIndex === idx ? 'w-4 bg-[#024481]' : 'bg-gray-200'}`}
-              />
-            ))}
-          </div>
+        <div className="relative px-2">
+          {/* 背景堆叠纸张效果 1 */}
+          <div className="absolute inset-x-4 top-2 bottom-0 bg-white/40 rounded-[32px] border border-gray-100/50 -rotate-1 z-0"></div>
+          {/* 背景堆叠纸张效果 2 */}
+          <div className="absolute inset-x-3 top-1 bottom-0 bg-white/60 rounded-[32px] border border-gray-100/50 rotate-1 z-0"></div>
+          
           <div 
-            className="flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-1"
+            className="relative z-10 flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar"
             onScroll={(e) => {
               const el = e.currentTarget;
               const index = Math.round(el.scrollLeft / el.clientWidth);
@@ -1870,29 +1870,38 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
             }}
           >
             {quotes.map((quote, idx) => (
-              <div key={idx} className="w-full shrink-0 snap-center px-1">
-                <div 
-                  onClick={() => onAction('memoriesAlbum')}
-                  className="relative overflow-hidden rounded-[32px] bg-white p-6 shadow-sm border border-[#efeded] card-shadow group cursor-pointer active:scale-[0.99] transition-transform min-h-[200px] flex flex-col justify-between"
-                >
-                  <span className="absolute -top-4 -left-2 text-[80px] font-serif text-[#024481]/10 select-none group-hover:text-[#024481]/20 transition-colors">“</span>
+              <div key={idx} className="w-full shrink-0 snap-center">
+                  <div 
+                    onClick={() => onAction('memoriesAlbum')}
+                    className="relative overflow-hidden rounded-[32px] bg-white p-6 shadow-lg border border-[#f0f0f0] group cursor-pointer active:scale-[0.99] transition-transform min-h-[220px] flex flex-col justify-between"
+                  >
+                    <span className="absolute -top-4 -left-2 text-[80px] font-serif text-[#024481]/10 select-none group-hover:text-[#024481]/20 transition-colors">“</span>
                   <div className="relative z-10 space-y-4">
-                    <div className="flex justify-between items-center pr-12">
-                      <h2 className="font-bold text-[#024481] text-base">最新</h2>
-                    </div>
                     <p className="text-lg text-gray-800 leading-snug italic font-medium">
                       “{quote.source}说：{quote.text}”
                     </p>
                   </div>
                   <div className="relative z-10 flex flex-col gap-3 pt-4 border-t border-gray-50 mt-4">
-                    <div className="flex items-center gap-2 text-xs text-gray-400 font-bold uppercase">
-                      <span>话题：{quote.topic}</span>
-                      <span>采集时间：{quote.date}</span>
+                    <div className="flex items-center justify-between text-[10px] text-gray-400 font-bold uppercase">
+                      <div className="flex items-center gap-2">
+                        <span>话题：{quote.topic}</span>
+                        <span className="opacity-30">|</span>
+                        <span>采集时间：{quote.date}</span>
+                      </div>
+                      {/* 轮播指示点 */}
+                      <div className="flex items-center gap-1 bg-gray-50 px-1.5 py-1 rounded-full">
+                        {quotes.map((_, dotIdx) => (
+                          <div 
+                            key={dotIdx} 
+                            className={`w-1 h-1 rounded-full transition-all ${idx === dotIdx ? 'w-2.5 bg-[#024481]' : 'bg-gray-200'}`} 
+                          />
+                        ))}
+                      </div>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <button 
-                          onClick={(e) => toggleLike(`quote_${idx}`, e)} 
+                          onClick={(e) => { e.stopPropagation(); toggleLike(`quote_${idx}`, e); }} 
                           className={`flex items-center gap-1 text-xs font-bold transition-colors ${likedItems[`quote_${idx}`] ? 'text-blue-600' : 'text-gray-400'}`}
                         >
                           <span className={`${likedItems[`quote_${idx}`] ? 'scale-125' : ''} transition-transform`}>{likedItems[`quote_${idx}`] ? '❤️' : '🤍'}</span>
@@ -1920,6 +1929,10 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="text-center mt-12 mb-8">
+        <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
       </div>
     </motion.div>
   );
@@ -2031,6 +2044,10 @@ const EmergencyContactsView = ({
           </Reorder.Group>
         )}
 
+        <div className="text-center mt-12 mb-8">
+          <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
+        </div>
+
         {isAdding && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[200] flex items-center justify-center p-6">
             <div className="bg-white rounded-[32px] w-full p-8 space-y-6">
@@ -2064,6 +2081,9 @@ const EmergencyContactsView = ({
           </div>
         )}
       </main>
+      <div className="text-center mt-12 mb-8">
+        <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
+      </div>
     </motion.div>
   );
 };
@@ -2194,6 +2214,10 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
             )}
           </div>
         </div>
+
+        <div className="text-center mt-12 mb-8">
+          <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
+        </div>
       </main>
     </motion.div>
   );
@@ -2320,6 +2344,10 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
         <div className="p-8 text-center">
           <p className="text-xs text-gray-300">嘉和智护 极简守护OS · 告警模块 v1.0</p>
         </div>
+
+        <div className="text-center mt-12 mb-8">
+          <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
+        </div>
       </main>
     </motion.div>
   );
@@ -2389,6 +2417,9 @@ const FamilyMembersView = ({
           </div>
         </div>
       </main>
+      <div className="text-center mt-12 mb-8">
+        <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
+      </div>
     </motion.div>
   );
 };
@@ -2899,6 +2930,9 @@ const MedicationPlanView = ({
           <ImageViewer src={fullScreenImage} onClose={() => setFullScreenImage(null)} />
         )}
       </AnimatePresence>
+      <div className="text-center mt-12 mb-8">
+        <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
+      </div>
     </motion.div>
   );
 };
@@ -4794,6 +4828,7 @@ const ProfileView = ({
           </motion.div>
         )}
       </AnimatePresence>
+
       {/* 成员切换页签 - 切换老人 */}
       <div className="flex gap-4 p-4 overflow-x-auto [&::-webkit-scrollbar]:hidden shrink-0">
         {profiles.map((p, idx) => (
@@ -4956,28 +4991,6 @@ const ProfileView = ({
         <span className="text-gray-300">❯</span>
       </div>
 
-      {/* 个人信息入口 */}
-      <div className="px-2 mt-6 mb-2">
-        <h3 className="text-gray-500 font-bold text-xs tracking-widest uppercase">个人信息</h3>
-      </div>
-      <div className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-transform cursor-pointer"
-        onClick={() => onAddRobotClick('accountSettings' as any)}
-      >
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-[24px] bg-gray-50 flex items-center justify-center text-xl overflow-hidden shadow-inner">
-            <img src={userProfile.avatar} className="w-full h-full object-cover" alt="用户" referrerPolicy="no-referrer" />
-          </div>
-          <div>
-            <h3 className="font-bold text-gray-800 text-base">账号设置</h3>
-            <p className="text-xs text-gray-400 mt-1">管理昵称、手机号及身份关系</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-1 rounded-[24px]">{userProfile.relation}</span>
-          <span className="text-gray-300">❯</span>
-        </div>
-      </div>
-
       {/* 底部辅助连接 */}
       <div className="flex justify-center gap-6 pt-4">
         <button 
@@ -5006,210 +5019,7 @@ const ProfileView = ({
   );
 };
 
-// --- 子组件：账号设置页 ---
-const AccountSettingsView = ({ 
-  onClose, 
-  userProfile, 
-  onUpdateProfile 
-}: { 
-  onClose: () => void; 
-  userProfile: FamilyMember; 
-  onUpdateProfile: (updates: Partial<FamilyMember>) => void; 
-}) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [editingField, setEditingField] = useState<{ field: keyof FamilyMember | 'phone', label: string, value: string } | null>(null);
-
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          onUpdateProfile({ avatar: event.target.result as string });
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const startEdit = (field: keyof FamilyMember | 'phone', label: string) => {
-    let currentValue = (userProfile as any)[field];
-    setEditingField({ field, label, value: currentValue || '' });
-  };
-
-  const relationOptions = ['子女', '监护人', '配偶', '亲属', '其他'];
-
-  const saveEdit = (overrideValue?: string) => {
-    if (editingField) {
-      onUpdateProfile({ [editingField.field]: overrideValue || editingField.value });
-      setEditingField(null);
-    }
-  };
-
-  return (
-    <motion.div 
-      initial={{ x: '100%' }}
-      animate={{ x: 0 }}
-      exit={{ x: '100%' }}
-      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-      className="absolute inset-0 z-[150] bg-[#fbf9f8] flex flex-col font-sans"
-    >
-      <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0 sticky top-0 z-10">
-        <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg">
-            {'<'}
-          </button>
-          <h2 className="text-xl font-bold text-[#024481]">账号设置</h2>
-        </div>
-      </header>
-
-      <main className="flex-1 overflow-y-auto p-6 space-y-6">
-        {/* 基础信息 */}
-        <div className="bg-white rounded-[32px] overflow-hidden shadow-sm border border-gray-50 flex flex-col">
-          <div className="px-6 py-4 border-b border-gray-50 bg-gray-50/50">
-            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">基础信息</h3>
-          </div>
-          
-          {/* 头像 */}
-          <button 
-            onClick={() => fileInputRef.current?.click()}
-            className="px-6 py-5 flex items-center justify-between active:bg-gray-50 transition-colors border-b border-gray-50"
-          >
-            <span className="font-bold text-gray-700">头像</span>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                <img src={userProfile.avatar} alt="用户头像" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-              </div>
-              <span className="text-gray-300">❯</span>
-            </div>
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              className="hidden" 
-              accept="image/*" 
-              onChange={handleAvatarChange} 
-            />
-          </button>
-
-          {/* 昵称 */}
-          <button 
-            onClick={() => startEdit('name', '昵称')}
-            className="px-6 py-5 flex items-center justify-between active:bg-gray-50 transition-colors border-b border-gray-50"
-          >
-            <span className="font-bold text-gray-700">昵称</span>
-            <div className="flex items-center gap-3">
-              <span className="text-base text-gray-500">{userProfile.name}</span>
-              <span className="text-gray-300">❯</span>
-            </div>
-          </button>
-
-          {/* 手机号 */}
-          <button 
-            onClick={() => startEdit('phone' as any, '手机号')}
-            className="px-6 py-5 flex items-center justify-between active:bg-gray-50 transition-colors"
-          >
-            <span className="font-bold text-gray-700">手机号</span>
-            <div className="flex items-center gap-3">
-              <span className="text-base text-gray-500">{ userProfile.phone || '未设置' }</span>
-              <span className="text-gray-300">❯</span>
-            </div>
-          </button>
-        </div>
-
-        {/* 身份关系 */}
-        <div className="bg-white rounded-[32px] overflow-hidden shadow-sm border border-gray-50 flex flex-col">
-          <div className="px-6 py-4 border-b border-gray-50 bg-gray-50/50">
-            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">身份关系</h3>
-          </div>
-          <button 
-            onClick={() => startEdit('relation', '我的身份')}
-            className="px-6 py-5 flex items-center justify-between active:bg-gray-50 transition-colors"
-          >
-            <span className="font-bold text-gray-700">与长辈的关系</span>
-            <div className="flex items-center gap-3">
-              <span className="text-base text-gray-500">{userProfile.relation}</span>
-              <span className="text-gray-300">❯</span>
-            </div>
-          </button>
-        </div>
-
-        <div className="p-4 text-center">
-          <p className="text-xs text-gray-300 font-medium">账号信息仅用于通知接收和身份核验</p>
-        </div>
-      </main>
-
-      {/* 字段编辑弹窗 */}
-      <AnimatePresence>
-        {editingField && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6"
-            onClick={() => setEditingField(null)}
-          >
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white w-full max-w-sm rounded-[32px] p-8 shadow-2xl"
-              onClick={e => e.stopPropagation()}
-            >
-              <h3 className="text-lg font-bold text-gray-800 mb-6 text-center">修改{editingField.label}</h3>
-              
-              {editingField.field === 'relation' ? (
-                <div className="space-y-3 mb-8">
-                  {relationOptions.map(option => (
-                    <button
-                      key={option}
-                      onClick={() => saveEdit(option)}
-                      className={`w-full py-4 rounded-[24px] font-bold transition-all ${
-                        editingField.value === option 
-                        ? 'bg-blue-50 text-[#024481] border-2 border-blue-100' 
-                        : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <div className="relative mb-8">
-                    <input 
-                      autoFocus
-                      type="text"
-                      value={editingField.value}
-                      onChange={(e) => setEditingField({ ...editingField, value: e.target.value })}
-                      placeholder={`请输入新的${editingField.label}`}
-                      className="w-full bg-gray-50 border-none rounded-[24px] px-6 py-4 text-gray-700 font-medium focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
-                    />
-                  </div>
-                  <div className="flex gap-4">
-                    <button 
-                      onClick={() => setEditingField(null)}
-                      className="flex-1 py-4 text-gray-400 font-bold active:opacity-60 transition-opacity"
-                    >
-                      取消
-                    </button>
-                    <button 
-                      onClick={() => saveEdit()}
-                      className="flex-1 py-4 bg-[#024481] text-white rounded-[24px] font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-transform"
-                    >
-                      确定
-                    </button>
-                  </div>
-                </>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-};
-
-// --- 主组件 ---
+// --- 子组件：通知列表页 ---
 const NotificationsView = ({ 
   onClose, 
   onAlertClick, 
@@ -5355,6 +5165,10 @@ const NotificationsView = ({
               <p className="font-bold">暂无通知记录</p>
             </div>
           )}
+        </div>
+
+        <div className="text-center mt-12 mb-8">
+          <p className="text-xs text-gray-300 font-bold tracking-widest uppercase">— 已经到底 —</p>
         </div>
       </div>
     </motion.div>
@@ -5645,7 +5459,6 @@ export default function App() {
             else if (type === 'legalTerms') { setLegalType('terms'); setOverlay('legalNotice' as any); }
             else if (type === 'legalPrivacy') { setLegalType('privacy'); setOverlay('legalNotice' as any); }
             else if (type === 'alarmSettings') { setOverlay('alarmSettings' as any); }
-            else if (type === 'accountSettings') setOverlay('accountSettings' as any);
             else if (type === 'smartPlatforms') setOverlay('smartPlatforms');
             else if (type === 'smartDeviceScan') setOverlay('smartDeviceScan');
             else if (type === 'deviceManagement') setOverlay('deviceManagement');
@@ -5842,13 +5655,6 @@ export default function App() {
               setOverlay('imageViewer');
             }}
             onShowToast={showToast}
-          />
-        )}
-        {overlay === 'accountSettings' && (
-          <AccountSettingsView 
-            userProfile={userProfile}
-            onUpdateProfile={(updates) => setUserProfile(prev => ({ ...prev, ...updates }))}
-            onClose={() => setOverlay(null)}
           />
         )}
         {overlay === 'notifications' && (
