@@ -1388,7 +1388,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
               </div>
             </div>
             <span className="text-xs font-bold flex items-center gap-1" style={{ color: med.color }}>
-              {med.status === 'done' ? '✅' : med.status === 'missed' ? '⚠️' : '⏳'} {med.statusText}
+              {med.statusText}
             </span>
           </div>
         ))}
