@@ -6,7 +6,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, Reorder, useMotionValue, useTransform } from 'motion/react';
 import { AreaChart, Area, LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceArea } from 'recharts';
-import { GoogleGenAI, Type } from "@google/genai";
 import { 
   Home, 
   Activity, 
@@ -517,11 +516,11 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
           ❮
         </button>
         <h2 className="text-base font-bold flex items-center gap-2">
-          <AlertTriangle size={18} className="text-white" /> 检测到妈妈可能跌倒
+          检测到妈妈可能跌倒
         </h2>
       </header>
       <main className="flex-1 px-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] space-y-3 py-4 text-gray-800">
-        <div className="bg-white rounded-[16px] p-4 card-shadow border border-blue-50 space-y-1">
+        <div className="bg-white rounded-[24px] p-5 shadow-sm border border-gray-100 space-y-2">
           <div className="flex justify-between items-center py-1 border-b border-gray-50 text-sm">
             <span className="text-gray-500">发生时间</span>
             <span className="font-bold text-gray-800">2026-05-10 13:00:23</span>
@@ -545,13 +544,13 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
           {!isVideoOpen ? (
             <button 
               onClick={() => setIsVideoOpen(true)}
-              className="w-full h-16 border-2 border-dashed border-[#024481]/30 rounded-[16px] text-[#024481] font-bold flex items-center justify-center gap-2 bg-blue-50/50"
+              className="w-full h-16 border border-dashed border-[#024481]/20 rounded-[24px] text-[#024481] font-bold flex items-center justify-center gap-2 bg-blue-50/30"
             >
-              <Video size={20} />
+              <span className="text-xl">📹</span>
               <span className="text-sm">点击查看实时监控画面</span>
             </button>
           ) : (
-            <div className="aspect-video bg-gray-900 rounded-[16px] overflow-hidden relative shadow-lg">
+            <div className="aspect-video bg-gray-900 rounded-[24px] overflow-hidden relative shadow-md">
               <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover opacity-80" alt="核实画面" referrerPolicy="no-referrer" />
               <div className="absolute top-2 left-2 bg-[#E11D48] text-white text-[10px] px-1.5 py-0.5 rounded font-bold flex items-center gap-1 animate-pulse">
                 <span className="w-1.5 h-1.5 rounded-full bg-white"></span> LIVE
@@ -561,17 +560,17 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
         </div>
 
         <div className="grid grid-cols-3 gap-2 pt-2">
-          <button className="bg-[#024481] text-white py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-md active:scale-[0.98] transition-transform">
-            <Phone size={20} strokeWidth={2.5} />
-            <span className="font-bold text-xs">呼叫妈妈</span>
+          <button className="bg-white border border-gray-100 text-gray-800 py-4 rounded-[24px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform font-bold">
+            <span className="text-xl">📞</span>
+            <span className="text-xs">呼叫家人</span>
           </button>
-          <button className="bg-red-50 text-[#E11D48] border border-red-100 py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform">
-            <PhoneCall size={20} strokeWidth={2.5} />
-            <span className="font-bold text-xs">120急救</span>
+          <button className="bg-white border border-gray-100 text-gray-800 py-4 rounded-[24px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform font-bold">
+            <span className="text-xl">🚑</span>
+            <span className="text-xs">120急救</span>
           </button>
-          <button className="bg-white border border-gray-200 text-gray-800 py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform">
-            <Home size={20} strokeWidth={2.5} />
-            <span className="font-bold text-xs">联系物业</span>
+          <button className="bg-white border border-gray-100 text-gray-800 py-4 rounded-[24px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform font-bold">
+            <span className="text-xl">🏢</span>
+            <span className="text-xs">联系物业</span>
           </button>
         </div>
 
@@ -579,10 +578,9 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
           {!showResolveConfirm ? (
             <button 
               onClick={() => setShowResolveConfirm(true)}
-              className="w-full bg-[#10B981] text-white py-3 rounded-[16px] flex items-center justify-center gap-2 shadow-md active:scale-95 transition-transform text-sm"
+              className="w-full bg-[#10B981] text-white py-4 rounded-[24px] flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-transform text-sm"
             >
-              <span className="text-lg">✅</span>
-              <span className="font-bold">解除告警</span>
+              <span className="font-bold text-base">解除告警</span>
             </button>
           ) : (
             <motion.div 
@@ -1438,37 +1436,6 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
         {displayList.map((med) => (
           <div key={med.id} className="p-4 rounded-[20px] flex items-center justify-between border-l-4 shadow-sm" style={{ background: med.bg, borderColor: med.color }}>
             <div className="flex items-center gap-3">
-              <div 
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-xl overflow-hidden ${med.imageUrl ? 'cursor-zoom-in active:scale-90 transition-transform' : ''}`} 
-                style={{ border: `1px solid ${med.color}20`, background: med.iconBg }}
-                onClick={(e) => { 
-                  if (med.imageUrl) {
-                    e.stopPropagation();
-                    onImageClick(med.imageUrl);
-                  }
-                }}
-              >
-                {med.imageUrl ? (
-                  <img 
-                    src={med.imageUrl} 
-                    className="w-full h-full object-cover" 
-                    alt={med.name} 
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                      // 如果图片加载失败，显示 icon
-                      const parent = (e.target as HTMLElement).parentElement;
-                      if (parent) {
-                        const span = document.createElement('span');
-                        span.innerText = '💊';
-                        parent.appendChild(span);
-                      }
-                    }}
-                  />
-                ) : (
-                  med.icon
-                )}
-              </div>
               <div>
                 <p className="font-bold text-gray-800">{med.name}</p>
                 <p className="text-xs text-gray-500">{med.time}</p>
@@ -2113,21 +2080,35 @@ const EmergencyContactsView = ({
                 key={item.id} 
                 value={item}
                 drag={isMainAccount ? "y" : false}
-                className="bg-white p-4 rounded-[24px] border border-gray-100 flex items-center justify-between shadow-sm active:shadow-md transition-shadow"
+                className="bg-white rounded-[24px] border border-gray-100 shadow-sm active:shadow-md transition-shadow relative overflow-hidden"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-[#E11D48] font-bold">🚑</div>
-                  <div>
-                    <p className="font-bold text-gray-800">{item.name} <span className="text-xs text-gray-400 font-normal ml-1">({item.relation})</span></p>
-                    <p className="text-xs text-gray-500 mt-0.5">{item.phone}</p>
-                  </div>
-                </div>
-                {isMainAccount && (
+                <motion.div
+                  drag="x"
+                  dragConstraints={{ left: -100, right: 0 }}
+                  onDragEnd={(event, info) => {
+                    if (info.offset.x < -80) {
+                      handleDelete(item.id);
+                    }
+                  }}
+                  className="p-4 flex items-center justify-between bg-white w-full relative z-20"
+                >
                   <div className="flex items-center gap-3">
-                    <button onClick={() => handleDelete(item.id)} className="text-xs text-red-400 p-2">移除</button>
-                    <div className="cursor-grab active:cursor-grabbing text-gray-300">☰</div>
+                    <div>
+                      <p className="font-bold text-gray-800">{item.name} <span className="text-xs text-gray-400 font-normal ml-1">({item.relation})</span></p>
+                      <p className="text-xs text-gray-500 mt-0.5">{item.phone}</p>
+                    </div>
                   </div>
-                )}
+                  {isMainAccount && (
+                    <div className="cursor-grab active:cursor-grabbing text-gray-300">☰</div>
+                  )}
+                </motion.div>
+                {/* Swipe delete background */}
+                <div 
+                  className="absolute inset-y-0 right-0 w-24 bg-[#E11D48] flex items-center justify-center text-white"
+                  onClick={() => handleDelete(item.id)}
+                >
+                  <Trash2 size={24} />
+                </div>
               </Reorder.Item>
             ))}
           </Reorder.Group>
@@ -2486,15 +2467,39 @@ const FamilyMembersView = ({
 
       <main className="flex-1 p-6 space-y-4">
         {members.map(member => (
-          <div key={member.id} className="bg-white p-4 rounded-[24px] flex items-center justify-between border border-gray-50">
-            <div className="flex items-center gap-3">
-              <img src={member.avatar} className="w-12 h-12 rounded-full border-2 border-blue-50" alt={member.name} referrerPolicy="no-referrer" />
-              <div>
-                <p className="font-bold text-gray-800">{member.name}</p>
-                <p className="text-xs text-gray-400 font-bold">{member.relation}</p>
+          <div 
+            key={member.id} 
+            className="bg-white rounded-[24px] border border-gray-100 shadow-sm transition-shadow relative overflow-hidden"
+          >
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: -100, right: 0 }}
+              onDragEnd={(event, info) => {
+                if (info.offset.x < -80) {
+                  onDelete(member.id);
+                }
+              }}
+              className="p-4 bg-white w-full relative z-20 flex items-center gap-4"
+            >
+              <img src={member.avatar} className="w-12 h-12 rounded-full object-cover border-2 border-blue-50" alt={member.name} referrerPolicy="no-referrer" />
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <p className="font-bold text-gray-800">{member.name}</p>
+                  <p className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-black uppercase tracking-widest leading-tight">{member.relation}</p>
+                </div>
+                <div className="flex items-center gap-1.5 mt-1 text-gray-400">
+                  <Phone size={12} strokeWidth={2.5} />
+                  <p className="text-xs font-bold leading-none tracking-tight">{member.phone || '138****0000'}</p>
+                </div>
               </div>
+            </motion.div>
+            {/* Swipe delete background */}
+            <div 
+              className="absolute inset-y-0 right-0 w-24 bg-[#E11D48] flex items-center justify-center text-white"
+              onClick={() => onDelete(member.id)}
+            >
+              <Trash2 size={24} />
             </div>
-            <button onClick={() => onDelete(member.id)} className="text-xs text-red-400 p-2">移除</button>
           </div>
         ))}
         
@@ -2566,34 +2571,22 @@ const MedicationPlanView = ({
       // 立即在表单中预览图片，提升用户反馈感
       setForm(prev => ({ ...prev, imageUrl: full }));
 
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: [
-          {
-            inlineData: {
-              data: base64,
-              mimeType: file.type,
-            },
-          },
-          {
-            text: "请识别这张药品盒照片中的药品名称和建议剂量。请以JSON格式返回，包含 name (药品简称), dosage (单次剂量, 如1粒) 字段。如果识别不清晰，根据经验推测最可能的名称。如果你认为这不是药品盒，请在name字段返回'invalid'。",
-          },
-        ],
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              name: { type: Type.STRING },
-              dosage: { type: Type.STRING },
-            },
-            required: ["name", "dosage"],
-          },
+      const response = await fetch('/api/analyze-medicine', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          base64,
+          mimeType: file.type,
+        }),
       });
 
-      const result = JSON.parse(response.text);
+      if (!response.ok) {
+        throw new Error('Failed to analyze medicine');
+      }
+
+      const result = await response.json();
       if (result.name && result.name !== 'invalid') {
         setForm({
           name: result.name,
@@ -2767,47 +2760,77 @@ const MedicationPlanView = ({
         )}
 
         <div className="space-y-4">
-          {data.map(med => (
-            <div 
-              key={med.id} 
-              onClick={() => handleEditClick(med)}
-              className={`bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm space-y-4 active:scale-[0.98] transition-all cursor-pointer ${med.enabled === false ? 'opacity-60 bg-gray-50/50' : 'opacity-100'}`}
-            >
-              <div className="flex justify-between items-start">
-                <div className="flex items-center gap-4">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
-                    </div>
-                    <div className="flex flex-col gap-0.5 mt-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">每日推送</span>
-                        <p className="text-xs text-gray-400 font-medium">
-                          {med.times.join(' • ')}
-                        </p>
+          <Reorder.Group axis="y" values={data} onReorder={(newOrder) => {
+            if (!isMainAccount) return;
+            setData(newOrder);
+            onUpdate(newOrder);
+          }} className="space-y-4">
+            {data.map(med => (
+              <Reorder.Item 
+                key={med.id} 
+                value={med}
+                drag={isMainAccount ? "y" : false}
+                className="bg-white rounded-[32px] border border-gray-50 shadow-sm transition-all overflow-hidden relative"
+              >
+                {/* 背景层：确认删除按钮 */}
+                <div 
+                  className="absolute inset-y-0 right-0 w-24 bg-[#E11D48] flex items-center justify-center text-white"
+                  onClick={() => deleteMedication(med.id)}
+                >
+                  <Trash2 size={24} />
+                </div>
+                
+                {/* 内容层：可拖拽滑动 */}
+                <motion.div
+                  drag={isMainAccount ? "x" : false}
+                  dragConstraints={{ left: -96, right: 0 }}
+                  dragElastic={0.1}
+                  onDragEnd={(e, info) => {
+                    if (info.offset.x < -80) {
+                      // 保持滑开状态
+                    }
+                  }}
+                  onClick={() => handleEditClick(med)}
+                  className={`bg-white p-6 relative z-20 w-full cursor-pointer active:scale-[0.98] transition-transform ${med.enabled === false ? 'opacity-60 bg-gray-50/50' : 'opacity-100'}`}
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex items-center gap-4">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
+                        </div>
+                        <div className="flex flex-col gap-0.5 mt-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">每日推送</span>
+                            <p className="text-xs text-gray-400 font-medium">
+                              {med.times.join(' • ')}
+                            </p>
+                          </div>
+                          {(med.startDate || med.endDate) && (
+                            <p className="text-xs text-gray-300 font-medium">
+                              {med.startDate || '未设'} 至 {med.endDate || '未设'}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                      {(med.startDate || med.endDate) && (
-                        <p className="text-xs text-gray-300 font-medium">
-                          📅 {med.startDate || '未设'} 至 {med.endDate || '未设'}
-                        </p>
-                      )}
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-gray-200">❯</span>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-gray-200">❯</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between bg-gray-50/50 p-4 rounded-[24px] border border-gray-100/50">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-gray-400">单次剂量</span>
-                  <span className="text-base font-bold text-gray-700">{med.dosage}</span>
-                </div>
-                <span className="text-xs text-gray-300 font-medium italic">点击进入维护 📝</span>
-              </div>
-            </div>
-          ))}
+
+                  {med.enabled !== false && (
+                    <div className="p-4 bg-gray-50/50 rounded-[24px] border border-gray-100/50 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-gray-400">单次剂量</span>
+                        <span className="text-base font-bold text-gray-700">{med.dosage}</span>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
 
           {data.length === 0 && (
             <div className="text-center py-12">
@@ -2956,16 +2979,6 @@ const MedicationPlanView = ({
                   </div>
                 </div>
               </div>
-
-              {!isAdding && editingMed && (
-                <button 
-                  onClick={() => deleteMedication(editingMed.id)}
-                  className="w-full py-5 bg-red-50 text-[#E11D48] rounded-[32px] font-bold active:scale-[0.98] transition-transform flex items-center justify-center gap-2 border border-red-100 mt-4"
-                >
-                  <span className="text-lg">🗑️</span>
-                  <span>删除此用药计划</span>
-                </button>
-              )}
             </main>
           </motion.div>
         )}
@@ -4884,7 +4897,7 @@ const ProfileView = ({
 
       {/* 成员切换页签 - 隐藏多成员切换，当前版本仅支持一个老人 */}
       {/* 个人简介与数据概览 */}
-      <div className="flex flex-col items-center pt-8">
+      <div className="flex flex-col items-center">
         <div className="relative">
           <div 
             onClick={onEditClick}
@@ -5317,8 +5330,8 @@ export default function App() {
 
   // 家人管理
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([
-    { id: '1', name: '张大勇', relation: '大儿子', avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop' },
-    { id: '2', name: '王晓梅', relation: '大儿媳', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop' }
+    { id: '1', name: '张大勇', relation: '大儿子', avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop', phone: '13888881234' },
+    { id: '2', name: '王晓梅', relation: '大儿媳', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop', phone: '13912345678' }
   ]);
 
   // 用药计划
