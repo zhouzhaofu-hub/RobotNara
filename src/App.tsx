@@ -2699,10 +2699,10 @@ const MedicationPlanView = ({
             <button 
               onClick={() => fileInputRef.current?.click()}
               className="px-4 h-10 bg-green-50 text-[#10B981] rounded-[24px] flex items-center justify-center gap-2 text-base font-bold active:scale-95 transition-transform"
-              title="拍照识别"
+              title="AI识别"
             >
-              <span>📷</span>
-              <span>图片识别药品</span>
+              <Camera size={18} strokeWidth={2.5} />
+              <span>AI识别药品</span>
             </button>
             <button 
               onClick={handleAddClick}
@@ -2759,50 +2759,9 @@ const MedicationPlanView = ({
             >
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-[24px] flex items-center justify-center text-3xl shadow-inner shrink-0 ${med.enabled === false ? 'bg-gray-100' : 'bg-blue-50'}`}>
-                    {med.imageUrl && med.enabled !== false ? (
-                      <img 
-                        src={med.imageUrl} 
-                        className="w-full h-full object-cover rounded-[24px]" 
-                        alt={med.name} 
-                        referrerPolicy="no-referrer"
-                        onClick={(e) => { e.stopPropagation(); setFullScreenImage(med.imageUrl!); }}
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          const parent = (e.target as HTMLElement).parentElement;
-                          if (parent) {
-                            parent.innerText = '💊';
-                          }
-                        }}
-                      />
-                    ) : (
-                      med.enabled === false ? '💤' : '💊'
-                    )}
-                  </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
-                      {med.status && med.enabled !== false && (
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
-                          med.status === 'taken' ? 'bg-green-50 text-green-600' :
-                          med.status === 'missed' ? 'bg-red-50 text-red-600' :
-                          med.status === 'delayed' ? 'bg-orange-50 text-orange-600' :
-                          'bg-blue-50 text-blue-600'
-                        }`}>
-                          {med.status === 'taken' ? '已服用' :
-                           med.status === 'missed' ? '未按时' :
-                           med.status === 'delayed' ? '有延迟' : '待服用'}
-                        </span>
-                      )}
-                      {med.imageUrl && med.enabled !== false && (
-                        <button 
-                          onClick={(e) => { e.stopPropagation(); setFullScreenImage(med.imageUrl!); }}
-                          className="text-lg hover:scale-110 active:scale-95 transition-transform"
-                          title="点击查看药盒照片"
-                        >
-                          🖼️
-                        </button>
-                      )}
                     </div>
                     <div className="flex flex-col gap-0.5 mt-1">
                       <div className="flex items-center gap-2">
@@ -2820,14 +2779,6 @@ const MedicationPlanView = ({
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  {isMainAccount && (
-                    <button 
-                      onClick={(e) => { e.stopPropagation(); toggleEnabled(med.id); }}
-                      className={`w-10 h-10 rounded-[24px] flex items-center justify-center transition-all ${med.enabled === false ? 'bg-green-100 text-[#10B981]' : 'bg-gray-100 text-gray-400'}`}
-                    >
-                      {med.enabled === false ? '▶️' : '⏸️'}
-                    </button>
-                  )}
                   <span className="text-gray-200">❯</span>
                 </div>
               </div>
@@ -3468,15 +3419,10 @@ const ElderlyProfileEditView = ({
           />
           <button 
             onClick={handleSelectAlbum}
-            className="bg-gray-50 text-gray-500 px-3 py-1.5 rounded-full text-[10px] font-bold border border-gray-100 active:scale-95 transition-transform"
+            className="px-4 py-1.5 bg-green-50 text-[#10B981] rounded-full text-xs font-bold flex items-center gap-2 active:scale-95 transition-transform border border-green-100"
           >
-            选相册
-          </button>
-          <button 
-            onClick={handleScanRecord}
-            className="bg-gray-50 text-gray-500 px-3 py-1.5 rounded-full text-[10px] font-bold border border-gray-100 active:scale-95 transition-transform"
-          >
-            扫病历
+            <Camera size={14} strokeWidth={2.5} />
+            AI识别病历
           </button>
           <button 
             onClick={() => {
