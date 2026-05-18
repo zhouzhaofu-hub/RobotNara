@@ -12,7 +12,8 @@ import {
   Activity, 
   MessageCircle, 
   User, 
-  Smartphone, 
+  Smartphone as Device,
+  Smartphone,
   PhoneCall, 
   Users, 
   Pill, 
@@ -29,8 +30,14 @@ import {
   Image,
   Shield,
   Info,
-  Smartphone as Device,
   Phone,
+  RefreshCw,
+  Maximize2,
+  Trash2,
+  AlertTriangle,
+  AlertCircle,
+  FileText,
+  BarChart2,
   Settings,
   MoreHorizontal
 } from 'lucide-react';
@@ -299,13 +306,13 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
                   onClick={handleRetry}
                   className="w-full py-4 bg-blue-600 text-white rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                 >
-                  🔄 重新呼叫
+                  <RefreshCw size={18} className="animate-spin-slow" /> 重新呼叫
                 </button>
                 <button 
                   onClick={handleVoiceMessage}
-                  className="w-full py-4 bg-white/10 text-white rounded-[24px] font-bold border border-white/10 active:scale-95 transition-transform"
+                  className="w-full py-4 bg-white/10 text-white rounded-[24px] font-bold border border-white/10 active:scale-95 transition-transform flex items-center justify-center gap-2"
                 >
-                  🎙️ 发送语音留言
+                  <Mic size={18} /> 发送语音留言
                 </button>
                 <button onClick={onClose} className="w-full py-3 text-white/40 text-xs font-bold active:opacity-60">
                   取消返回
@@ -324,18 +331,24 @@ const VideoCallView = ({ onClose, isConnecting, onAction }: { onClose: () => voi
           <div className="w-full px-4 pb-8 mt-auto">
             <div className="bg-black/40 backdrop-blur-xl p-6 rounded-[32px] grid grid-cols-3 gap-6 shadow-2xl border border-white/10">
               <button className="flex flex-col items-center gap-2 group">
-                <div className="w-14 h-14 rounded-full bg-white/10 group-active:bg-white/20 flex items-center justify-center text-white text-xl transition-colors">🎙️</div>
+                <div className="w-14 h-14 rounded-full bg-white/10 group-active:bg-white/20 flex items-center justify-center text-white transition-colors">
+                  <Mic size={24} strokeWidth={1.5} />
+                </div>
                 <span className="text-white/60 text-xs font-bold">静音</span>
               </button>
               <button 
                 onClick={onClose} 
                 className="flex flex-col items-center gap-2 group"
               >
-                <div className="w-16 h-16 rounded-full bg-[#E11D48] group-active:scale-95 flex items-center justify-center text-white text-2xl shadow-lg shadow-red-500/40 transition-all -mt-4">📞</div>
+                <div className="w-16 h-16 rounded-full bg-[#E11D48] group-active:scale-95 flex items-center justify-center text-white shadow-lg shadow-red-500/40 transition-all -mt-4">
+                  <Phone size={28} strokeWidth={2} className="rotate-[135deg]" />
+                </div>
                 <span className="text-white/80 text-xs font-bold">挂断</span>
               </button>
               <button className="flex flex-col items-center gap-2 group">
-                <div className="w-14 h-14 rounded-full bg-white/10 group-active:bg-white/20 flex items-center justify-center text-white text-xl transition-colors">📷</div>
+                <div className="w-14 h-14 rounded-full bg-white/10 group-active:bg-white/20 flex items-center justify-center text-white transition-colors">
+                  <Camera size={24} strokeWidth={1.5} />
+                </div>
                 <span className="text-white/60 text-xs font-bold">翻转镜头</span>
               </button>
             </div>
@@ -504,7 +517,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
           ❮
         </button>
         <h2 className="text-base font-bold flex items-center gap-2">
-          <span>⚠️</span> 检测到妈妈可能跌倒
+          <AlertTriangle size={18} className="text-white" /> 检测到妈妈可能跌倒
         </h2>
       </header>
       <main className="flex-1 px-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] space-y-3 py-4 text-gray-800">
@@ -534,7 +547,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
               onClick={() => setIsVideoOpen(true)}
               className="w-full h-16 border-2 border-dashed border-[#024481]/30 rounded-[16px] text-[#024481] font-bold flex items-center justify-center gap-2 bg-blue-50/50"
             >
-              <span className="text-xl">🎥</span>
+              <Video size={20} />
               <span className="text-sm">点击查看实时监控画面</span>
             </button>
           ) : (
@@ -549,15 +562,15 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
 
         <div className="grid grid-cols-3 gap-2 pt-2">
           <button className="bg-[#024481] text-white py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-md active:scale-[0.98] transition-transform">
-            <span className="text-xl">📞</span>
+            <Phone size={20} strokeWidth={2.5} />
             <span className="font-bold text-xs">呼叫妈妈</span>
           </button>
           <button className="bg-red-50 text-[#E11D48] border border-red-100 py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform">
-            <span className="text-xl">🚑</span>
+            <PhoneCall size={20} strokeWidth={2.5} />
             <span className="font-bold text-xs">120急救</span>
           </button>
           <button className="bg-white border border-gray-200 text-gray-800 py-3 rounded-[16px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform">
-            <span className="text-xl">🏘️</span>
+            <Home size={20} strokeWidth={2.5} />
             <span className="font-bold text-xs">联系物业</span>
           </button>
         </div>
@@ -1222,7 +1235,9 @@ const GuardianView = ({
       >
         <div className="flex items-center gap-3">
            <div className="relative">
-             <span className="text-2xl">🔔</span>
+             <span className="text-gray-400">
+               <Bell size={24} strokeWidth={1.5} />
+             </span>
              <span className="absolute top-0 right-0 w-2 h-2 bg-[#FA5151] rounded-full"></span>
            </div>
            <div>
@@ -1351,61 +1366,62 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
       <p className="text-gray-500 text-base">为您悉心守护，享受惬意健康的每一天</p>
     </div>
 
-    {/* 依从性反馈 */}
-    <div className="bg-white rounded-[32px] p-8 card-shadow flex flex-col items-center border border-gray-50 relative overflow-hidden">
-      <div className="w-full flex justify-between items-start mb-6">
-        <div>
-          <h3 className="font-bold text-xl text-gray-800">本周依从性</h3>
-          <p className="text-[#0d6c42] text-sm font-bold flex items-center gap-1 mt-1">
-            <span>📈</span> 比上周 +5%
-          </p>
+    {/* 综合评分区域 - 采用黄金分割点比例布局与极简双色设计 */}
+    <div className="pt-8 pb-12 flex flex-col items-center">
+      <div className="relative w-52 h-52 flex items-center justify-center">
+        {/* 指标性圆环：95% 翠绿 vs 5% 浅灰 */}
+        <svg className="w-full h-full -rotate-90 drop-shadow-[0_8px_20px_rgba(16,185,129,0.12)]">
+          <circle
+            cx="104"
+            cy="104"
+            r="92"
+            fill="transparent"
+            stroke="#F3F4F6"
+            strokeWidth="10"
+          />
+          <motion.circle
+            initial={{ strokeDashoffset: 2 * Math.PI * 92 }}
+            animate={{ strokeDashoffset: 2 * Math.PI * 92 * 0.05 }}
+            cx="104"
+            cy="104"
+            r="92"
+            fill="transparent"
+            stroke="#10B981"
+            strokeWidth="10"
+            strokeDasharray={2 * Math.PI * 92}
+            strokeLinecap="round"
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          />
+        </svg>
+        
+        {/* 核心数值展示 */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pt-2">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-col items-center"
+          >
+            <span className="text-8xl font-black text-[#10B981] tracking-tighter leading-none">95</span>
+            <div className="mt-3 flex flex-col items-center opacity-40">
+              <span className="text-[10px] font-bold text-gray-500 tracking-[0.2em]">综合评分</span>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      <div 
-        className="relative w-40 h-40 rounded-full flex items-center justify-center shadow-md transition-transform active:scale-95 cursor-pointer"
-        style={{ background: '#0d6c42' }}
-        onClick={() => setShowScoreExplain(!showScoreExplain)}
+      {/* 状态趋势 - 位于视觉稳定点 */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-10 flex flex-col items-center gap-2"
       >
-        <div className="absolute inset-0 rounded-full" style={{ clipPath: 'polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0)', background: '#2a5c9a' }}></div>
-        <div className="absolute inset-0 rounded-full" style={{ clipPath: 'polygon(50% 50%, 0 100%, 0 0)', background: '#f97316' }}></div>
-        <div className="absolute inset-0 rounded-full" style={{ clipPath: 'polygon(50% 50%, 0 0, 50% 0)', background: '#7c3aed' }}></div>
-        <div className="w-[130px] h-[130px] bg-white rounded-full flex flex-col items-center justify-center z-10 shadow-inner">
-          <span className="text-5xl font-black text-[#0d6c42] leading-none">95</span>
-          <span className="text-xs text-gray-400 font-bold mt-2 uppercase tracking-widest">综合评分</span>
+        <div className="flex items-center gap-2 text-[#10B981] bg-emerald-50/60 px-4 py-1.5 rounded-full border border-emerald-100/50">
+          <Activity size={14} strokeWidth={3} />
+          <span className="text-xs font-bold tracking-tight">比上周提升 5%</span>
         </div>
-
-        <AnimatePresence>
-          {showScoreExplain && (
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="absolute inset-0 z-20 bg-white/95 backdrop-blur-sm rounded-full flex flex-col items-center justify-center p-4 border border-gray-100 shadow-xl"
-            >
-              <div className="grid grid-cols-1 gap-1 text-[10px] font-black w-full px-4">
-                <div className="flex items-center justify-between text-[#0d6c42]">
-                  <span>用药</span>
-                  <span>40%</span>
-                </div>
-                <div className="flex items-center justify-between text-[#2a5c9a]">
-                  <span>监测</span>
-                  <span>30%</span>
-                </div>
-                <div className="flex items-center justify-between text-[#f97316]">
-                  <span>运动</span>
-                  <span>20%</span>
-                </div>
-                <div className="flex items-center justify-between text-[#7c3aed]">
-                  <span>饮食</span>
-                  <span>10%</span>
-                </div>
-              </div>
-              <div className="mt-2 text-[8px] text-gray-300 font-bold">点击关闭</div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
 
     {/* 用药记录 */}
@@ -3845,7 +3861,9 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
           <p className="text-xs text-gray-400 font-bold uppercase tracking-widest px-1">安全设置</p>
           <button className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-red-50 text-[#E11D48] rounded-[24px] flex items-center justify-center text-xl">🔔</div>
+              <div className="w-10 h-10 bg-red-50 text-[#E11D48] rounded-[24px] flex items-center justify-center">
+                <Bell size={20} strokeWidth={2.5} />
+              </div>
               <div className="text-left">
                 <p className="font-bold text-gray-800 text-base">告警阈值设定</p>
                 <p className="text-xs text-gray-400 mt-1">当测量值超过范围时自动呼叫家人</p>
@@ -4908,7 +4926,7 @@ const ProfileView = ({
           <div className="w-px h-10 bg-[#e2e8f0]"></div>
           <div className="flex-1">
             <div className="text-xs text-[#8e9eba] font-bold tracking-wider mb-2">依从性评分</div>
-            <div className="text-[28px] font-medium text-[#3b82f6]">优秀</div>
+            <div className="text-[28px] font-medium text-[#10B981]">优秀</div>
           </div>
         </div>
       </div>
@@ -5125,7 +5143,7 @@ const NotificationsView = ({
                     'bg-[#2b7fff] shadow-blue-200'
                   }`}>
                     <span className="text-white text-2xl font-bold">
-                      {notif.type === '告警' ? '🛡️' : notif.type === '提示' ? '🔔' : 'ℹ️'}
+                      {notif.type === '告警' ? <Shield size={16} /> : notif.type === '提示' ? <Bell size={16} /> : <Info size={16} />}
                     </span>
                   </div>
                   <div className="flex-1">
@@ -5800,7 +5818,9 @@ export default function App() {
           <h1 className="text-xl font-bold text-[#024481]">嘉和智护OS</h1>
         </div>
         <button onClick={() => handleAction('notifications')} className="w-11 h-11 rounded-[24px] bg-white flex items-center justify-center card-shadow active:scale-95 transition-transform relative">
-          <span className="text-xl">🔔</span>
+          <span className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer active:scale-90">
+            <Bell size={22} strokeWidth={2} />
+          </span>
           {notifications.some(n => !n.isRead) && (
             <span className="absolute -top-1 -right-1 flex h-4 w-4">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
