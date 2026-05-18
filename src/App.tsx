@@ -42,7 +42,11 @@ import {
   ThumbsUp,
   ChevronLeft,
   Calendar,
-  Star
+  Star,
+  HeartPulse,
+  Share2,
+  Download,
+  Search
 } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -2344,7 +2348,7 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
       description: '事关生命安全，此项不可关闭',
       isLocked: true,
       enabled: true,
-      icon: '🚨'
+      icon: <AlertTriangle size={20} strokeWidth={1} className="text-red-500" />
     },
     {
       id: 'health',
@@ -2354,7 +2358,7 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
       description: '及时获知健康偏离状态',
       isLocked: false,
       enabled: settings.health,
-      icon: '💓'
+      icon: <HeartPulse size={20} strokeWidth={1} className="text-gray-400" />
     },
     {
       id: 'dailyReport',
@@ -2364,7 +2368,7 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
       description: '掌握每日健康全景数据',
       isLocked: false,
       enabled: settings.dailyReport,
-      icon: <Calendar size={20} strokeWidth={1.5} />
+      icon: <Calendar size={20} strokeWidth={1} className="text-gray-400" />
     },
     {
       id: 'care',
@@ -2374,7 +2378,7 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
       description: '关注长辈心理与日常活力',
       isLocked: false,
       enabled: settings.care,
-      icon: <Heart size={20} strokeWidth={1.5} />
+      icon: <Heart size={20} strokeWidth={1} className="text-gray-400" />
     }
   ];
 
@@ -2393,9 +2397,9 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
       </header>
 
       <main className="flex-1 p-6 space-y-4 overflow-y-auto">
-        <div className="bg-blue-50/50 p-4 rounded-[24px] border border-blue-100 flex items-start gap-3 mb-2">
-          <span className="text-lg">🛡️</span>
-          <p className="text-xs text-blue-600 leading-relaxed font-medium">
+        <div className="bg-gray-50 p-4 rounded-[24px] border border-gray-100 flex items-start gap-3 mb-2">
+          <Shield size={18} className="text-gray-300 shrink-0 mt-0.5" strokeWidth={1.5} />
+          <p className="text-xs text-gray-400 leading-relaxed font-medium">
             系统深度集成了多维度感知算法，确保在紧急时刻能第一时间通过多种路径通知到您。
           </p>
         </div>
@@ -2416,7 +2420,7 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
               {cat.isLocked ? (
                 <div className="bg-gray-100 px-3 py-1.5 rounded-full flex items-center gap-1">
                   <span className="text-xs text-gray-400 font-bold">始终开启</span>
-                  <span className="text-xs">🔒</span>
+                  <Lock size={12} className="text-gray-300" strokeWidth={2} />
                 </div>
               ) : (
                 <button 
@@ -4380,10 +4384,10 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
     overallStatus: '优秀',
     statusDesc: '本周老人生命体征稳定，健康状态较上周有所提升。',
     metrics: [
-      { name: '平均心率', value: '72 bpm', status: '正常', icon: <Heart size={20} strokeWidth={1.5} className="text-rose-500" /> },
-      { name: '平均血压', value: '128/82 mmHg', status: '正常', icon: <Activity size={20} strokeWidth={1.5} className="text-blue-500" /> },
-      { name: '用药依从率', value: '100%', status: '极佳', icon: <Pill size={20} strokeWidth={1.5} className="text-emerald-500" /> },
-      { name: '睡眠时长', value: '7h 15m', status: '达标', icon: <Moon size={20} strokeWidth={1.5} className="text-indigo-500" /> },
+      { name: '平均心率', value: '72 bpm', status: '正常', icon: <Heart size={20} strokeWidth={1} className="text-gray-400" /> },
+      { name: '平均血压', value: '128/82 mmHg', status: '正常', icon: <Activity size={20} strokeWidth={1} className="text-gray-400" /> },
+      { name: '用药依从率', value: '100%', status: '极佳', icon: <Pill size={20} strokeWidth={1} className="text-gray-400" /> },
+      { name: '睡眠时长', value: '7h 15m', status: '达标', icon: <Moon size={20} strokeWidth={1} className="text-gray-400" /> },
     ],
     highlights: [
       '睡眠质量显著提升，深度睡眠比例增加 15%',
@@ -4429,23 +4433,23 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
           {/* 页眉 */}
           <div className="flex justify-between items-start border-b-2 border-blue-50 pb-6">
             <div>
-              <div className="w-12 h-12 rounded-[24px] bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-3">小和</div>
+              <div className="w-12 h-12 rounded-[24px] bg-gray-50 border border-gray-200 text-gray-400 flex items-center justify-center text-xs font-bold mb-3">LOGO</div>
               <h1 className="text-2xl font-bold text-gray-900">健康评估报告</h1>
             </div>
             <div className="text-right">
               <p className="text-xs font-bold text-gray-400">报告周期</p>
               <p className="text-base font-bold text-[#1e293b]">{reportData.dateRange}</p>
-              <div className="mt-4 inline-block px-3 py-1 bg-green-100 text-green-700 rounded-[24px] text-xs font-bold">状态：{reportData.overallStatus}</div>
+              <div className="mt-4 inline-block px-3 py-1 bg-gray-50 text-gray-400 border border-gray-100 rounded-[24px] text-xs font-bold">状态：{reportData.overallStatus}</div>
             </div>
           </div>
 
           {/* 综述 */}
           <section className="space-y-3">
              <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-               <span className="w-1 h-4 bg-blue-500 rounded-full"></span>
+               <span className="w-1 h-4 bg-gray-300 rounded-full"></span>
                AI 综合评估
              </h3>
-             <p className="text-base text-gray-600 leading-loose bg-blue-50/50 p-4 rounded-[24px] italic">
+             <p className="text-base text-gray-600 leading-loose bg-gray-50 p-4 rounded-[24px] italic border border-gray-100/50">
                “{reportData.statusDesc}”
              </p>
           </section>
@@ -4464,16 +4468,32 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
             ))}
           </div>
 
+          {/* 本周趋势 - 极简线框图表示 */}
+          <section className="space-y-3">
+             <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
+               <span className="w-1 h-4 bg-gray-300 rounded-full"></span>
+               指标趋势图
+             </h3>
+             <div className="h-32 w-full border border-dashed border-gray-200 rounded-[24px] flex items-center justify-center bg-gray-50/30">
+                <div className="flex items-end gap-2 h-16">
+                  {[40, 60, 45, 80, 55, 70, 65].map((h, i) => (
+                    <div key={i} className="w-4 bg-white border border-gray-200" style={{ height: `${h}%` }}></div>
+                  ))}
+                </div>
+                <p className="absolute text-[10px] text-gray-300 font-bold uppercase mt-20">线框化示意图</p>
+             </div>
+          </section>
+
           {/* 本周亮点 */}
           <section className="space-y-3">
              <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-               <span className="w-1 h-4 bg-emerald-500 rounded-full"></span>
+               <span className="w-1 h-4 bg-gray-300 rounded-full"></span>
                本周亮点
              </h3>
              <ul className="space-y-2">
                {reportData.highlights.map((h, i) => (
                  <li key={i} className="flex gap-2 items-start text-xs text-gray-600 leading-relaxed">
-                   <span className="text-emerald-500 mt-0.5">⭐</span>
+                   <Star size={14} className="text-gray-300 mt-0.5" strokeWidth={1.5} />
                    {h}
                  </li>
                ))}
@@ -4483,12 +4503,12 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
           {/* 专业建议 */}
           <section className="space-y-3">
              <h3 className="text-base font-bold text-gray-800 flex items-center gap-2">
-               <span className="w-1 h-4 bg-[#F59E0B] rounded-full"></span>
+               <span className="w-1 h-4 bg-gray-300 rounded-full"></span>
                下周建议
              </h3>
              <div className="space-y-2">
                {reportData.suggestions.map((s, i) => (
-                 <div key={i} className="p-3 bg-orange-50/30 rounded-[24px] text-xs text-gray-700 leading-relaxed border-l-2 border-orange-200">
+                 <div key={i} className="p-3 bg-white rounded-[24px] text-xs text-gray-700 leading-relaxed border border-gray-100 shadow-sm">
                    {s}
                  </div>
                ))}
@@ -4502,8 +4522,8 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
               <p className="text-xs text-gray-400 font-bold">生成时间：2026.05.11 08:45:12</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 border-2 border-blue-200 rounded-full flex items-center justify-center -mb-4 opacity-30 select-none">
-                <span className="text-xs font-bold text-blue-500 text-center scale-90">小和 AI<br/>健康评估<br/>专用章</span>
+              <div className="w-16 h-16 border border-dashed border-gray-200 rounded-full flex items-center justify-center -mb-4 select-none">
+                <span className="text-[8px] font-bold text-gray-300 text-center scale-90 leading-tight">OFFICIAL<br/>HEALTH<br/>REPORT</span>
               </div>
             </div>
           </div>
@@ -4513,15 +4533,15 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
       <footer className="p-6 bg-white border-t border-gray-100 flex gap-4">
         <button 
           onClick={handleWeChatClick}
-          className="flex-1 py-4 bg-gray-100 text-gray-700 rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+          className="flex-1 py-4 bg-gray-50 text-gray-500 rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform border border-gray-100"
         >
-          <span>📤</span> 分享转发
+          <Share2 size={18} strokeWidth={1.5} /> 分享转发
         </button>
         <button 
           onClick={() => alert('PDF 正在下载中...')}
-          className="flex-1 py-4 bg-[#024481] text-white rounded-[24px] font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-100 active:scale-95 transition-transform"
+          className="flex-1 py-4 bg-gray-800 text-white rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
         >
-          <span>📥</span> 立即下载
+          <Download size={18} strokeWidth={1.5} /> 立即下载
         </button>
       </footer>
     </motion.div>
@@ -5121,27 +5141,24 @@ const NotificationsView = ({
       exit={{ x: '100%' }}
       className="absolute inset-0 z-[100] bg-white flex flex-col font-sans"
     >
-      <header className="bg-white flex items-center justify-between px-4 py-4 relative border-b border-gray-50 shrink-0">
+      <header className="bg-white flex items-center justify-between px-4 py-4 relative border-b border-gray-100 shrink-0">
         <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
-        <h2 className="text-xl font-bold text-center text-black">消息通知</h2>
+        <h2 className="text-xl font-bold text-center text-gray-800">消息通知</h2>
         <div className="flex items-center gap-3 shrink-0">
-          <button onClick={onMarkAllRead} className="text-xs text-blue-500 font-bold whitespace-nowrap active:opacity-70">全部已读</button>
-          <button onClick={onClearAll} className="text-xs text-[#E11D48] font-bold whitespace-nowrap active:opacity-70">一键清除</button>
-          <button className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold text-lg active:scale-95 transition-transform">
-            ⚙️
-          </button>
+          <button onClick={onMarkAllRead} className="text-xs text-gray-400 font-bold whitespace-nowrap active:opacity-70">全部已读</button>
+          <button onClick={onClearAll} className="text-xs text-[#E11D48]/60 font-bold whitespace-nowrap active:opacity-70">一键清除</button>
         </div>
       </header>
 
       <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {/* 搜索框 */}
         <div className="px-5 py-4">
-          <div className="bg-[#f7f7f9] flex items-center gap-2 px-4 py-3.5 rounded-[24px] border border-gray-100">
-            <span className="text-lg text-gray-400">🔍</span>
+          <div className="bg-gray-50 flex items-center gap-2 px-4 py-3.5 rounded-[24px] border border-gray-100/50">
+            <Search size={18} className="text-gray-300" />
             <input 
               type="text" 
-              placeholder="搜索通知标题或关键词..." 
-              className="bg-transparent border-none outline-none text-base w-full placeholder:text-gray-400 font-medium" 
+              placeholder="搜索通知标题..." 
+              className="bg-transparent border-none outline-none text-base w-full placeholder:text-gray-300 font-medium" 
             />
           </div>
         </div>
@@ -5152,7 +5169,7 @@ const NotificationsView = ({
             <button 
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`${activeTab === tab ? 'bg-[#07C160] text-white shadow-[0_4px_12px_rgba(7,193,96,0.2)]' : 'bg-gray-50 text-gray-400'} px-8 py-2.5 rounded-[24px] text-base font-bold shrink-0 transition-all`}
+              className={`${activeTab === tab ? 'bg-gray-800 text-white shadow-lg shadow-gray-200' : 'bg-gray-50 text-gray-400'} px-8 py-2.5 rounded-[24px] text-base font-bold shrink-0 transition-all`}
             >
               {tab}
             </button>
