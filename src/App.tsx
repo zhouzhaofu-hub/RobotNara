@@ -797,13 +797,8 @@ const GuardianView = ({
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-6 pb-24"
+      className="space-y-4 pb-24"
     >
-      <div className="flex flex-col gap-1">
-        <h2 className="text-2xl font-bold text-gray-800">守护</h2>
-        <p className="text-gray-500 text-base">安心时刻，陪伴每一天</p>
-      </div>
-
       <AnimatePresence>
         {localToast && (
           <motion.div
@@ -1360,15 +1355,10 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
     <motion.div 
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      className="space-y-6 pb-24"
+      className="space-y-4 pb-24"
     >
-    <div className="flex flex-col gap-1">
-      <h2 className="text-2xl font-bold text-gray-800">健康关怀</h2>
-      <p className="text-gray-500 text-base">为您悉心守护，享受惬意健康的每一天</p>
-    </div>
-
     {/* 综合评分区域 - 采用绿色递进分段设计 */}
-    <div className="pt-8 pb-12 flex flex-col items-center">
+    <div className="pt-4 pb-4 flex flex-col items-center">
       <div className="relative w-56 h-56 flex items-center justify-center">
         <div className="absolute inset-0">
           <ResponsiveContainer width="100%" height="100%">
@@ -1613,8 +1603,10 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
                 className="bg-white p-5 rounded-[24px] shadow-sm border border-[#fee2e2] relative z-10 touch-pan-y"
               >
                 <div className="flex justify-between items-start mb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#dc2626]"></span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-[12px] border border-red-50 flex items-center justify-center bg-red-50/30">
+                      <AlertCircle size={18} strokeWidth={1} className={record.status === 'critical' ? 'text-red-500' : 'text-orange-400'} />
+                    </div>
                     <p className="font-bold text-gray-800">{record.type}</p>
                   </div>
                   <span className="text-[12px] text-gray-400">{record.time}</span>
@@ -1629,12 +1621,11 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-emerald-50/40 border border-dashed border-emerald-100 rounded-[32px] p-10 flex flex-col items-center justify-center text-center gap-3"
+              className="bg-emerald-50/40 border border-dashed border-emerald-100 rounded-[32px] p-6 flex flex-col items-center justify-center text-center gap-3"
             >
-              <div className="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center text-3xl">✨</div>
               <div className="space-y-1">
-                <p className="text-emerald-800 font-bold text-lg">最近健康保持良好</p>
-                <p className="text-emerald-600/60 text-xs font-medium leading-relaxed">系统未监测到异常生理指标，请继续保持优质的生活作息。</p>
+                <p className="text-emerald-800 font-bold text-lg">良好</p>
+                <p className="text-emerald-600/60 text-xs font-medium leading-relaxed">系统未监测到异常生理指标，请继续加油！</p>
               </div>
             </motion.div>
           )}
@@ -1738,13 +1729,8 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
     <motion.div 
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="space-y-6 pb-24"
+      className="space-y-4 pb-24"
     >
-      <div className="flex flex-col gap-1">
-        <h2 className="text-2xl font-bold text-gray-800">暖心陪伴</h2>
-        <p className="text-gray-500 text-base">陪伴每一天</p>
-      </div>
-
       {/* 4.5.1 运动周历 */}
       <div className="rounded-[24px] bg-white p-6 card-shadow border border-gray-50 space-y-4">
         <div className="flex justify-between items-center mb-2">
@@ -1824,7 +1810,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
       </div>
 
       {/* 4.5.2 情绪脸谱 (V2.0 整合情绪趋势) */}
-      <div className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 space-y-6">
+      <div className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 space-y-4">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="font-bold text-lg text-gray-800">情绪脸谱</h3>
@@ -1973,12 +1959,23 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               <div key={idx} className="w-full shrink-0 snap-center">
                   <div 
                     onClick={() => onAction('memoriesAlbum')}
-                    className="relative overflow-hidden rounded-[32px] bg-white p-6 shadow-lg border border-[#f0f0f0] group cursor-pointer active:scale-[0.99] transition-transform min-h-[220px] flex flex-col justify-between"
+                    className="relative overflow-hidden rounded-[32px] bg-white p-6 shadow-lg border border-[#f0f0f0] group cursor-pointer active:scale-[0.99] transition-transform min-h-[260px] flex flex-col justify-between"
                   >
                   <div className="relative z-10 space-y-4">
-                    <p className="text-lg text-gray-800 leading-snug italic font-medium">
-                      “{quote.source}说：{quote.text}”
-                    </p>
+                    <div className="flex justify-between items-start">
+                      <p className="text-lg text-gray-800 leading-snug italic font-medium pr-8">
+                        “{quote.source}说：{quote.text}”
+                      </p>
+                      {/* 轮播指示点 - 移至右上角 */}
+                      <div className="flex items-center gap-1 bg-gray-50/80 backdrop-blur-sm px-1.5 py-1 rounded-full absolute top-0 right-0">
+                        {quotes.map((_, dotIdx) => (
+                          <div 
+                            key={dotIdx} 
+                            className={`w-1 h-1 rounded-full transition-all ${idx === dotIdx ? 'w-2.5 bg-[#024481]' : 'bg-gray-200'}`} 
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                   <div className="relative z-10 flex flex-col gap-3 pt-4 border-t border-gray-50 mt-4">
                     <div className="flex items-center justify-between text-[10px] text-gray-400 font-bold uppercase">
@@ -1986,15 +1983,6 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                         <span>话题：{quote.topic}</span>
                         <span className="opacity-30">|</span>
                         <span>采集时间：{quote.date}</span>
-                      </div>
-                      {/* 轮播指示点 */}
-                      <div className="flex items-center gap-1 bg-gray-50 px-1.5 py-1 rounded-full">
-                        {quotes.map((_, dotIdx) => (
-                          <div 
-                            key={dotIdx} 
-                            className={`w-1 h-1 rounded-full transition-all ${idx === dotIdx ? 'w-2.5 bg-[#024481]' : 'bg-gray-200'}`} 
-                          />
-                        ))}
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
@@ -4497,13 +4485,12 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
         <div className="w-8"></div>
       </header>
 
-      <main className="flex-1 overflow-y-auto p-6 space-y-6">
+      <main className="flex-1 overflow-y-auto p-6 space-y-4">
         {/* PDF 模拟页 */}
-        <div className="bg-white rounded-[32px] p-8 card-shadow space-y-8 border border-white">
+        <div className="bg-white rounded-[32px] p-4 space-y-4 border border-white">
           {/* 页眉 */}
-          <div className="flex justify-between items-start border-b-2 border-blue-50 pb-6">
+          <div className="flex justify-between items-start border-b-2 border-blue-50 pb-4">
             <div>
-              <div className="w-12 h-12 rounded-[24px] bg-gray-50 border border-gray-200 text-gray-400 flex items-center justify-center text-xs font-bold mb-3">LOGO</div>
               <h1 className="text-2xl font-bold text-gray-900">健康评估报告</h1>
             </div>
             <div className="text-right">
@@ -4586,15 +4573,16 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
           </section>
 
           {/* 印章/页脚 */}
-          <div className="pt-8 border-t border-gray-100 flex justify-between items-end">
+          <div className="pt-4 border-t border-gray-100 flex justify-between items-end">
             <div className="space-y-1">
               <p className="text-xs text-gray-400 font-bold">检测设备：JH-Care X1 智能机器人</p>
               <p className="text-xs text-gray-400 font-bold">生成时间：2026.05.11 08:45:12</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 border border-dashed border-gray-200 rounded-full flex items-center justify-center -mb-4 select-none">
-                <span className="text-[8px] font-bold text-gray-300 text-center scale-90 leading-tight">OFFICIAL<br/>HEALTH<br/>REPORT</span>
+              <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center -mb-2 select-none overflow-hidden p-1 shadow-sm">
+                <div className="w-full h-full bg-[url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://health.jiahe.com/report/demo')] bg-cover"></div>
               </div>
+              <p className="text-[8px] text-gray-300 font-bold mt-3 uppercase tracking-tighter">扫码核验真伪</p>
             </div>
           </div>
         </div>
@@ -4641,7 +4629,7 @@ const LoginRegisterView = ({
   const [formData, setFormData] = useState({ phone: '13800013800', code: '******', password: '', confirmPassword: '' });
   const [loading, setLoading] = useState(false);
   const [showDemoArea, setShowDemoArea] = useState(false);
-  const [agreedToTerms, setAgreedToTerms] = useState(true);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   // 原有演示模式
   const fillDemoAccount = () => {
@@ -4773,7 +4761,7 @@ const LoginRegisterView = ({
           </div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-1.5">
             <label className="text-xs text-gray-400 font-bold uppercase  px-1">手机号码</label>
             <input 
@@ -4834,7 +4822,7 @@ const LoginRegisterView = ({
             </div>
             <button 
               disabled={loading || !agreedToTerms}
-              className="w-full h-14 bg-[#024481] mt-[10px] text-white rounded-[24px] font-bold text-base shadow-xl shadow-blue-100 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2 mb-4"
+              className="w-full h-14 bg-[#024481] mt-1 text-white rounded-[24px] font-bold text-base shadow-xl shadow-blue-100 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2 mb-2"
             >
               {loading ? (
                 <>
@@ -4849,7 +4837,7 @@ const LoginRegisterView = ({
                   type="button"
                   onClick={() => setLoginMethod('password')}
                   className="text-xs text-gray-400 font-bold underline"
-                >用其他验证方式可以切换到密码登录</button>
+                >其他方式登录</button>
               </div>
             )}
             {isLogin && loginMethod === 'password' && (
@@ -4878,9 +4866,9 @@ const LoginRegisterView = ({
         </div>
       </div>
 
-      <footer className="py-8 text-center mt-auto">
+      <footer className="py-4 text-center mt-auto">
         <p className="text-xs text-gray-300 font-medium leading-relaxed max-w-[240px] mx-auto">
-          嘉和智护 OS · 安全合规审计
+          嘉和智护 OS
         </p>
       </footer>
     </motion.div>
@@ -4955,7 +4943,7 @@ const ProfileView = ({
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-6 pb-24 relative"
+      className="space-y-4 pb-24 relative"
     >
       <input 
         type="file" 
@@ -5009,12 +4997,7 @@ const ProfileView = ({
 
       {/* 成员切换页签 - 隐藏多成员切换，当前版本仅支持一个老人 */}
       {/* 个人简介与数据概览 */}
-      <div className="flex flex-col gap-1">
-        <h2 className="text-2xl font-bold text-gray-800">我的</h2>
-        <p className="text-gray-500 text-base">个人中心与设备管理</p>
-      </div>
-
-      <div className="bg-white rounded-[32px] p-8 card-shadow border border-gray-50 flex flex-col items-center relative overflow-hidden">
+      <div className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 flex flex-col items-center relative overflow-hidden">
         <div className="relative">
           <div 
             onClick={onEditClick}
@@ -5154,35 +5137,36 @@ const ProfileView = ({
         <ChevronRight size={20} className="text-gray-300 pr-4 box-content" />
       </div>
 
-      {/* 底部辅助连接 */}
-      <div className="flex flex-wrap justify-center gap-y-2 gap-x-6 pt-4 px-6 text-center">
-        <button 
-          onClick={() => onAddRobotClick('legalTerms' as any)}
-          className="text-xs text-gray-400 hover:text-gray-600 font-medium"
-        >用户服务协议</button>
-        <div className="relative">
-          <div className="absolute left-[-12px] top-1 w-px h-2.5 bg-gray-100"></div>
-          <button 
-            onClick={() => onAddRobotClick('legalPrivacy' as any)}
-            className="text-xs text-gray-400 hover:text-gray-600 font-medium"
-          >隐私政策</button>
-        </div>
-        <div className="relative">
-          <div className="absolute left-[-12px] top-1 w-px h-2.5 bg-gray-100"></div>
-          <button 
-            onClick={() => onAddRobotClick('legalInformed' as any)}
-            className="text-xs text-gray-400 hover:text-gray-600 font-medium"
-          >知情同意书</button>
-        </div>
-      </div>
-
       {/* 退出登录 */}
       <div className="px-6 pb-4">
         <button 
           onClick={onLogout}
           className="w-full py-4 text-[#E11D48] font-bold text-base bg-red-50 rounded-[24px] active:scale-95 transition-transform"
         >退出当前账号</button>
-        <p className="text-center text-xs text-gray-400 mt-4 px-4 leading-relaxed">
+        
+        {/* 底部辅助连接 */}
+        <div className="flex flex-wrap justify-center gap-y-2 gap-x-6 pt-6 px-6 text-center">
+          <button 
+            onClick={() => onAddRobotClick('legalTerms' as any)}
+            className="text-xs text-gray-400 hover:text-gray-600 font-medium"
+          >用户服务协议</button>
+          <div className="relative">
+            <div className="absolute left-[-12px] top-1 w-px h-2.5 bg-gray-100"></div>
+            <button 
+              onClick={() => onAddRobotClick('legalPrivacy' as any)}
+              className="text-xs text-gray-400 hover:text-gray-600 font-medium"
+            >隐私政策</button>
+          </div>
+          <div className="relative">
+            <div className="absolute left-[-12px] top-1 w-px h-2.5 bg-gray-100"></div>
+            <button 
+              onClick={() => onAddRobotClick('legalInformed' as any)}
+              className="text-xs text-gray-400 hover:text-gray-600 font-medium"
+            >知情同意书</button>
+          </div>
+        </div>
+
+        <p className="text-center text-xs text-gray-400 mt-6 px-4 leading-relaxed">
           嘉和智护OS 极简陪伴版 v1.2.4<br/>
           安全加密连接中 🔒
         </p>
@@ -6033,7 +6017,9 @@ export default function App() {
             }`}
           >
             {tab.icon}
-            <span className={`font-bold transition-colors ${activeTab === tab.id ? 'text-lg text-gray-800' : 'text-xs text-gray-400 font-medium'}`}>{tab.label}</span>
+            <span className={`text-[10px] font-bold ${activeTab === tab.id ? 'text-[#07C160]' : 'text-gray-400'}`}>
+              {tab.label}
+            </span>
           </button>
         ))}
       </nav>
