@@ -46,7 +46,9 @@ import {
   HeartPulse,
   Share2,
   Download,
-  Search
+  Search,
+  Bot,
+  Stethoscope
 } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -3772,8 +3774,8 @@ const DeviceManagementView = ({
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-[24px] flex items-center justify-center text-2xl transition-transform ${activeRobotId === robot.id ? 'bg-white/20' : 'bg-gray-50'}`}>
-                    🤖
+                  <div className={`w-12 h-12 rounded-[20px] transition-all flex items-center justify-center border ${activeRobotId === robot.id ? 'bg-white/10 border-white/20' : 'bg-gray-50 border-gray-100'}`}>
+                    <Bot size={22} strokeWidth={1.2} className={activeRobotId === robot.id ? 'text-white' : 'text-gray-400'} />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -3827,17 +3829,19 @@ const DeviceManagementView = ({
           </div>
           <div className="space-y-3">
             {[
-              { id: 'hw-01', name: '智能血压计', icon: '🩺', platform: '华为健康', val: '118/76 mmHg', color: 'blue' },
-              { id: 'xm-01', name: '心率呼吸监测', icon: '🩻', platform: '小米运动', val: '监测中 · 无异常', color: 'orange' },
-              { id: 'yy-01', name: '血糖分析仪', icon: '💉', platform: '鱼跃医疗', val: '正常波动范围内', color: 'green' }
+              { id: 'hw-01', name: '智能血压计', icon: <Stethoscope size={22} strokeWidth={1.2} />, platform: '华为健康', val: '118/76 mmHg', color: 'blue' },
+              { id: 'xm-01', name: '心率呼吸监测', icon: <Activity size={22} strokeWidth={1.2} />, platform: '小米运动', val: '监测中 · 无异常', color: 'orange' },
+              { id: 'yy-01', name: '血糖分析仪', icon: <HeartPulse size={22} strokeWidth={1.2} />, platform: '鱼跃医疗', val: '正常波动范围内', color: 'green' }
             ].map(d => (
               <div 
                 key={d.id}
                 className="bg-white p-4 rounded-[24px] border border-gray-100 flex items-center justify-between group active:bg-blue-50/50 transition-all cursor-default shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gray-50 rounded-[24px] flex items-center justify-center text-2xl group-active:scale-90 transition-transform">
-                    {d.icon}
+                  <div className="w-12 h-12 bg-gray-50 rounded-[20px] flex items-center justify-center border border-gray-100 group-active:scale-90 transition-transform">
+                    <span className={d.color === 'blue' ? 'text-blue-500' : d.color === 'orange' ? 'text-orange-500' : 'text-[#10B981]'}>
+                      {d.icon}
+                    </span>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -4639,7 +4643,7 @@ const LoginRegisterView = ({
     onLogin();
     onSetRobots([
       { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: '🤖' },
-      { id: 'robot-2', nickname: '备用小和', model: 'Gen-2 Lite', status: 'offline', battery: 12, network: '断开', version: 'v2.0.8', icon: '🤖' }
+      { id: 'demo-1', nickname: '演示机器人 A', model: 'Gen-2 Pro', status: 'online', battery: 100, network: '极佳', version: 'v2.2.0', icon: '🤖' }
     ]);
   };
 
@@ -4650,7 +4654,8 @@ const LoginRegisterView = ({
     onSetUnbound(false);
     onLogin();
     onSetRobots([
-      { id: 'robot-main', nickname: '主管理员设备', model: 'Gen-2', status: 'online', battery: 92, network: '极佳', version: 'v2.1.0', icon: '🤖' }
+      { id: 'robot-main', nickname: '主管理员设备', model: 'Gen-2', status: 'online', battery: 92, network: '极佳', version: 'v2.1.0', icon: '🤖' },
+      { id: 'demo-1', nickname: '演示机器人 A', model: 'Gen-2 Pro', status: 'online', battery: 100, network: '极佳', version: 'v2.2.0', icon: '🤖' }
     ]);
   };
 
@@ -5403,7 +5408,10 @@ export default function App() {
   ]);
   const [activeElderlyIndex, setActiveElderlyIndex] = useState(0);
 
-  const [robots, setRobots] = useState<Robot[]>([]);
+  const [robots, setRobots] = useState<Robot[]>([
+    { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: '🤖' },
+    { id: 'robot-2', nickname: '备用小和', model: 'Gen-2 Lite', status: 'offline', battery: 12, network: '断开', version: 'v2.0.8', icon: '🤖' }
+  ]);
 
   const [activeRobotId, setActiveRobotId] = useState('robot-1');
   const [editingRobot, setEditingRobot] = useState<any>(null);
@@ -5714,7 +5722,7 @@ export default function App() {
               setIsUnboundMode(false);
               setRobots([
                 { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: '🤖' },
-                { id: 'robot-2', nickname: '备用小和', model: 'Gen-2 Lite', status: 'offline', battery: 12, network: '断开', version: 'v2.0.8', icon: '🤖' }
+                { id: 'demo-1', nickname: '演示机器人 A', model: 'Gen-2 Pro', status: 'online', battery: 100, network: '极佳', version: 'v2.2.0', icon: '🤖' }
               ]);
             }}
             onSetUnbound={setIsUnboundMode}
