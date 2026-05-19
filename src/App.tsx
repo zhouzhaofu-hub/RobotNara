@@ -880,7 +880,6 @@ const GuardianView = ({
           <div className="flex justify-between items-center px-1">
             <h3 className="font-bold text-lg text-gray-800">安心时刻</h3>
             <div className="flex items-center gap-2">
-              <span className="text-gray-400 text-xs bg-gray-50 px-2 py-1 rounded-md font-medium">智能识别: 老人正处于客厅</span>
             </div>
           </div>
 
@@ -1219,7 +1218,7 @@ const GuardianView = ({
             className={`bg-white text-gray-700 border border-gray-100 py-4 rounded-[20px] flex flex-col items-center gap-1 card-shadow active:scale-95 transition-all w-full ${isCapturing ? 'opacity-50 pointer-events-none' : ''}`}
           >
             <Camera size={22} className="mb-1 text-emerald-500" />
-            <span className="font-bold text-sm">即时抓拍</span>
+            <span className="font-bold text-sm">看看家人</span>
             <span className="text-[10px] text-gray-400">查看现状</span>
           </motion.button>
           <button 
@@ -1275,10 +1274,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
   const [metricTab, setMetricTab] = useState<'bp' | 'bs' | 'hr' | 'resp'>('hr');
   const [timeRange, setTimeRange] = useState<'7' | '30'>('7');
   const [expandedMed, setExpandedMed] = useState(false);
-  const [abnormalRecords, setAbnormalRecords] = useState([
-    { id: '1', type: '收缩压偏高', time: '今日 08:30', value: '142', unit: 'mmHg', detail: '已复测正常 (128)', status: 'warning' },
-    { id: '2', type: '心率偏快', time: '昨日 22:15', value: '105', unit: '次/分', detail: '休息后恢复 (72)', status: 'warning' }
-  ]);
+  const [abnormalRecords, setAbnormalRecords] = useState<{id: string; type: string; time: string; value: string; unit: string; detail: string; status: string}[]>([]);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [showScoreExplain, setShowScoreExplain] = useState(false);
 
@@ -1594,7 +1590,7 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
       <h3 className="font-bold text-lg text-gray-800 px-1">最近异常记录</h3>
       <div className="space-y-3">
         <AnimatePresence mode="popLayout">
-          {abnormalRecords.map((record) => (
+          {abnormalRecords.length > 0 ? abnormalRecords.map((record) => (
             <motion.div 
               key={record.id}
               layout
@@ -1629,7 +1625,19 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
                 </div>
               </motion.div>
             </motion.div>
-          ))}
+          )) : (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-emerald-50/40 border border-dashed border-emerald-100 rounded-[32px] p-10 flex flex-col items-center justify-center text-center gap-3"
+            >
+              <div className="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center text-3xl">✨</div>
+              <div className="space-y-1">
+                <p className="text-emerald-800 font-bold text-lg">最近健康保持良好</p>
+                <p className="text-emerald-600/60 text-xs font-medium leading-relaxed">系统未监测到异常生理指标，请继续保持优质的生活作息。</p>
+              </div>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     </div>
@@ -2291,12 +2299,6 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
             {currentDetails.length > 0 ? currentDetails.map((item, idx) => (
               <div key={idx} className="bg-white p-4 rounded-[24px] border border-gray-50 card-shadow flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl ${
-                    item.status === '已服用' ? 'bg-green-50 text-[#10B981]' : 
-                    item.status === '漏服' ? 'bg-red-50 text-[#E11D48]' : 'bg-blue-50 text-blue-600'
-                  }`}>
-                    {item.name.includes('阿司匹林') ? '💊' : item.name.includes('维生素') ? '🧴' : '🌿'}
-                  </div>
                   <div>
                     <p className="font-bold text-gray-800">{item.name}</p>
                     <p className="text-xs text-gray-400 font-bold uppercase ">
@@ -3028,12 +3030,21 @@ const LegalNoticeView = ({
   onViewLogs,
   isMainAccount = true
 }: { 
-  type: 'terms' | 'privacy'; 
+  type: 'terms' | 'privacy' | 'informed'; 
   onClose: () => void;
   onDeleteData?: () => void;
   onViewLogs?: () => void;
   isMainAccount?: boolean;
 }) => {
+  const getTitle = () => {
+    switch(type) {
+      case 'terms': return '用户服务协议';
+      case 'privacy': return '隐私保护政策';
+      case 'informed': return '被监护人知情同意书';
+      default: return '法律协议';
+    }
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -3041,44 +3052,103 @@ const LegalNoticeView = ({
       exit={{ opacity: 0 }}
       className="absolute inset-0 z-[200] bg-black/80 backdrop-blur-md flex items-center justify-center p-6"
     >
-      <div className="bg-white rounded-[40px] w-full max-w-sm flex flex-col p-8 space-y-6 max-h-[80vh]">
+      <div className="bg-white rounded-[40px] w-full max-w-sm flex flex-col p-8 space-y-6 max-h-[85vh]">
         <div className="text-center">
-          <h3 className="text-xl font-bold text-gray-800">{type === 'terms' ? '用户服务协议' : '隐私保护政策'}</h3>
-          <p className="text-xs text-gray-400 mt-2">嘉和智护OS · 极简版说明</p>
+          <h3 className="text-xl font-bold text-gray-800">{getTitle()}</h3>
+          <p className="text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-wider">嘉和智护OS · 终端合规文案 V1.0</p>
         </div>
         
-        <div className="flex-1 overflow-y-auto text-base text-gray-600 leading-relaxed space-y-4 px-2">
-          <p>1. <strong>数据安全</strong>：我们将采取工业级标准对您的健康数据进行加密存储。</p>
-          <p>2. <strong>隐私边界</strong>：机器人采集的音频与视频仅用于实时通话与AI跌倒检测，绝不另作他用。</p>
-          <p>3. <strong>知情同意</strong>：您可以随时在“个人中心”撤回各项数据授权。</p>
-          <p>4. <strong>服务范围</strong>：本系统旨在辅助照护，不能替代专业医疗诊断。</p>
-          {type === 'privacy' && (
-            <div className="pt-6 border-t border-gray-50 flex flex-col gap-3">
-              <p className="text-xs text-gray-400 mb-1">您也可以根据需要执行以下操作：</p>
-              <button 
-                onClick={() => {
-                  onViewLogs?.();
-                }}
-                className="w-full py-3 text-[#024481] font-bold text-xs bg-blue-50 rounded-[24px] active:scale-95 transition-transform"
-              >查看摄像头调用详情</button>
-              {isMainAccount && (
-                <button 
-                  onClick={() => {
-                    onClose();
-                    onDeleteData?.();
-                  }}
-                  className="w-full py-3 text-[#E11D48] font-bold text-xs bg-red-50 rounded-[24px] active:scale-95 transition-transform"
-                >清理历史数据</button>
-              )}
-            </div>
+        <div className="flex-1 overflow-y-auto text-sm text-gray-600 leading-normal space-y-5 px-1 scrollbar-hide">
+          {type === 'terms' && (
+            <>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">1. 服务性质声明</p>
+                <p className="text-xs">本产品为健康管理辅助工具，<strong>非医疗器械</strong>，不提供医疗诊断、病情判定、用药指导或临床治疗等专业医疗服务。平台建议仅供参考。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">2. 硬件使用限制</p>
+                <p className="text-xs">机器人需在通电、联网、传感器无遮挡状态下运行。因断电、网络异常、外力损坏导致功能中断或告警延迟，平台不承担民事责任。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">3. 告警响应说明</p>
+                <p className="text-xs">异常行为告警基于AI算法识别，存在合理范围内的误报或漏报。监护人收到告警后须第一时间自行核实老人实际状况。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">4. AI内容权责</p>
+                <p className="text-xs">所有AI生成的分析、建议及关怀话术均为算法生成，不具备专业医疗或心理咨询效力，不对其绝对准确性承担保证责任。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">5. 账户管理责任</p>
+                <p className="text-xs">注册人须为被监护人的直系亲属或合法授权人员。因填报虚假关系、无授权绑定设备引发的法律纠纷由注册人自行承担。</p>
+              </div>
+            </>
           )}
-          <p className="text-xs text-gray-400 pt-4 border-t border-gray-100">© 2026 嘉和智健（北京）科技有限公司 版权所有</p>
+
+          {type === 'privacy' && (
+            <>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">1. 数据采集清单</p>
+                <p className="text-xs">我们采集必要信息：体征监测数据、用药记录、睡眠行为、语音交互及安全告警相关图像视频。严禁采集无关合规隐私信息。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">2. 视听隐私规则</p>
+                <p className="text-xs">安心卡照片云端仅留存24小时后自动清理；视频通话全程不录制、不存储内容；语音数据脱敏后仅用于算法优化，用户可随时关闭采集。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">3. 摄像头控制权</p>
+                <p className="text-xs">摄像头默认关闭。仅在：监护人发起抓拍、发起视频通话、触发告警核实等三种明示场景下开启，且机身指示灯会同步闪烁。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">4. 数据删除与注销</p>
+                <p className="text-xs">用户可在“个人中心”自主删除历史数据或申请账号注销。注销后，所有相关个人隐私信息将执行永久无痕删除。</p>
+              </div>
+              <div className="pt-4 border-t border-gray-50 flex flex-col gap-3">
+                <button 
+                  onClick={onViewLogs}
+                  className="w-full py-3 text-gray-500 font-bold text-xs bg-gray-50 rounded-[24px] active:scale-95 transition-transform border border-gray-100"
+                >查看摄像头调用详情</button>
+                {isMainAccount && (
+                  <button 
+                    onClick={() => {
+                      onClose();
+                      onDeleteData?.();
+                    }}
+                    className="w-full py-3 text-[#E11D48]/60 font-bold text-xs bg-red-50/50 rounded-[24px] active:scale-95 transition-transform"
+                  >清理历史隐私数据</button>
+                )}
+              </div>
+            </>
+          )}
+
+          {type === 'informed' && (
+            <>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">1. 产品定位说明</p>
+                <p className="text-xs">本设备是子女远程关心、陪伴长辈的智慧助手。具备用药提醒、日常聊天及安全看护功能，属于家人关心工具而非监视器。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">2. 数据采集告知</p>
+                <p className="text-xs">设备会监测您的心率、呼吸等健康体征，并仅在跌倒告警或子女发起通话时开启图像采集，过程全程透明，指示灯实时提醒。</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">3. 主动控制权利</p>
+                <p className="text-xs">长辈可随时通过语音指令或手动遮盖传感器来关闭任何采集功能。我们充分尊重并优先执行长辈的现场指令。</p>
+              </div>
+              <div className="p-4 bg-emerald-50/50 rounded-[28px] border border-emerald-100/50">
+                <p className="text-xs text-emerald-800 leading-relaxed font-medium italic">
+                  “这款机器人是连接您与远方家人的纽带，希望在保障安全的同时，为您带来更有温度的居家陪伴。”
+                </p>
+              </div>
+            </>
+          )}
+          
+          <p className="text-[9px] text-gray-300 pt-4 border-t border-gray-50 font-bold uppercase tracking-tighter">© 2026 嘉和智健（北京）科技有限公司 · 合规留痕文本</p>
         </div>
         
         <button 
           onClick={onClose}
-          className="w-full py-4 bg-gray-100 rounded-[24px] font-bold text-gray-600 active:scale-95 transition-transform"
-        >我知道了</button>
+          className="w-full py-4 bg-gray-800 shadow-xl shadow-gray-200 rounded-[24px] font-bold text-white active:scale-95 transition-transform"
+        >确认并接受</button>
       </div>
     </motion.div>
   );
@@ -4727,7 +4797,7 @@ const LoginRegisterView = ({
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                   />
-                  <button type="button" className="px-5 h-14 bg-gray-100 text-gray-600 rounded-[24px] text-xs font-bold active:scale-95 transition-transform">获取码</button>
+                  <button type="button" className="px-5 h-14 bg-gray-100 text-gray-600 rounded-[24px] text-xs font-bold active:scale-95 transition-transform">获取验证码</button>
                 </div>
              </div>
           ) : null}
@@ -4759,7 +4829,7 @@ const LoginRegisterView = ({
                 id="terms"
               />
               <label htmlFor="terms" className="text-xs text-gray-500 font-bold items-center flex">
-                登录即代表同意 <button type="button" onClick={() => onViewLegal('terms')} className="text-[#024481] underline mx-1">服务协议</button> 与 <button type="button" onClick={() => onViewLegal('privacy')} className="text-[#024481] underline mx-1">隐私政策</button>
+                {isLogin ? '登录' : '注册'}即代表同意 <button type="button" onClick={() => onViewLegal('terms')} className="text-gray-800 font-bold underline mx-1">用户服务协议</button> 与 <button type="button" onClick={() => onViewLegal('privacy')} className="text-gray-800 font-bold underline mx-1">隐私政策</button>
               </label>
             </div>
             <button 
@@ -5085,16 +5155,25 @@ const ProfileView = ({
       </div>
 
       {/* 底部辅助连接 */}
-      <div className="flex justify-center gap-6 pt-4">
+      <div className="flex flex-wrap justify-center gap-y-2 gap-x-6 pt-4 px-6 text-center">
         <button 
           onClick={() => onAddRobotClick('legalTerms' as any)}
-          className="text-xs text-gray-400 hover:text-gray-600"
-        >用户协议</button>
-        <div className="w-px h-3 bg-gray-100 mt-1"></div>
-        <button 
-          onClick={() => onAddRobotClick('legalPrivacy' as any)}
-          className="text-xs text-gray-400 hover:text-gray-600"
-        >隐私政策</button>
+          className="text-xs text-gray-400 hover:text-gray-600 font-medium"
+        >用户服务协议</button>
+        <div className="relative">
+          <div className="absolute left-[-12px] top-1 w-px h-2.5 bg-gray-100"></div>
+          <button 
+            onClick={() => onAddRobotClick('legalPrivacy' as any)}
+            className="text-xs text-gray-400 hover:text-gray-600 font-medium"
+          >隐私政策</button>
+        </div>
+        <div className="relative">
+          <div className="absolute left-[-12px] top-1 w-px h-2.5 bg-gray-100"></div>
+          <button 
+            onClick={() => onAddRobotClick('legalInformed' as any)}
+            className="text-xs text-gray-400 hover:text-gray-600 font-medium"
+          >知情同意书</button>
+        </div>
       </div>
 
       {/* 退出登录 */}
@@ -5178,8 +5257,9 @@ const NotificationsView = ({
 
         {/* 消息列表 */}
         <div className="px-5 pb-6 space-y-4">
-          {filteredNotifications.map((notif) => {
+          {filteredNotifications.map((notif, index) => {
             const isCritical = notif.id === '1'; // In this demo, the first is critical
+            const isLatest = index === 0 && !notif.isRead;
             
             return (
               <div 
@@ -5188,9 +5268,16 @@ const NotificationsView = ({
                 className={`relative group cursor-pointer active:scale-[0.98] transition-all duration-200 ${
                   isCritical 
                     ? 'bg-[#fff5f6] border border-[#ffe5e9] shadow-[0_4px_20px_rgba(255,30,86,0.06)]' 
+                    : isLatest
+                    ? 'bg-blue-50/30 border border-blue-100/50 shadow-sm'
                     : 'bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
                 } rounded-[24px] p-5 flex flex-col gap-4 overflow-hidden`}
               >
+                {isLatest && (
+                  <div className="absolute top-0 right-0">
+                    <div className="bg-blue-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-[16px] uppercase tracking-wider">最新消息</div>
+                  </div>
+                )}
                 <div className="flex items-start gap-4">
                   <div className={`w-12 h-12 rounded-[24px] flex items-center justify-center shrink-0 shadow-sm ${
                     notif.type === '告警' ? 'bg-[#fb2c58] shadow-red-200' :
@@ -5530,6 +5617,7 @@ export default function App() {
             else if (type === 'medicationPlan') setOverlay('medicationPlan' as any);
             else if (type === 'legalTerms') { setLegalType('terms'); setOverlay('legalNotice' as any); }
             else if (type === 'legalPrivacy') { setLegalType('privacy'); setOverlay('legalNotice' as any); }
+            else if (type === 'legalInformed') { setLegalType('informed'); setOverlay('legalNotice' as any); }
             else if (type === 'alarmSettings') { setOverlay('alarmSettings' as any); }
             else if (type === 'smartPlatforms') setOverlay('smartPlatforms');
             else if (type === 'smartDeviceScan') setOverlay('smartDeviceScan');
