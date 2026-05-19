@@ -40,7 +40,6 @@ import {
   Settings,
   MoreHorizontal,
   ThumbsUp,
-  ChevronLeft,
   Calendar,
   Star,
   HeartPulse,
@@ -150,7 +149,7 @@ const ImageViewer = ({ src, onClose }: { src: string; onClose: () => void }) => 
       className="fixed inset-0 z-[300] bg-black flex flex-col items-center justify-center p-0"
     >
       <header className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10 bg-gradient-to-b from-black/80 to-transparent">
-        <button onClick={onClose} className="text-white text-3xl drop-shadow-md"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="text-white text-4xl drop-shadow-md p-2 active:scale-90 transition-transform">‹</button>
         <button 
           onClick={handleSave}
           className="bg-white/20 backdrop-blur-xl text-white px-5 py-2 rounded-full text-xs font-bold flex items-center gap-2 active:scale-95 transition-transform"
@@ -433,7 +432,7 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0 sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">传家记忆</h2>
         </div>
         <button onClick={() => handleShare()} className="text-xl active:scale-95 transition-transform">🔗</button>
@@ -520,7 +519,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
       className="absolute inset-0 z-[100] bg-[#fbf9f8] flex flex-col"
     >
       <header className="bg-[#fef2f2] text-red-700 px-6 py-6 flex items-center gap-3 relative shadow-md shadow-red-100 border-b border-[#fee2e2] shrink-0">
-        <button onClick={onClose} className="w-10 h-10 bg-[#E11D48]/10 rounded-[24px] flex items-center justify-center text-[#E11D48] font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="w-10 h-10 bg-[#E11D48]/10 rounded-[24px] flex items-center justify-center text-[#E11D48] font-bold active:scale-95 transition-transform text-2xl">‹</button>
         <h2 className="text-xl font-bold flex items-center gap-2">
           检测到妈妈可能跌倒
         </h2>
@@ -642,7 +641,7 @@ const VoiceMessageView = ({ onClose }: { onClose: () => void }) => {
     >
       <header className="px-6 py-6 flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-800 text-black">发送语音指令</h2>
-        <button onClick={onClose} className="text-gray-400 text-2xl"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="text-gray-400 text-3xl p-2 active:scale-90 transition-transform">‹</button>
       </header>
       <div className="flex-1 flex flex-col items-center justify-center p-10 space-y-16">
         <div className="text-center space-y-4">
@@ -954,7 +953,7 @@ const GuardianView = ({
                         <span className="text-white/40 text-xs font-medium">机位: 1号智能移动机器人 (客厅)</span>
                       </div>
                       <div className="bg-white/10 backdrop-blur-md text-white text-xs px-2 py-0.5 rounded-full font-bold border border-white/10 opacity-60">
-                        {index === 0 ? '最新' : `${index + 1} / ${images.length}`}
+                        {index + 1} / {images.length}
                       </div>
                     </div>
                   </div>
@@ -1767,7 +1766,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               exit={{ opacity: 0, y: 10 }}
               className="bg-emerald-50 rounded-[24px] p-4 border border-emerald-100 space-y-3 relative"
             >
-              <button onClick={() => setSelectedExercise(null)} className="absolute top-3 right-3 text-emerald-300 hover:text-emerald-500"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+              <button onClick={() => setSelectedExercise(null)} className="absolute top-3 right-3 text-emerald-300 hover:text-emerald-500 text-2xl active:scale-90 transition-transform">‹</button>
               <div className="flex items-center gap-2">
                 <span className="text-base font-bold text-emerald-800">{selectedExercise.day === '今日' ? '今日' : `周${selectedExercise.day}`} 运动详情</span>
                 <span className="text-xs bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded font-bold">{selectedExercise.type}</span>
@@ -1881,8 +1880,8 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
               <div className="bg-blue-50/50 rounded-[24px] p-4 border border-blue-100/50 space-y-3 relative">
                 <button 
                   onClick={() => setSelectedEmotion(null)}
-                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
-                ><ChevronLeft size={24} strokeWidth={1.5} /></button>
+                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl active:scale-90 transition-transform"
+                >‹</button>
                 <div className="flex items-center gap-2">
                   <span className="text-base font-bold text-[#024481]">{selectedEmotion.day} 情绪溯源</span>
                   <span className="text-lg">{selectedEmotion.emoji}</span>
@@ -1937,49 +1936,50 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
         </button>
       </div>
 
-      {/* 4.5.4 回忆金句卡片 (左右滑动切换，参考今日概况样式) */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between px-1">
-          <h3 className="font-bold text-lg text-gray-800 px-1 mb-2">传家记忆金句</h3>
-        </div>
-
-        <div className="relative px-2">
-          {/* 背景堆叠纸张效果 1 */}
-          <div className="absolute inset-x-4 top-2 bottom-0 bg-white/40 rounded-[32px] border border-gray-100/50 -rotate-1 z-0"></div>
-          {/* 背景堆叠纸张效果 2 */}
-          <div className="absolute inset-x-3 top-1 bottom-0 bg-white/60 rounded-[32px] border border-gray-100/50 rotate-1 z-0"></div>
-          
-          <div 
-            className="relative z-10 flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar"
-            onScroll={(e) => {
-              const el = e.currentTarget;
-              const index = Math.round(el.scrollLeft / el.clientWidth);
-              if (index !== activeQuoteIndex) setActiveQuoteIndex(index);
-            }}
-          >
-            {quotes.map((quote, idx) => (
-              <div key={idx} className="w-full shrink-0 snap-center">
-                  <div 
-                    onClick={() => onAction('memoriesAlbum')}
-                    className="relative overflow-hidden rounded-[32px] bg-white p-6 shadow-lg border border-[#f0f0f0] group cursor-pointer active:scale-[0.99] transition-transform min-h-[260px] flex flex-col justify-between"
-                  >
-                  <div className="relative z-10 space-y-4">
-                    <div className="flex justify-between items-start">
-                      <p className="text-lg text-gray-800 leading-snug italic font-medium pr-8">
-                        “{quote.source}说：{quote.text}”
-                      </p>
-                      {/* 轮播指示点 - 移至右上角 */}
-                      <div className="flex items-center gap-1 bg-gray-50/80 backdrop-blur-sm px-1.5 py-1 rounded-full absolute top-0 right-0">
-                        {quotes.map((_, dotIdx) => (
-                          <div 
-                            key={dotIdx} 
-                            className={`w-1 h-1 rounded-full transition-all ${idx === dotIdx ? 'w-2.5 bg-[#024481]' : 'bg-gray-200'}`} 
-                          />
-                        ))}
-                      </div>
+      {/* 4.5.4 回忆金句卡片 (左右滑动切换) */}
+      <div className="relative px-2">
+        {/* 背景堆叠纸张效果 1 */}
+        <div className="absolute inset-x-4 top-2 bottom-0 bg-white/40 rounded-[32px] border border-gray-100/50 -rotate-1 z-0"></div>
+        {/* 背景堆叠纸张效果 2 */}
+        <div className="absolute inset-x-3 top-1 bottom-0 bg-white/60 rounded-[32px] border border-gray-100/50 rotate-1 z-0"></div>
+        
+        <div 
+          className="relative z-10 flex w-full overflow-x-auto snap-x snap-mandatory no-scrollbar"
+          onScroll={(e) => {
+            const el = e.currentTarget;
+            const index = Math.round(el.scrollLeft / el.clientWidth);
+            if (index !== activeQuoteIndex) setActiveQuoteIndex(index);
+          }}
+        >
+          {quotes.map((quote, idx) => (
+            <div key={idx} className="w-full shrink-0 snap-center">
+                <div 
+                  onClick={() => onAction('memoriesAlbum')}
+                  className="relative overflow-hidden rounded-[32px] bg-white p-6 shadow-lg border border-[#f0f0f0] group cursor-pointer active:scale-[0.99] transition-transform min-h-[260px] flex flex-col justify-between"
+                >
+                <div className="relative z-10">
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-bold text-lg text-gray-800">回忆金句</h3>
+                    </div>
+                    {/* 轮播指示点 - 右上角 */}
+                    <div className="flex items-center gap-1 bg-gray-50/80 backdrop-blur-sm px-2 py-1.5 rounded-full">
+                      {quotes.map((_, dotIdx) => (
+                        <div 
+                          key={dotIdx} 
+                          className={`w-1 h-1 rounded-full transition-all ${idx === dotIdx ? 'w-2.5 bg-[#024481]' : 'bg-gray-200'}`} 
+                        />
+                      ))}
                     </div>
                   </div>
-                  <div className="relative z-10 flex flex-col gap-3 pt-4 border-t border-gray-50 mt-4">
+                  
+                  <div className="relative">
+                    <p className="text-xl text-gray-800 leading-relaxed italic font-medium">
+                      “{quote.source}说：{quote.text}”
+                    </p>
+                  </div>
+                </div>
+                <div className="relative z-10 flex flex-col gap-3 pt-4 border-t border-gray-50 mt-4">
                     <div className="flex items-center justify-between text-[10px] text-gray-400 font-bold uppercase">
                       <div className="flex items-center gap-2">
                         <span>话题：{quote.topic}</span>
@@ -2017,7 +2017,6 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
             ))}
           </div>
         </div>
-      </div>
 
       <div className="text-center mt-12 mb-8">
         <p className="text-xs text-gray-300 font-bold  uppercase">— 已经到底 —</p>
@@ -2066,7 +2065,7 @@ const EmergencyContactsView = ({
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">紧急联系人</h2>
         </div>
         {isMainAccount && (
@@ -2235,7 +2234,7 @@ const MedicationCalendarView = ({ onClose, plan }: { onClose: () => void, plan: 
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">用药日历</h2>
         </div>
         <div className="text-base font-bold text-gray-500">2024年5月</div>
@@ -2383,7 +2382,7 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">通知设置</h2>
         </div>
       </header>
@@ -2479,7 +2478,7 @@ const FamilyMembersView = ({
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">家人信息</h2>
         </div>
         <button onClick={handleInvite} className="bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md">邀请家人</button>
@@ -2718,7 +2717,7 @@ const MedicationPlanView = ({
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0 sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">用药计划</h2>
         </div>
         {isMainAccount && (
@@ -2885,7 +2884,7 @@ const MedicationPlanView = ({
           >
             <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
               <div className="flex items-center gap-4">
-                <button onClick={() => { setIsAdding(false); setEditingMed(null); }} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+                <button onClick={() => { setIsAdding(false); setEditingMed(null); }} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
                 <h2 className="text-xl font-bold text-[#024481]">{isAdding ? '新增用药' : '维护医嘱'}</h2>
               </div>
               <button 
@@ -3155,7 +3154,7 @@ const CameraAccessLogsView = ({ logs, onClose }: { logs: CameraLog[], onClose: (
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">摄像头调用记录</h2>
         </div>
       </header>
@@ -3244,7 +3243,7 @@ const RobotDetailView = ({
     >
       <header className="bg-white px-6 py-6 pt-12 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">设备维护</h2>
         </div>
         <button 
@@ -3480,7 +3479,7 @@ const ElderlyProfileEditView = ({
         setFormData({
           ...formData,
           medicalHistory: formData.medicalHistory ? formData.medicalHistory + '；近期检查：心功能二级(AI解析)' : '近期检查：心功能二级(AI解析)',
-          medications: formData.medications ? formData.medications + '；维D 1片/日(AI解析)' : '维D 1片/日(AI解析)'
+          medicationSuggestion: formData.medicationSuggestion ? formData.medicationSuggestion + '；维D 1片/日(AI解析)' : '维D 1片/日(AI解析)'
         });
         if (fileInputRef.current) fileInputRef.current.value = '';
         if (cameraInputRef.current) cameraInputRef.current.value = '';
@@ -3497,7 +3496,7 @@ const ElderlyProfileEditView = ({
     >
       <header className="bg-white text-gray-800 px-5 py-5 flex items-center justify-between shadow-sm border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-3">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-lg font-bold">健康档案库</h2>
         </div>
         <div className="flex gap-2">
@@ -3602,6 +3601,37 @@ const ElderlyProfileEditView = ({
               </select>
             </div>
           </div>
+
+          <div className="space-y-1.5 mt-1">
+            <label className="text-xs text-gray-400 font-bold ml-1 uppercase">老人标签</label>
+            <div className="flex flex-wrap gap-2">
+              {['独居老人', '慢病管理', '跌倒高风险', '认知障碍', '健康达人', '活力长辈'].map(tag => {
+                const currentTags = formData.tags ? formData.tags.split(/[,，]\s*/).filter(Boolean) : [];
+                const isSelected = currentTags.includes(tag);
+                return (
+                  <button
+                    key={tag}
+                    onClick={() => {
+                      let nextTags;
+                      if (isSelected) {
+                        nextTags = currentTags.filter(t => t !== tag);
+                      } else {
+                        nextTags = [...currentTags, tag];
+                      }
+                      setFormData({...formData, tags: nextTags.join(', ')});
+                    }}
+                    className={`text-[10px] px-3 py-1.5 rounded-full font-bold border-2 transition-all ${
+                      isSelected 
+                        ? 'bg-white text-gray-900 border-green-500' 
+                        : 'bg-white text-gray-900 border-gray-100'
+                    }`}
+                  >
+                    {tag}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         {/* 健康记录详情 */}
@@ -3635,7 +3665,7 @@ const ElderlyProfileEditView = ({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs text-gray-400 font-bold ml-1 italic text-red-400">⚠️ 过敏源</label>
+              <label className="text-xs text-gray-400 font-bold ml-1 italic text-red-400">过敏源</label>
               <input 
                 type="text"
                 value={formData.allergies}
@@ -3646,24 +3676,35 @@ const ElderlyProfileEditView = ({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs text-gray-400 font-bold ml-1">医嘱</label>
+              <label className="text-xs text-gray-400 font-bold ml-1">用药建议</label>
               <textarea 
                 rows={2}
-                value={formData.medications}
-                onChange={(e) => setFormData({...formData, medications: e.target.value})}
+                value={formData.medicationSuggestion}
+                onChange={(e) => setFormData({...formData, medicationSuggestion: e.target.value})}
                 className="w-full bg-blue-50/30 rounded-[24px] p-3 text-xs text-blue-800 leading-relaxed border-none outline-none resize-none"
                 placeholder="药物名称、频次、剂量"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs text-gray-400 font-bold ml-1">运动饮食管理</label>
+              <label className="text-xs text-gray-400 font-bold ml-1">运动建议</label>
               <textarea 
                 rows={2}
-                value={formData.dietExercise || ''}
-                onChange={(e) => setFormData({...formData, dietExercise: e.target.value})}
+                value={formData.exerciseSuggestion}
+                onChange={(e) => setFormData({...formData, exerciseSuggestion: e.target.value})}
                 className="w-full bg-green-50/30 rounded-[24px] p-3 text-xs text-green-800 leading-relaxed border-none outline-none resize-none"
-                placeholder="饮食建议、运动计划..."
+                placeholder="运动项目、强度、频率"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs text-gray-400 font-bold ml-1">饮食建议</label>
+              <textarea 
+                rows={2}
+                value={formData.dietarySuggestion}
+                onChange={(e) => setFormData({...formData, dietarySuggestion: e.target.value})}
+                className="w-full bg-orange-50/30 rounded-[24px] p-3 text-xs text-orange-800 leading-relaxed border-none outline-none resize-none"
+                placeholder="营养建议、忌口说明"
               />
             </div>
           </div>
@@ -3748,7 +3789,7 @@ const DeviceManagementView = ({
     >
       <header className="p-6 flex items-center justify-between bg-white border-b border-gray-50 flex-none sticky top-0 z-20">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-gray-800">设备中心</h2>
         </div>
       </header>
@@ -3897,7 +3938,7 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
     >
       <header className="p-6 flex items-center justify-between bg-white border-b border-gray-50">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-gray-800">设备管理</h2>
         </div>
       </header>
@@ -4005,7 +4046,7 @@ const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
       className="fixed inset-0 z-[250] bg-[#fbf9f8] flex flex-col"
     >
       <header className="p-6 flex items-center gap-4 bg-white/80 backdrop-blur-md sticky top-0 z-10 border-b border-gray-50">
-        <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
         <h2 className="text-xl font-bold text-gray-800">对接健康数据平台</h2>
       </header>
       
@@ -4077,7 +4118,7 @@ const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
     >
       <header className="p-6 flex items-center justify-between bg-white border-b border-gray-50">
         <div className="flex items-center gap-4">
-          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full text-xl active:scale-90 transition-transform"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full text-2xl active:scale-90 transition-transform">‹</button>
           <h2 className="text-xl font-bold text-gray-800">绑定智能健康硬件</h2>
         </div>
         {scanning && <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.5)]"></span>}
@@ -4302,7 +4343,7 @@ const AddRobotView = ({
             className="fixed inset-0 z-[300] bg-gray-900 flex flex-col items-center justify-center font-sans"
           >
             <div className="absolute top-0 w-full p-6 pt-12 flex justify-between items-center z-10 bg-gradient-to-b from-gray-900/80 to-transparent">
-              <button onClick={() => setIsScanningSN(false)} className="text-white text-xl p-2 active:opacity-50"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+              <button onClick={() => setIsScanningSN(false)} className="text-white text-3xl p-2 active:opacity-50 transition-transform">‹</button>
               <h2 className="text-white font-bold  text-lg">扫一扫</h2>
               <div className="w-10"></div>
             </div>
@@ -4484,7 +4525,7 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
       className="fixed inset-0 z-[300] bg-gray-50 flex flex-col"
     >
       <header className="bg-white p-6 pt-12 flex justify-between items-center border-b border-gray-100">
-        <button onClick={onClose} className="p-2 -ml-2 text-gray-400"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="text-gray-400 text-3xl p-2 active:scale-90 transition-transform">‹</button>
         <h2 className="font-bold text-gray-800 text-lg">每周健康评估报告</h2>
         <div className="w-8"></div>
       </header>
@@ -5051,7 +5092,7 @@ const ProfileView = ({
 
       {/* 我的设备：入口组 */}
       <div className="px-1 mb-2 bg-transparent">
-        <h3 className="font-bold text-lg text-gray-800">我的智能设备</h3>
+        <h3 className="font-bold text-lg text-gray-800">智能设备</h3>
       </div>
       <div className="bg-white rounded-[32px] p-2 card-shadow border border-gray-50 mb-6">
         <button 
@@ -5210,7 +5251,7 @@ const NotificationsView = ({
       className="absolute inset-0 z-[100] bg-white flex flex-col font-sans"
     >
       <header className="bg-white flex items-center justify-between px-4 py-4 relative border-b border-gray-100 shrink-0">
-        <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-lg"><ChevronLeft size={24} strokeWidth={1.5} /></button>
+        <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
         <h2 className="text-xl font-bold text-center text-gray-800">消息通知</h2>
         <div className="flex items-center gap-3 shrink-0">
           <button onClick={onMarkAllRead} className="text-xs text-gray-400 font-bold whitespace-nowrap active:opacity-70">全部已读</button>
@@ -5395,13 +5436,16 @@ export default function App() {
       phone: '13812345678',
       age: 78,
       bloodType: 'A型血',
+      tags: '独居老人, 慢病管理',
       mode: '独居模式',
       healthStatus: '健康良好',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
       chronicDiseases: '高血压、轻度糖尿病',
       medicalHistory: '2015年进行过阑尾切除手术',
       allergies: '青霉素过敏',
-      medications: '缬沙坦胶囊 1粒/日，二甲双胍 0.5g/日',
+      medicationSuggestion: '缬沙坦胶囊 1粒/日，二甲双胍 0.5g/日',
+      exerciseSuggestion: '每日散步30分钟',
+      dietarySuggestion: '低盐低糖饮食',
       livingAbility: '基本自理，需提醒用药',
       riskAssessment: '存在轻度跌倒风险'
     }
