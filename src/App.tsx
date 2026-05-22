@@ -7,48 +7,103 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, Reorder, useMotionValue, useTransform } from 'motion/react';
 import { AreaChart, Area, LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceArea, PieChart, Pie, Cell } from 'recharts';
 import { 
-  Home, 
-  Activity, 
-  MessageCircle, 
-  User, 
-  Smartphone as Device,
-  Smartphone,
-  PhoneCall, 
-  Users, 
-  Pill, 
-  Bell, 
-  Video, 
-  Camera, 
-  Mic, 
-  Heart, 
-  Moon, 
-  Clipboard,
-  ChevronRight,
-  Plus,
-  Edit2,
-  Image,
-  Shield,
-  Info,
-  Phone,
-  RefreshCw,
-  Maximize2,
-  Trash2,
-  AlertTriangle,
-  AlertCircle,
-  FileText,
-  BarChart2,
-  Settings,
-  MoreHorizontal,
-  ThumbsUp,
-  Calendar,
-  Star,
-  HeartPulse,
-  Share2,
-  Download,
-  Search,
-  Bot,
-  Stethoscope
+  Home as HomeIcon, 
+  Activity as ActivityIcon, 
+  MessageCircle as MessageCircleIcon, 
+  User as UserIcon, 
+  Smartphone as SmartphoneIcon, 
+  PhoneCall as PhoneCallIcon, 
+  Users as UsersIcon, 
+  Pill as PillIcon, 
+  Bell as BellIcon, 
+  Video as VideoIcon, 
+  Camera as CameraIcon, 
+  Mic as MicIcon, 
+  Heart as HeartIcon, 
+  Moon as MoonIcon, 
+  Clipboard as ClipboardIcon, 
+  ChevronRight as ChevronRightIcon, 
+  ChevronLeft as ChevronLeftIcon, 
+  Plus as PlusIcon, 
+  Edit2 as Edit2Icon, 
+  Image as ImageIconIcon, 
+  Shield as ShieldIcon, 
+  Info as InfoIcon, 
+  Phone as PhoneIcon, 
+  RefreshCw as RefreshCwIcon, 
+  Maximize2 as Maximize2Icon, 
+  Trash2 as Trash2Icon, 
+  AlertTriangle as AlertTriangleIcon, 
+  CircleAlert as AlertCircleIcon, 
+  FileText as FileTextIcon, 
+  BarChart2 as BarChart2Icon, 
+  Settings as SettingsIcon, 
+  MoreHorizontal as MoreHorizontalIcon, 
+  ThumbsUp as ThumbsUpIcon, 
+  Calendar as CalendarIcon, 
+  Star as StarIcon, 
+  HeartPulse as HeartPulseIcon, 
+  Share2 as Share2Icon, 
+  Download as DownloadIcon, 
+  Search as SearchIcon, 
+  Bot as BotIcon, 
+  Stethoscope as StethoscopeIcon, 
+  Lock as LockIcon,
+  CheckCircle as CheckCircleIcon,
+  Radio as RadioIcon,
+  Power as PowerIcon,
+  Smile,
+  Meh,
+  Frown
 } from 'lucide-react';
+
+// --- 极简线框图风格图标定义 (使用 Lucide React 提供的线框设计，风格统一且符合现代软件规范) ---
+const Home = ({ size = 24, strokeWidth = 1.5, className }: any) => <HomeIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Activity = ({ size = 24, strokeWidth = 1.5, className }: any) => <ActivityIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const MessageCircle = ({ size = 24, strokeWidth = 1.5, className }: any) => <MessageCircleIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const User = ({ size = 24, strokeWidth = 1.5, className }: any) => <UserIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Smartphone = ({ size = 24, strokeWidth = 1.5, className }: any) => <SmartphoneIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Device = Smartphone;
+const PhoneCall = ({ size = 24, strokeWidth = 1.5, className }: any) => <PhoneCallIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Users = ({ size = 24, strokeWidth = 1.5, className }: any) => <UsersIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Pill = ({ size = 24, strokeWidth = 1.5, className }: any) => <PillIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Bell = ({ size = 24, strokeWidth = 1.5, className }: any) => <BellIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Video = ({ size = 24, strokeWidth = 1.5, className }: any) => <VideoIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Camera = ({ size = 24, strokeWidth = 1.5, className }: any) => <CameraIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Mic = ({ size = 24, strokeWidth = 1.5, className }: any) => <MicIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Heart = ({ size = 24, strokeWidth = 1.5, className }: any) => <HeartIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Moon = ({ size = 24, strokeWidth = 1.5, className }: any) => <MoonIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Clipboard = ({ size = 24, strokeWidth = 1.5, className }: any) => <ClipboardIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const ChevronRight = ({ size = 24, strokeWidth = 1.5, className }: any) => <ChevronRightIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const ChevronLeft = ({ size = 24, strokeWidth = 1.5, className }: any) => <ChevronLeftIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Plus = ({ size = 24, strokeWidth = 1.5, className }: any) => <PlusIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Edit2 = ({ size = 24, strokeWidth = 1.5, className }: any) => <Edit2Icon size={size} strokeWidth={strokeWidth} className={className} />;
+const ImageIcon = ({ size = 24, strokeWidth = 1.5, className }: any) => <ImageIconIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Shield = ({ size = 24, strokeWidth = 1.5, className }: any) => <ShieldIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Info = ({ size = 24, strokeWidth = 1.5, className }: any) => <InfoIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Phone = ({ size = 24, strokeWidth = 1.5, className }: any) => <PhoneIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const RefreshCw = ({ size = 24, strokeWidth = 1.5, className }: any) => <RefreshCwIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Maximize2 = ({ size = 24, strokeWidth = 1.5, className }: any) => <Maximize2Icon size={size} strokeWidth={strokeWidth} className={className} />;
+const Trash2 = ({ size = 24, strokeWidth = 1.5, className }: any) => <Trash2Icon size={size} strokeWidth={strokeWidth} className={className} />;
+const AlertTriangle = ({ size = 24, strokeWidth = 1.5, className }: any) => <AlertTriangleIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const AlertCircle = ({ size = 24, strokeWidth = 1.5, className }: any) => <AlertCircleIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const FileText = ({ size = 24, strokeWidth = 1.5, className }: any) => <FileTextIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const BarChart2 = ({ size = 24, strokeWidth = 1.5, className }: any) => <BarChart2Icon size={size} strokeWidth={strokeWidth} className={className} />;
+const Settings = ({ size = 24, strokeWidth = 1.5, className }: any) => <SettingsIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const MoreHorizontal = ({ size = 24, strokeWidth = 1.5, className }: any) => <MoreHorizontalIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const ThumbsUp = ({ size = 24, strokeWidth = 1.5, className }: any) => <ThumbsUpIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Calendar = ({ size = 24, strokeWidth = 1.5, className }: any) => <CalendarIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Star = ({ size = 24, strokeWidth = 1.5, className }: any) => <StarIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const HeartPulse = ({ size = 24, strokeWidth = 1.5, className }: any) => <HeartPulseIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Share2 = ({ size = 24, strokeWidth = 1.5, className }: any) => <Share2Icon size={size} strokeWidth={strokeWidth} className={className} />;
+const Download = ({ size = 24, strokeWidth = 1.5, className }: any) => <DownloadIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Search = ({ size = 24, strokeWidth = 1.5, className }: any) => <SearchIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Bot = ({ size = 24, strokeWidth = 1.5, className }: any) => <BotIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Stethoscope = ({ size = 24, strokeWidth = 1.5, className }: any) => <StethoscopeIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Lock = ({ size = 24, strokeWidth = 1.5, className }: any) => <LockIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const CheckCircle = ({ size = 24, strokeWidth = 1.5, className }: any) => <CheckCircleIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Radio = ({ size = 24, strokeWidth = 1.5, className }: any) => <RadioIcon size={size} strokeWidth={strokeWidth} className={className} />;
+const Power = ({ size = 24, strokeWidth = 1.5, className }: any) => <PowerIcon size={size} strokeWidth={strokeWidth} className={className} />;
 
 // --- 类型定义 ---
 type TabType = 'guardian' | 'health' | 'companion' | 'profile';
@@ -148,13 +203,13 @@ const ImageViewer = ({ src, onClose }: { src: string; onClose: () => void }) => 
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[300] bg-black flex flex-col items-center justify-center p-0"
     >
-      <header className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10 bg-gradient-to-b from-black/80 to-transparent">
+      <header className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10 bg-black/60">
         <button onClick={onClose} className="text-white text-4xl drop-shadow-md p-2 active:scale-90 transition-transform">‹</button>
         <button 
           onClick={handleSave}
           className="bg-white/20 backdrop-blur-xl text-white px-5 py-2 rounded-full text-xs font-bold flex items-center gap-2 active:scale-95 transition-transform"
         >
-          <span>📥</span> 保存图片
+          <span><Download size={16} /></span> 保存图片
         </button>
       </header>
 
@@ -177,7 +232,7 @@ const ImageViewer = ({ src, onClose }: { src: string; onClose: () => void }) => 
             exit={{ opacity: 0, y: 20 }}
             className="absolute bottom-16 bg-white text-[#024481] px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 z-20"
           >
-            <span>✅</span> 已成功保存至相册
+            <span><CheckCircle size={14} className="text-emerald-400" /></span> 已成功保存至相册
           </motion.div>
         )}
       </AnimatePresence>
@@ -454,7 +509,7 @@ const MemoriesAlbumView = ({ onClose, onImageClick, onShowToast }: { onClose: ()
                   className="relative h-48 w-full cursor-pointer group active:opacity-90"
                 >
                   <img src={memory.image} alt="记忆瞬间" className="w-full h-full object-cover transition-transform group-hover:scale-105" referrerPolicy="no-referrer" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
+                  <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-4">
                     <span className="text-white text-xs font-bold uppercase  bg-black/40 w-max px-2 py-1 rounded backdrop-blur-md mb-2">{memory.topic}</span>
                     <span className="text-white/60 text-xs font-bold">点击查看图片</span>
                   </div>
@@ -551,7 +606,7 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
               onClick={() => setIsVideoOpen(true)}
               className="w-full h-16 border border-dashed border-[#024481]/20 rounded-[24px] text-[#024481] font-bold flex items-center justify-center gap-2 bg-blue-50/30"
             >
-              <span className="text-xl">📹</span>
+              <span className="text-xl inline-flex items-center justify-center"><Video size={20} /></span>
               <span className="text-sm">点击查看实时监控画面</span>
             </button>
           ) : (
@@ -566,15 +621,15 @@ const AlertDetailView = ({ data, onClose, onResolve }: { data: AlertData; onClos
 
         <div className="grid grid-cols-3 gap-2 pt-2">
           <button className="bg-white border border-gray-100 text-gray-800 py-4 rounded-[24px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform font-bold">
-            <span className="text-xl">📞</span>
+            <span className="text-xl flex items-center justify-center"><PhoneCall size={20} /></span>
             <span className="text-xs">呼叫家人</span>
           </button>
           <button className="bg-white border border-gray-100 text-gray-800 py-4 rounded-[24px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform font-bold">
-            <span className="text-xl">🚑</span>
+            <span className="text-xl flex items-center justify-center"><Stethoscope size={20} className="text-red-500" /></span>
             <span className="text-xs">120急救</span>
           </button>
           <button className="bg-white border border-gray-100 text-gray-800 py-4 rounded-[24px] flex flex-col items-center justify-center gap-1 shadow-sm active:scale-[0.98] transition-transform font-bold">
-            <span className="text-xl">🏢</span>
+            <span className="text-xl flex items-center justify-center"><Home size={20} /></span>
             <span className="text-xs">联系物业</span>
           </button>
         </div>
@@ -663,7 +718,7 @@ const VoiceMessageView = ({ onClose }: { onClose: () => void }) => {
             onMouseLeave={() => setIsRecording(false)}
             className={`relative w-40 h-40 rounded-full bg-[#024481] shadow-2xl flex items-center justify-center text-5xl active:scale-90 transition-transform ${isRecording ? 'brightness-125 shadow-[#024481]/40' : ''}`}
           >
-            🎙️
+            <Mic size={20} />
           </button>
         </div>
         <p className="text-base text-[#024481] font-bold">长按底部按钮录制</p>
@@ -676,6 +731,57 @@ const VoiceMessageView = ({ onClose }: { onClose: () => void }) => {
 };
 
 // --- 子�
+/**
+ * 通用确认弹窗组件
+ * 用于替代原生的 window.confirm
+ */
+const ConfirmationView = ({ 
+  title, 
+  message, 
+  confirmText = "确认", 
+  cancelText = "取消", 
+  onConfirm, 
+  onCancel 
+}: { 
+  title: string; 
+  message: string; 
+  confirmText?: string; 
+  cancelText?: string; 
+  onConfirm: () => void; 
+  onCancel: () => void;
+}) => {
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="absolute inset-0 z-[500] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6"
+    >
+      <div className="bg-white rounded-[40px] w-full max-w-sm p-8 space-y-6 text-center shadow-2xl">
+        <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-2">❓</div>
+        <div className="space-y-2">
+          <h3 className="text-xl font-bold text-gray-800">{title}</h3>
+          <p className="text-base text-gray-400 leading-relaxed">{message}</p>
+        </div>
+        
+        <div className="flex gap-3">
+          <button 
+            onClick={onCancel}
+            className="flex-1 py-4 bg-gray-100 rounded-[24px] font-bold text-gray-500 active:scale-95 transition-transform"
+          >{cancelText}</button>
+          <button 
+            onClick={() => {
+              onConfirm();
+              onCancel();
+            }}
+            className="flex-1 py-4 bg-[#024481] text-white rounded-[24px] font-bold shadow-lg active:scale-95 transition-transform"
+          >{confirmText}</button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 // --- 子组件：守护首页 ---
 const GuardianView = ({ 
   onAction, 
@@ -840,7 +946,7 @@ const GuardianView = ({
           ) : (
             <div className="w-full bg-green-50 border border-green-100 px-5 py-4 rounded-[24px] flex items-center gap-3 shadow-md shadow-green-100">
               <div className="w-8 h-8 bg-[#10B981] rounded-full flex items-center justify-center text-white font-bold shadow-sm">
-                ✅
+                <CheckCircle size={16} />
               </div>
               <div>
                 <p className="text-green-800 font-bold text-base">守护状态：正常</p>
@@ -907,7 +1013,7 @@ const GuardianView = ({
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${captureProgress}%` }}
-                      className="h-full bg-gradient-to-r from-blue-500 to-cyan-400"
+                      className="h-full bg-blue-500"
                     />
                  </div>
                  <p className="text-white font-bold text-xs  animate-pulse">{captureStep}</p>
@@ -946,7 +1052,7 @@ const GuardianView = ({
                     referrerPolicy="no-referrer"
                   />
                   {/* 图片水印与元数据 */}
-                  <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/30 to-transparent pointer-events-none">
+                  <div className="absolute top-0 left-0 right-0 p-4 bg-black/20 pointer-events-none">
                     <div className="flex justify-between items-start">
                       <div className="flex flex-col">
                         <span className="text-white/80 text-[9px] font-bold  uppercase">嘉和智护 实时抓拍</span>
@@ -1136,10 +1242,10 @@ const GuardianView = ({
                     
                     <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-[24px] border border-gray-100">
                       <div className="flex -space-x-1">
-                        <div className="w-5 h-5 rounded-full bg-[#07C160] border-2 border-white flex items-center justify-center text-[8px] text-white">✅</div>
-                        <div className="w-5 h-5 rounded-full bg-[#07C160] border-2 border-white flex items-center justify-center text-[8px] text-white">✅</div>
-                        <div className="w-5 h-5 rounded-full bg-[#07C160] border-2 border-white flex items-center justify-center text-[8px] text-white">✅</div>
-                        <div className="w-5 h-5 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[8px] text-gray-400">⏳</div>
+                        <div className="w-5 h-5 rounded-full bg-[#07C160] border-2 border-white flex items-center justify-center text-[8px] text-white"><CheckCircle size={10} /></div>
+                        <div className="w-5 h-5 rounded-full bg-[#07C160] border-2 border-white flex items-center justify-center text-[8px] text-white"><CheckCircle size={10} /></div>
+                        <div className="w-5 h-5 rounded-full bg-[#07C160] border-2 border-white flex items-center justify-center text-[8px] text-white"><CheckCircle size={10} /></div>
+                        <div className="w-5 h-5 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[8px] text-gray-400"><Activity size={10} /></div>
                       </div>
                       <p className="text-[9px] text-gray-500 font-bold leading-tight">待服 1 次：降压药 (睡前)</p>
                     </div>
@@ -1184,7 +1290,7 @@ const GuardianView = ({
                   </div>
                   
                   <div className="flex items-center gap-2 p-2 bg-orange-50/50 rounded-xl">
-                    <span className="animate-pulse">⚠️</span>
+                    <span className="animate-pulse flex items-center justify-center"><AlertTriangle size={14} className="text-orange-500" /></span>
                     <p className="text-[10px] text-orange-700 font-bold">今日血压略高于平均水平，建议减少盐分摄入。</p>
                   </div>
                 </div>
@@ -1319,11 +1425,11 @@ const HealthView = ({ onCalendarClick, isAnonymous, plan, onImageClick }: { onCa
       id: med.id,
       name: med.name,
       time: med.times.join(' • '),
-      icon: med.imageUrl ? '🖼️' : (
-        med.name.includes('阿司匹林') || med.name.includes('阿斯匹林') ? '💊' : 
-        med.name.includes('维生素') ? '🧴' : 
-        med.name.includes('地平') || med.name.includes('沙坦') ? '🩺' : 
-        '🌿'
+      icon: med.imageUrl ? <ImageIcon size={18} /> : (
+        med.name.includes('阿司匹林') || med.name.includes('阿斯匹林') ? <Pill size={18} /> : 
+        med.name.includes('维生素') ? <Stethoscope size={18} /> : 
+        med.name.includes('地平') || med.name.includes('沙坦') ? <Stethoscope size={18} /> : 
+        <Activity size={18} />
       ),
       imageUrl: med.imageUrl,
       status: med.status || (med.enabled === false ? 'pending' : 'pending'),
@@ -1709,13 +1815,13 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
 
   // 情绪脸谱数据
   const emotions = [
-    { day: '周一', emoji: '😊', level: 4, reason: '主动对话6次，笑声3次', summary: '今日心情极佳，与邻居聊得愉快。' },
-    { day: '周二', emoji: '😐', level: 3, reason: '对话较少，监测到较多静息时间', summary: '心情平稳，生活节奏稳定。' },
-    { day: '周三', emoji: '😔', level: 2, reason: '午后情绪略显低落，活动量下降', summary: '情绪低落期，建议增加主动关怀。' },
-    { day: '周四', emoji: '😊', level: 4, reason: '完成了一场象棋对弈，心情舒畅', summary: '积极社交的一天。' },
-    { day: '周五', emoji: '😐', level: 3, reason: '作息规律，配合健康指导练习', summary: '情绪稳定，执行力强。' },
-    { day: '周六', emoji: '😰', level: 1, reason: '夜间惊醒后出现轻微喘息与焦虑', summary: '监测到焦虑情绪，机器人已介入陪伴。' },
-    { day: '今日', emoji: '😊', level: 4, reason: '收到了家人寄来的礼物', summary: '满怀喜悦，正在与机器人分享快乐。' },
+    { day: '周一', emoji: <Smile size={24} className="text-[#10B981]" />, level: 4, reason: '主动对话6次，笑声3次', summary: '今日心情极佳，与邻居聊得愉快。' },
+    { day: '周二', emoji: <Meh size={24} className="text-gray-400" />, level: 3, reason: '对话较少，监测到较多静息时间', summary: '心情平稳，生活节奏稳定。' },
+    { day: '周三', emoji: <Frown size={24} className="text-orange-400" />, level: 2, reason: '午后情绪略显低落，活动量下降', summary: '情绪低落期，建议增加主动关怀。' },
+    { day: '周四', emoji: <Smile size={24} className="text-[#10B981]" />, level: 4, reason: '完成了一场象棋对弈，心情舒畅', summary: '积极社交的一天。' },
+    { day: '周五', emoji: <Meh size={24} className="text-gray-400" />, level: 3, reason: '作息规律，配合健康指导练习', summary: '情绪稳定，执行力强。' },
+    { day: '周六', emoji: <AlertCircle size={24} className="text-[#E11D48]" />, level: 1, reason: '夜间惊醒后出现轻微喘息与焦虑', summary: '监测到焦虑情绪，机器人已介入陪伴。' },
+    { day: '今日', emoji: <Smile size={24} className="text-[#10B981]" />, level: 4, reason: '收到了家人寄来的礼物', summary: '满怀喜悦，正在与机器人分享快乐。' },
   ];
 
   // 回忆金句数据
@@ -1848,7 +1954,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                     const data = payload[0].payload;
                     return (
                       <div className="bg-white/90 backdrop-blur-md p-2 rounded-[24px] shadow-xl border border-gray-100 text-xs flex items-center gap-2">
-                        <span className="text-base">{data.emoji}</span>
+                        <span className="text-base flex items-center justify-center">{data.emoji}</span>
                         <span className="font-bold text-gray-500">{data.day}</span>
                       </div>
                     );
@@ -1884,7 +1990,7 @@ const CompanionView = ({ onAction, isAnonymous, unreadNotificationsCount = 0 }: 
                 >‹</button>
                 <div className="flex items-center gap-2">
                   <span className="text-base font-bold text-[#024481]">{selectedEmotion.day} 情绪溯源</span>
-                  <span className="text-lg">{selectedEmotion.emoji}</span>
+                  <span className="text-lg flex items-center justify-center">{selectedEmotion.emoji}</span>
                 </div>
                 <div className="space-y-2">
                   <div>
@@ -2030,12 +2136,14 @@ const EmergencyContactsView = ({
   contacts, 
   onUpdate, 
   onClose,
-  isMainAccount = true
+  isMainAccount = true,
+  onShowToast
 }: { 
   contacts: Contact[]; 
   onUpdate: (newContacts: Contact[]) => void; 
   onClose: () => void;
   isMainAccount?: boolean;
+  onShowToast?: (msg: string) => void;
 }) => {
   const [items, setItems] = useState(contacts);
   const [isAdding, setIsAdding] = useState(false);
@@ -2106,7 +2214,7 @@ const EmergencyContactsView = ({
             setItems(newOrder);
             onUpdate(newOrder);
           }} className="space-y-4">
-            {items.map((item) => (
+            {items.map((item, index) => (
               <Reorder.Item 
                 key={item.id} 
                 value={item}
@@ -2124,6 +2232,10 @@ const EmergencyContactsView = ({
                   className="p-4 flex items-center justify-between bg-white w-full relative z-20"
                 >
                   <div className="flex items-center gap-3">
+                    {/* 序号：前面添加的联系人顺序数字（如 1、2 等） */}
+                    <div className="w-7 h-7 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm shrink-0">
+                      {index + 1}
+                    </div>
                     <div>
                       <p className="font-bold text-gray-800">{item.name} <span className="text-xs text-gray-400 font-normal ml-1">({item.relation})</span></p>
                       <p className="text-xs text-gray-500 mt-0.5">{item.phone}</p>
@@ -2378,19 +2490,19 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
-      className="absolute inset-0 z-[200] bg-[#fbf9f8] flex flex-col"
+      className="absolute inset-0 z-[200] bg-white flex flex-col font-sans"
     >
       <header className="bg-white px-6 py-6 flex items-center justify-between border-b border-gray-100 shrink-0">
         <div className="flex items-center gap-4">
           <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
-          <h2 className="text-xl font-bold text-[#024481]">通知设置</h2>
+          <h2 className="text-xl font-bold text-gray-800">通知信息</h2>
         </div>
       </header>
 
       <main className="flex-1 p-6 space-y-4 overflow-y-auto">
         <div className="bg-gray-50 p-4 rounded-[24px] border border-gray-100 flex items-start gap-3 mb-2">
-          <Shield size={18} className="text-gray-300 shrink-0 mt-0.5" strokeWidth={1.5} />
-          <p className="text-xs text-gray-400 leading-relaxed font-medium">
+          <Shield size={18} className="text-gray-400 shrink-0 mt-0.5" strokeWidth={1.5} />
+          <p className="text-xs text-gray-500 leading-relaxed font-medium">
             系统深度集成了多维度感知算法，确保在紧急时刻能第一时间通过多种路径通知到您。
           </p>
         </div>
@@ -2399,12 +2511,12 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
           <div key={cat.id} className="bg-white rounded-[28px] p-5 shadow-sm border border-gray-50 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-[24px] flex items-center justify-center text-xl ${cat.isLocked ? 'bg-red-50' : 'bg-gray-50'}`}>
+                <div className="w-10 h-10 flex items-center justify-center text-xl">
                   {cat.icon}
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-800">{cat.title}</h3>
-                  <p className="text-xs text-gray-400 font-bold uppercase">{cat.method}</p>
+                  <p className="text-xs text-gray-400 font-bold">{cat.method}</p>
                 </div>
               </div>
               
@@ -2428,10 +2540,10 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
 
             <div className="pt-4 border-t border-gray-50">
               <div className="flex items-start gap-2">
-                <span className="text-xs text-gray-300 mt-0.5">场景:</span>
+                <span className="text-xs text-gray-400 mt-0.5">场景:</span>
                 <p className="text-xs text-gray-600 font-medium">{cat.scenario}</p>
               </div>
-              <p className="text-xs text-gray-400 mt-1 italic">{cat.description}</p>
+              <p className="text-xs text-gray-400 mt-1">{cat.description}</p>
             </div>
           </div>
         ))}
@@ -2450,11 +2562,13 @@ const AlarmSettingsView = ({ onClose }: { onClose: () => void }) => {
 const FamilyMembersView = ({ 
   members, 
   onDelete, 
-  onClose 
+  onClose,
+  onShowToast
 }: { 
   members: FamilyMember[]; 
   onDelete: (id: string) => void; 
-  onClose: () => void 
+  onClose: () => void;
+  onShowToast?: (msg: string) => void;
 }) => {
   const handleInvite = () => {
     // 模拟原生分享
@@ -2465,7 +2579,7 @@ const FamilyMembersView = ({
         url: window.location.href,
       }).catch(console.error);
     } else {
-      alert('已生成邀请链接，请前往微信/手机QQ粘贴发送给家人');
+      onShowToast?.('已生成邀请链接，请前往微信/手机QQ粘贴发送给家人');
     }
   };
 
@@ -2548,11 +2662,13 @@ const MedicationPlanView = ({
   plan, 
   onUpdate, 
   onClose,
+  onShowToast,
   isMainAccount = true
 }: { 
   plan: Medication[]; 
   onUpdate: (plan: Medication[]) => void; 
   onClose: () => void;
+  onShowToast?: (msg: string) => void;
   isMainAccount?: boolean;
 }) => {
   const [data, setData] = useState(plan);
@@ -2720,156 +2836,54 @@ const MedicationPlanView = ({
           <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
           <h2 className="text-xl font-bold text-[#024481]">用药计划</h2>
         </div>
-        {isMainAccount && (
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={() => fileInputRef.current?.click()}
-              className="px-4 h-10 bg-green-50 text-[#10B981] rounded-[24px] flex items-center justify-center gap-2 text-base font-bold active:scale-95 transition-transform"
-              title="AI识别"
-            >
-              <Camera size={18} strokeWidth={2.5} />
-              <span>AI识别药品</span>
-            </button>
-            <button 
-              onClick={handleAddClick}
-              className="w-10 h-10 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-2xl active:scale-95 transition-transform"
-            >
-              +
-            </button>
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              className="hidden" 
-              accept="image/*" 
-              onChange={e => {
-                const file = e.target.files?.[0];
-                if (file) handlePhotoScan(file);
-              }}
-            />
-          </div>
-        )}
+        {/* 已去掉右上角 AI识别用药 和 + 按钮 */}
       </header>
 
       <main className="flex-1 overflow-y-auto p-6 space-y-6 relative">
-        {isScanning && (
-          <div className="fixed inset-0 z-[200] bg-white/90 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center">
-            {form.imageUrl && (
-              <div className="w-48 h-48 rounded-3xl overflow-hidden shadow-2xl mb-8 border-4 border-white">
-                <img src={form.imageUrl} className="w-full h-full object-cover" alt="Scanning" referrerPolicy="no-referrer" />
-              </div>
-            )}
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="text-5xl mb-4"
+        <div className="space-y-3">
+          {data.map(med => (
+            <div 
+              key={med.id} 
+              className={`bg-white p-4 rounded-[20px] border border-gray-100 shadow-sm flex items-center justify-between gap-4 ${med.enabled === false ? 'opacity-60 bg-gray-50/50' : 'opacity-100'}`}
             >
-              🔍
-            </motion.div>
-            <p className="text-[#024481] font-bold text-lg">正在为您识别药品...</p>
-            <p className="text-xs text-gray-400 mt-2">AI 正在精准分析药盒信息，请稍候</p>
-          </div>
-        )}
-        {!isMainAccount && (
-          <div className="bg-orange-50 border border-orange-100 p-4 rounded-[24px] flex items-center gap-3">
-            <span className="text-xl">🔒</span>
-            <p className="text-xs text-orange-600 font-bold">只读模式，仅主账号可编辑医嘱</p>
-          </div>
-        )}
-
-        <div className="space-y-4">
-          <Reorder.Group axis="y" values={data} onReorder={(newOrder) => {
-            if (!isMainAccount) return;
-            setData(newOrder);
-            onUpdate(newOrder);
-          }} className="space-y-4">
-            {data.map(med => (
-              <Reorder.Item 
-                key={med.id} 
-                value={med}
-                drag={isMainAccount ? "y" : false}
-                className="bg-white rounded-[32px] border border-gray-50 shadow-sm transition-all overflow-hidden relative"
-              >
-                {/* 背景层：确认删除按钮 */}
-                <div 
-                  className="absolute inset-y-0 right-0 w-24 bg-[#E11D48] flex items-center justify-center text-white"
-                  onClick={() => deleteMedication(med.id)}
-                >
-                  <Trash2 size={24} />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">💊</span>
+                  <h4 className="font-bold text-base text-gray-800 truncate">{med.name}</h4>
+                  {med.enabled === false && (
+                    <span className="text-[9px] bg-gray-200 text-gray-500 px-2 py-0.5 rounded-full font-bold">已停用</span>
+                  )}
                 </div>
-                
-                {/* 内容层：可拖拽滑动 */}
-                <motion.div
-                  drag={isMainAccount ? "x" : false}
-                  dragConstraints={{ left: -96, right: 0 }}
-                  dragElastic={0.1}
-                  onDragEnd={(e, info) => {
-                    if (info.offset.x < -80) {
-                      // 保持滑开状态
-                    }
-                  }}
-                  onClick={() => handleEditClick(med)}
-                  className={`bg-white p-6 relative z-20 w-full cursor-pointer active:scale-[0.98] transition-transform ${med.enabled === false ? 'opacity-60 bg-gray-50/50' : 'opacity-100'}`}
-                >
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h4 className={`font-bold text-lg ${med.enabled === false ? 'text-gray-400 line-through' : 'text-gray-800'}`}>{med.name}</h4>
-                        </div>
-                        <div className="flex flex-col gap-0.5 mt-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[10px] bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full font-bold uppercase ">每日推送</span>
-                            <p className="text-xs text-gray-400 font-medium">
-                              {med.times.join(' • ')}
-                            </p>
-                          </div>
-                          {(med.startDate || med.endDate) && (
-                            <p className="text-xs text-gray-300 font-medium">
-                              {med.startDate || '未设'} 至 {med.endDate || '未设'}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-gray-200">❯</span>
-                    </div>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5 text-xs text-gray-400">
+                  <div className="flex items-center gap-1">
+                    <span className="text-[10px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-bold">推送时间</span>
+                    <span className="font-medium">{med.times.join(' • ')}</span>
                   </div>
-
-                  {med.enabled !== false && (
-                    <div className="p-4 bg-gray-50/50 rounded-[24px] border border-gray-100/50 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-gray-400">单次剂量</span>
-                        <span className="text-base font-bold text-gray-700">{med.dosage}</span>
-                      </div>
+                  {med.dosage && (
+                    <div className="flex items-center gap-1 border-l border-gray-200 pl-3">
+                      <span className="font-bold text-gray-500">单次:</span>
+                      <span className="font-bold text-gray-700">{med.dosage}</span>
                     </div>
                   )}
-                </motion.div>
-              </Reorder.Item>
-            ))}
-          </Reorder.Group>
+                </div>
+                {(med.startDate || med.endDate) && (
+                  <div className="text-[10px] text-gray-300 mt-1 font-medium">
+                    有效期: {med.startDate || '未设'} ~ {med.endDate || '未设'}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
 
           {data.length === 0 && (
             <div className="text-center py-12">
                <div className="text-5xl mb-4">🍵</div>
                <p className="text-gray-400 font-medium">暂无用药计划</p>
-               {isMainAccount && (
-                 <button onClick={handleAddClick} className="mt-4 text-blue-500 font-bold underline">立即添加</button>
-               )}
             </div>
           )}
         </div>
 
-        <div className="bg-[#024481] p-6 rounded-[32px] flex items-center justify-between shadow-xl shadow-blue-900/20">
-           <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-white/10 rounded-[24px] flex items-center justify-center text-2xl">🤖</div>
-              <div>
-                <p className="text-white text-base font-bold ">同步至机器人端</p>
-                <p className="text-white/50 text-xs mt-0.5">修改后将自动推送语音提醒至终端</p>
-              </div>
-           </div>
-           <div className="w-2.5 h-2.5 rounded-full bg-green-400 shadow-[0_0_12px_rgba(74,222,128,0.5)] animate-pulse"></div>
-        </div>
+        {/* 已经去掉底部 “同步至机器人端” 的卡片 */}
       </main>
 
       {/* 编辑/新增 抽屉 */}
@@ -3111,22 +3125,15 @@ const LegalNoticeView = ({
 
           {type === 'informed' && (
             <>
-              <div className="space-y-2">
-                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">1. 产品定位说明</p>
-                <p className="text-xs">本设备是子女远程关心、陪伴长辈的智慧助手。具备用药提醒、日常聊天及安全看护功能，属于家人关心工具而非监视器。</p>
-              </div>
-              <div className="space-y-2">
-                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">2. 数据采集告知</p>
-                <p className="text-xs">设备会监测您的心率、呼吸等健康体征，并仅在跌倒告警或子女发起通话时开启图像采集，过程全程透明，指示灯实时提醒。</p>
-              </div>
-              <div className="space-y-2">
-                <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">3. 主动控制权利</p>
-                <p className="text-xs">长辈可随时通过语音指令或手动遮盖传感器来关闭任何采集功能。我们充分尊重并优先执行长辈的现场指令。</p>
-              </div>
-              <div className="p-4 bg-emerald-50/50 rounded-[28px] border border-emerald-100/50">
-                <p className="text-xs text-emerald-800 leading-relaxed font-medium italic">
-                  “这款机器人是连接您与远方家人的纽带，希望在保障安全的同时，为您带来更有温度的居家陪伴。”
-                </p>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">1. 产品定位说明</p>
+                  <p className="text-xs">本设备是子女远程关心、陪伴长辈的智慧助手。具备用药提醒、日常聊天及安全看护功能，属于家人关心工具而非监视器。</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="font-bold text-gray-800 border-l-2 border-gray-200 pl-2">2. 温馨陪伴说明</p>
+                  <p className="text-xs">“这款机器人是连接您与远方家人的纽带，希望在保障安全的同时，为您带来更有温度的居家陪伴。”</p>
+                </div>
               </div>
             </>
           )}
@@ -3162,7 +3169,7 @@ const CameraAccessLogsView = ({ logs, onClose }: { logs: CameraLog[], onClose: (
       <main className="flex-1 p-6 space-y-6 overflow-y-auto">
         <div className="bg-white rounded-[32px] p-6 space-y-4 border border-gray-100 shadow-sm">
            <p className="text-xs text-gray-400 font-bold uppercase  text-center py-2 border-b border-gray-50">
-             隐私保障：端到端加密传输 🔒
+             隐私保障：端到端加密传输 <Lock size={12} className="inline-block" />
            </p>
            <div className="space-y-4">
              {logs.length > 0 ? logs.map(log => (
@@ -3172,7 +3179,7 @@ const CameraAccessLogsView = ({ logs, onClose }: { logs: CameraLog[], onClose: (
                      log.source === '告警' ? 'bg-red-50 text-[#E11D48]' : 
                      log.source === '通话' ? 'bg-blue-50 text-blue-500' : 'bg-green-50 text-[#10B981]'
                    }`}>
-                     {log.source === '告警' ? '🚨' : log.source === '通话' ? '📞' : '📷'}
+                     {log.source === '告警' ? <AlertTriangle size={16} /> : log.source === '通话' ? <PhoneCall size={16} /> : <Camera size={16} />}
                    </div>
                    <div>
                      <p className="font-bold text-gray-800">{log.source}调用</p>
@@ -3203,15 +3210,19 @@ const RobotDetailView = ({
   onSave, 
   onDelete,
   onClose,
+  onShowToast,
   isMainAccount = true
 }: { 
   robot: any; 
   onSave: (robot: any) => void; 
   onDelete: (id: string) => void;
   onClose: () => void;
+  onShowToast?: (msg: string) => void;
   isMainAccount?: boolean;
 }) => {
   const [nickname, setNickname] = useState(robot.nickname);
+  // 新增 SN (序列号) 编辑状态以支持修改序列号
+  const [sn, setSn] = useState(robot.sn || 'JH4820-2910-X1');
   const [upgrading, setUpgrading] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [password, setPassword] = useState('');
@@ -3221,7 +3232,7 @@ const RobotDetailView = ({
     setUpgrading(true);
     setTimeout(() => {
       setUpgrading(false);
-      alert('固件已更新至最新版本');
+      onShowToast?.('固件已更新至最新版本');
     }, 3000);
   };
 
@@ -3247,7 +3258,8 @@ const RobotDetailView = ({
           <h2 className="text-xl font-bold text-[#024481]">设备维护</h2>
         </div>
         <button 
-          onClick={() => onSave({ ...robot, nickname })}
+          // 保存时一并提交修改后的昵称和序列号 (SN)
+          onClick={() => onSave({ ...robot, nickname, sn })}
           className="bg-[#024481] text-white px-6 py-2 rounded-full font-bold text-base shadow-xl shadow-blue-100"
         >保存修改</button>
       </header>
@@ -3263,52 +3275,20 @@ const RobotDetailView = ({
                className={`w-full ${!isMainAccount ? 'bg-gray-100 text-gray-400' : 'bg-gray-50 text-[#024481] focus:ring-2 focus:ring-blue-100'} border-none rounded-[24px] p-4 text-base font-bold`}
              />
            </div>
-           <div className="flex justify-between items-center px-1">
+           {/* 支持在后台直接输入并修改机器人序列号 (SN) */}
+           <div className="space-y-1.5 text-left">
+             <label className="text-xs font-bold text-gray-400 ml-1 uppercase ">序列号 (SN)</label>
+             <input 
+               value={sn}
+               onChange={e => setSn(e.target.value)}
+               disabled={!isMainAccount}
+               className={`w-full ${!isMainAccount ? 'bg-gray-100 text-gray-400' : 'bg-gray-50 text-[#024481] focus:ring-2 focus:ring-blue-100'} border-none rounded-[24px] p-4 text-base font-bold`}
+             />
+           </div>
+           <div className="flex justify-between items-center px-1 pt-2">
              <span className="text-xs text-gray-400 font-bold">硬件型号</span>
              <span className="text-xs font-bold text-gray-700">{robot.model}</span>
            </div>
-           <div className="flex justify-between items-center px-1">
-             <span className="text-xs text-gray-400 font-bold">序列号 (SN)</span>
-             <span className="text-xs font-mono font-bold text-gray-700">{robot.sn || 'JH4820-2910-X1'}</span>
-           </div>
-        </div>
-
-        <div className="bg-white rounded-[32px] p-6 border border-gray-50 shadow-sm flex items-center justify-between">
-           <div className="flex items-center gap-4">
-             <div className="w-10 h-10 bg-blue-50 rounded-[24px] flex items-center justify-center text-xl">💿</div>
-             <div>
-               <p className="text-base font-bold text-gray-800">系统固件</p>
-               <p className="text-xs text-gray-400 font-bold uppercase ">Version {robot.version}</p>
-             </div>
-           </div>
-           {isMainAccount && (
-             <button 
-               onClick={handleOTA}
-               disabled={upgrading}
-               className={`px-5 py-2 rounded-[24px] text-xs font-bold transition-all ${
-                 upgrading ? 'bg-gray-100 text-gray-400' : 'bg-blue-600 text-white shadow-lg active:scale-95'
-               }`}
-             >
-               {upgrading ? '⌛ 升级中...' : '检查更新'}
-             </button>
-           )}
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <button 
-            onClick={() => confirm('确定要重启机器人吗？') && alert('正在下发远程重启指令...')}
-            className="bg-white p-6 rounded-[32px] flex flex-col items-center justify-center gap-3 border border-gray-50 shadow-sm active:bg-gray-50 transition-colors"
-          >
-            <span className="text-2xl">🔄</span>
-            <span className="text-xs font-bold text-gray-800">远程重启</span>
-          </button>
-          <button 
-            onClick={() => confirm('确定要关闭机器人吗？') && alert('已发送远程关机指令')}
-            className="bg-white p-6 rounded-[32px] flex flex-col items-center justify-center gap-3 border border-gray-50 shadow-sm active:bg-gray-50 transition-colors text-[#E11D48]"
-          >
-            <span className="text-2xl">🔌</span>
-            <span className="text-xs font-bold">远程关机</span>
-          </button>
         </div>
 
         {isMainAccount ? (
@@ -3430,11 +3410,13 @@ const DeleteConfirmDialog = ({
 const ElderlyProfileEditView = ({ 
   data, 
   onSave, 
-  onClose 
+  onClose,
+  onShowToast
 }: { 
   data: any; 
   onSave: (newData: any) => void; 
-  onClose: () => void 
+  onClose: () => void;
+  onShowToast?: (msg: string) => void;
 }) => {
   const [formData, setFormData] = useState(data);
   const [isScanning, setIsScanning] = useState(false);
@@ -3525,7 +3507,7 @@ const ElderlyProfileEditView = ({
           />
           <button 
             onClick={handleSelectAlbum}
-            className="px-4 py-1.5 bg-green-50 text-[#10B981] rounded-full text-xs font-bold flex items-center gap-2 active:scale-95 transition-transform border border-green-100"
+            className="px-4 py-1.5 bg-gray-50 text-gray-500 rounded-full text-xs font-bold flex items-center gap-2 active:scale-95 transition-transform border border-gray-100"
           >
             <Camera size={14} strokeWidth={2.5} />
             AI识别病历
@@ -3544,7 +3526,7 @@ const ElderlyProfileEditView = ({
       <main className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] p-4 space-y-4 pb-12">
         {isScanning && (
           <div className="bg-[#024481] text-white p-3 rounded-[24px] flex items-center justify-center gap-3 animate-pulse shadow-lg text-base">
-             <span className="animate-spin text-lg">⚙️</span> 正在AI解析电子病历档案...
+             <span className="animate-spin text-lg inline-flex items-center justify-center"><Settings size={18} /></span> 正在AI解析电子病历档案...
           </div>
         )}
 
@@ -3556,7 +3538,7 @@ const ElderlyProfileEditView = ({
                onClick={handleAvatarSelect}
              >
                <img src={formData.avatar} className="w-14 h-14 rounded-full object-cover border-2 border-blue-50" alt="avatar" referrerPolicy="no-referrer" />
-               <div className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-1 rounded-full text-xs">📷</div>
+               <div className="absolute -bottom-1 -right-1 bg-[#024481] text-white p-1 rounded-full text-xs"><Camera size={10} /></div>
              </div>
              <div className="flex-1 space-y-2">
                 <input 
@@ -3577,6 +3559,7 @@ const ElderlyProfileEditView = ({
              </div>
           </div>
           
+          {/* 移除标签选择，调整为2列网格（年龄与血型） */}
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
               <label className="text-xs text-gray-400 font-bold ml-1 uppercase">年龄</label>
@@ -3584,7 +3567,7 @@ const ElderlyProfileEditView = ({
                 type="number" 
                 value={formData.age}
                 onChange={(e) => setFormData({...formData, age: Number(e.target.value)})}
-                className="w-full bg-gray-50 rounded-[24px] px-3 py-2 text-base font-bold"
+                className="w-full bg-gray-50 rounded-[20px] px-3 py-2 text-sm font-bold"
               />
             </div>
             <div className="space-y-1">
@@ -3592,7 +3575,7 @@ const ElderlyProfileEditView = ({
               <select 
                 value={formData.bloodType}
                 onChange={(e) => setFormData({...formData, bloodType: e.target.value})}
-                className="w-full bg-gray-50 rounded-[24px] px-3 py-2 text-base font-bold appearance-none"
+                className="w-full bg-gray-50 rounded-[20px] px-3 py-2 text-sm font-bold appearance-none text-center"
               >
                 <option value="A型血">A型</option>
                 <option value="B型血">B型</option>
@@ -3601,43 +3584,12 @@ const ElderlyProfileEditView = ({
               </select>
             </div>
           </div>
-
-          <div className="space-y-1.5 mt-1">
-            <label className="text-xs text-gray-400 font-bold ml-1 uppercase">老人标签</label>
-            <div className="flex flex-wrap gap-2">
-              {['独居老人', '慢病管理', '跌倒高风险', '认知障碍', '健康达人', '活力长辈'].map(tag => {
-                const currentTags = formData.tags ? formData.tags.split(/[,，]\s*/).filter(Boolean) : [];
-                const isSelected = currentTags.includes(tag);
-                return (
-                  <button
-                    key={tag}
-                    onClick={() => {
-                      let nextTags;
-                      if (isSelected) {
-                        nextTags = currentTags.filter(t => t !== tag);
-                      } else {
-                        nextTags = [...currentTags, tag];
-                      }
-                      setFormData({...formData, tags: nextTags.join(', ')});
-                    }}
-                    className={`text-[10px] px-3 py-1.5 rounded-full font-bold border-2 transition-all ${
-                      isSelected 
-                        ? 'bg-white text-gray-900 border-green-500' 
-                        : 'bg-white text-gray-900 border-gray-100'
-                    }`}
-                  >
-                    {tag}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
         </div>
 
         {/* 健康记录详情 */}
         <section className="space-y-3">
-          <h3 className="text-xs font-bold text-[#024481] flex items-center gap-2 px-1">
-             <span className="w-1 h-3 bg-[#024481] rounded-full inline-block"></span>
+          <h3 className="text-xs font-bold text-gray-400 flex items-center gap-2 px-1">
+             <span className="w-1 h-3 bg-gray-300 rounded-full inline-block"></span>
              健康档案详情
           </h3>
           
@@ -3665,12 +3617,12 @@ const ElderlyProfileEditView = ({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs text-gray-400 font-bold ml-1 italic text-red-400">过敏源</label>
+              <label className="text-xs text-gray-400 font-bold ml-1 uppercase letter-spacing-wider">过敏源</label>
               <input 
                 type="text"
                 value={formData.allergies}
                 onChange={(e) => setFormData({...formData, allergies: e.target.value})}
-                className="w-full bg-red-50/30 rounded-[24px] p-3 text-xs text-[#E11D48] focus:ring-1 focus:ring-red-100 border-none outline-none font-medium"
+                className="w-full bg-gray-50 rounded-[24px] p-3 text-xs text-gray-800 focus:ring-1 focus:ring-gray-100 border-none outline-none font-medium"
                 placeholder="药物、食物过敏..."
               />
             </div>
@@ -3681,7 +3633,7 @@ const ElderlyProfileEditView = ({
                 rows={2}
                 value={formData.medicationSuggestion}
                 onChange={(e) => setFormData({...formData, medicationSuggestion: e.target.value})}
-                className="w-full bg-blue-50/30 rounded-[24px] p-3 text-xs text-blue-800 leading-relaxed border-none outline-none resize-none"
+                className="w-full bg-gray-50 rounded-[24px] p-3 text-xs text-gray-800 leading-relaxed border-none outline-none resize-none"
                 placeholder="药物名称、频次、剂量"
               />
             </div>
@@ -3692,7 +3644,7 @@ const ElderlyProfileEditView = ({
                 rows={2}
                 value={formData.exerciseSuggestion}
                 onChange={(e) => setFormData({...formData, exerciseSuggestion: e.target.value})}
-                className="w-full bg-green-50/30 rounded-[24px] p-3 text-xs text-green-800 leading-relaxed border-none outline-none resize-none"
+                className="w-full bg-gray-50 rounded-[24px] p-3 text-xs text-gray-800 leading-relaxed border-none outline-none resize-none"
                 placeholder="运动项目、强度、频率"
               />
             </div>
@@ -3703,51 +3655,17 @@ const ElderlyProfileEditView = ({
                 rows={2}
                 value={formData.dietarySuggestion}
                 onChange={(e) => setFormData({...formData, dietarySuggestion: e.target.value})}
-                className="w-full bg-orange-50/30 rounded-[24px] p-3 text-xs text-orange-800 leading-relaxed border-none outline-none resize-none"
+                className="w-full bg-gray-50 rounded-[24px] p-3 text-xs text-gray-800 leading-relaxed border-none outline-none resize-none"
                 placeholder="营养建议、忌口说明"
               />
             </div>
           </div>
         </section>
 
-        {/* 综合测评 */}
-        <section className="space-y-3">
-          <h3 className="text-xs font-bold text-[#024481] flex items-center gap-2 px-1">
-             <span className="w-1 h-3 bg-[#024481] rounded-full inline-block"></span>
-             评估与环境
-          </h3>
-          <div className="bg-white rounded-[24px] p-4 border border-gray-100 space-y-4">
-             <div className="grid grid-cols-3 gap-2">
-               {['健康良好', '一般', '需关注'].map(h => (
-                 <button
-                   key={h}
-                   onClick={() => setFormData({...formData, healthStatus: h})}
-                   className={`py-2 rounded-[24px] text-xs font-bold transition-all ${formData.healthStatus === h ? 'bg-blue-600 text-white' : 'bg-gray-50 text-gray-400'}`}
-                 >{h}</button>
-               ))}
-             </div>
-
-             <div className="space-y-1.5">
-               <label className="text-xs text-gray-400 font-bold ml-1">生活能力评估</label>
-               <input 
-                 type="text"
-                 value={formData.livingAbility}
-                 onChange={(e) => setFormData({...formData, livingAbility: e.target.value})}
-                 className="w-full bg-gray-50 rounded-[24px] p-3 text-xs border-none outline-none"
-               />
-             </div>
-
-             <div className="space-y-1.5">
-               <label className="text-xs text-gray-400 font-bold ml-1">风险提示</label>
-               <input 
-                 type="text"
-                 value={formData.riskAssessment}
-                 onChange={(e) => setFormData({...formData, riskAssessment: e.target.value})}
-                 className="w-full bg-gray-50 rounded-[24px] p-3 text-xs border-none outline-none"
-               />
-             </div>
-          </div>
-        </section>
+        {/* 移除“评估与环境”相关大模块以满足用户需求 */}
+        <div className="text-center text-gray-300 font-bold uppercase py-6 text-xs tracking-wider">
+          — 已经到底 —
+        </div>
       </main>
 
 
@@ -3810,48 +3728,33 @@ const DeviceManagementView = ({
           {robots.map(robot => (
             <div 
               key={robot.id}
-              onClick={() => onRobotClick(robot.id)}
-              className={`p-5 rounded-[28px] border transition-all cursor-pointer ${activeRobotId === robot.id ? 'bg-[#024481] border-blue-500 shadow-xl shadow-blue-900/10' : 'bg-white border-gray-100 hover:border-blue-200'}`}
+              // 点击机器人整张卡片即可直接进入修改名称与属性的页面
+              onClick={() => onRobotDetail(robot)}
+              className={`p-5 rounded-[28px] border transition-all cursor-pointer ${activeRobotId === robot.id ? 'bg-white border-blue-500 shadow-lg shadow-blue-100/30' : 'bg-white border-gray-100 hover:border-blue-200'}`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-[20px] transition-all flex items-center justify-center border ${activeRobotId === robot.id ? 'bg-white/10 border-white/20' : 'bg-gray-50 border-gray-100'}`}>
-                    <Bot size={22} strokeWidth={1.2} className={activeRobotId === robot.id ? 'text-white' : 'text-gray-400'} />
+                  <div className={`w-12 h-12 rounded-[20px] transition-all flex items-center justify-center border ${activeRobotId === robot.id ? 'bg-blue-50 border-blue-100' : 'bg-gray-50 border-gray-100'}`}>
+                    <Bot size={22} strokeWidth={1.2} className={activeRobotId === robot.id ? 'text-blue-500' : 'text-gray-400'} />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                       <p className={`font-bold transition-all ${activeRobotId === robot.id ? 'text-white text-base' : 'text-gray-800 text-base'}`}>{robot.nickname}</p>
-                       {activeRobotId === robot.id && <span className="bg-[#0d6c42] text-white text-xs font-bold px-1.5 py-0.5 rounded-full uppercase">默认显示</span>}
+                       {/* 后面添加了 ✏️ 提示可点击修改机器人姓名 */}
+                       <p className={`font-bold transition-all flex items-center gap-1.5 ${activeRobotId === robot.id ? 'text-[#024481] text-base' : 'text-gray-800 text-base'}`}>
+                         {robot.nickname} <span>✏️</span>
+                       </p>
+                       {activeRobotId === robot.id && <span className="bg-[#024481]/10 text-[#024481] text-[10px] font-bold px-1.5 py-0.5 rounded-full uppercase">配置</span>}
                     </div>
                     <div className="flex items-center gap-1.5 mt-1">
-                       <span className={`w-1.5 h-1.5 rounded-full ${robot.status === 'online' ? (activeRobotId === robot.id ? 'bg-green-400' : 'bg-[#0d6c42]') + ' animate-pulse' : 'bg-gray-300'}`}></span>
-                       <span className={`text-xs font-bold ${activeRobotId === robot.id ? 'text-white/60' : (robot.status === 'online' ? 'text-[#0d6c42]' : 'text-gray-400')}`}>
-                         {robot.status === 'online' ? '在线运行中' : '离线/深度休眠'}
+                       <span className={`w-1.5 h-1.5 rounded-full ${robot.status === 'online' ? 'bg-[#0d6c42] animate-pulse' : 'bg-gray-300'}`}></span>
+                       <span className="text-xs font-bold text-gray-400">
+                         {/* “在线运行中” 后面加上电量百分比显示 */}
+                         {robot.status === 'online' ? `在线运行中 | 电量 ${robot.battery || 85}%` : '离线/深度休眠'}
                        </span>
                     </div>
                   </div>
                 </div>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onRobotDetail(robot);
-                  }}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase  transition-all active:scale-90 ${activeRobotId === robot.id ? 'bg-white text-[#024481] shadow-sm' : 'bg-gray-100 text-gray-400'}`}
-                >管理</button>
               </div>
-              {activeRobotId === robot.id && (
-                <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-2">
-                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-[24px] flex items-center justify-center gap-2">
-                    <span className="text-xs font-bold text-white/60 uppercase ">电量</span>
-                    <div className="w-10 h-2 bg-white/20 rounded-full overflow-hidden">
-                       <div className="h-full bg-green-400" style={{ width: `${robot.battery}%` }}></div>
-                    </div>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm p-2 rounded-[24px] flex items-center justify-center gap-2 text-xs font-bold text-white">
-                    📶 {robot.network}
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -3870,8 +3773,6 @@ const DeviceManagementView = ({
           </div>
           <div className="space-y-3">
             {[
-              { id: 'hw-01', name: '智能血压计', icon: <Stethoscope size={22} strokeWidth={1.2} />, platform: '华为健康', val: '118/76 mmHg', color: 'blue' },
-              { id: 'xm-01', name: '心率呼吸监测', icon: <Activity size={22} strokeWidth={1.2} />, platform: '小米运动', val: '监测中 · 无异常', color: 'orange' },
               { id: 'yy-01', name: '血糖分析仪', icon: <HeartPulse size={22} strokeWidth={1.2} />, platform: '鱼跃医疗', val: '正常波动范围内', color: 'green' }
             ].map(d => (
               <div 
@@ -3880,36 +3781,24 @@ const DeviceManagementView = ({
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gray-50 rounded-[20px] flex items-center justify-center border border-gray-100 group-active:scale-90 transition-transform">
-                    <span className={d.color === 'blue' ? 'text-blue-500' : d.color === 'orange' ? 'text-orange-500' : 'text-[#10B981]'}>
+                    <span className="text-[#10B981]">
                       {d.icon}
                     </span>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <p className="font-bold text-gray-800 text-base">{d.name}</p>
-                      <span className={`text-xs px-1.5 py-0.5 rounded font-bold ${d.color === 'blue' ? 'bg-blue-50 text-blue-600' : d.color === 'orange' ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-[#10B981]'}`}>
+                      <span className="text-xs px-1.5 py-0.5 rounded font-bold bg-green-50 text-[#10B981]">
                         {d.platform}
                       </span>
                     </div>
-                    <p className={`text-xs font-medium mt-0.5 ${d.color === 'green' || d.color === 'blue' ? 'text-[#0d6c42]' : 'text-gray-400'}`}>
+                    <p className="text-xs font-medium mt-0.5 text-gray-400">
                       {d.val}
                     </p>
                   </div>
                 </div>
-                <button 
-                  onClick={() => onDeviceManage(d)}
-                  className="px-4 py-1.5 rounded-full text-xs font-bold uppercase  bg-gray-50 text-gray-400 border border-gray-100 active:scale-90 transition-transform"
-                >管理</button>
               </div>
             ))}
-
-            <div 
-              onClick={onAddPlatform}
-              className="bg-dashed border-2 border-dashed border-gray-100 p-4 rounded-[24px] flex items-center justify-center gap-2 active:bg-gray-50 transition-colors group cursor-pointer"
-            >
-              <Plus size={20} strokeWidth={2.5} />
-              <p className="text-xs font-bold text-gray-400">对接华为或小米账号获取健康数据</p>
-            </div>
           </div>
         </div>
       </div>
@@ -3917,7 +3806,19 @@ const DeviceManagementView = ({
   );
 };
 
-const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any; onClose: () => void; onDisconnect: () => void }) => {
+const SmartDeviceDetailView = ({ 
+  device, 
+  onClose, 
+  onDisconnect, 
+  onShowToast,
+  onSetConfirmation
+}: { 
+  device: any; 
+  onClose: () => void; 
+  onDisconnect: () => void; 
+  onShowToast?: (msg: string) => void;
+  onSetConfirmation?: (cfg: {title: string, message: string, onConfirm: () => void}) => void;
+}) => {
 
   const [isSyncing, setIsSyncing] = useState(false);
 
@@ -3925,7 +3826,7 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
     setIsSyncing(true);
     setTimeout(() => {
       setIsSyncing(false);
-      alert('数据同步成功！已获取最新的健康指标。');
+      onShowToast?.('数据同步成功！已获取最新的健康指标。');
     }, 2000);
   };
 
@@ -3969,7 +3870,7 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
           >
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-xl">
-                {isSyncing ? '⏳' : '🔄'}
+                {isSyncing ? <RefreshCw size={16} className="animate-spin" /> : <RefreshCw size={16} />}
               </div>
               <div className="text-left">
                 <p className="font-bold text-gray-800 text-base">立即同步数据</p>
@@ -3981,7 +3882,7 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
 
           <button className="w-full bg-white p-5 rounded-[24px] border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-all">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-orange-50 text-orange-600 rounded-[24px] flex items-center justify-center text-xl">📊</div>
+              <div className="w-10 h-10 bg-orange-50 text-orange-600 rounded-[24px] flex items-center justify-center text-xl"><BarChart2 size={20} /></div>
               <div className="text-left">
                 <p className="font-bold text-gray-800 text-base">测量趋势分析</p>
                 <p className="text-xs text-gray-400 mt-1">查看该设备的历史全量数据报表</p>
@@ -4011,9 +3912,11 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
         <div className="pt-6">
           <button 
             onClick={() => {
-              if (confirm(`确认要解除与 ${device.name} 的绑定吗？解除后将无法自动获取该设备的数据。`)) {
-                onDisconnect();
-              }
+              onSetConfirmation?.({
+                title: '解除设备绑定',
+                message: `确认要解除与 ${device.name} 的绑定吗？解除后将无法自动获取该设备的数据。`,
+                onConfirm: onDisconnect
+              });
             }}
             className="w-full py-4 text-[#E11D48] font-bold border-2 border-red-50/50 rounded-[24px] active:bg-red-50 transition-colors"
           >
@@ -4025,17 +3928,15 @@ const SmartDeviceDetailView = ({ device, onClose, onDisconnect }: { device: any;
   );
 };
 
-const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
+const SmartHealthPlatformsView = ({ onClose, onShowToast }: { onClose: () => void; onShowToast?: (msg: string) => void }) => {
   const platforms = [
-    { id: 'huawei', name: '华为健康', icon: '🔴', detail: '同步华为手表、血压计、体脂称数据', status: '已同步' },
-    { id: 'xiaomi', name: '小米运动健康', icon: '🟠', detail: '同步小米手环、体脂称及心率监测数据', status: '未连接' },
-    { id: 'yuyue', name: '鱼跃医疗', icon: '🟢', detail: '对接鱼跃系列血压、血糖及血氧仪', status: '已连接' },
-    { id: 'apple', name: 'Apple Health', icon: '⚪', detail: '同步 iPhone 及 Apple Watch 健康数据', status: '未连接' },
-    { id: 'google', name: 'Google Fit', icon: '🔵', detail: '同步 Android 手机健康中心数据', status: '未连接' }
+    { id: 'yuyue', name: '鱼跃医疗', icon: <CheckCircle size={24} className="text-emerald-500" />, detail: '对接鱼跃系列血压、血糖及血氧仪', status: '已连接' }, 
+    { id: 'apple', name: 'Apple Health', icon: <Smartphone size={24} className="text-gray-400" />, detail: '同步 iPhone 及 Apple Watch 健康数据', status: '未连接' }, 
+    { id: 'google', name: 'Google Fit', icon: <Activity size={24} className="text-blue-400" />, detail: '同步 Android 手机健康中心数据', status: '未连接' } 
   ];
 
   const handleConnect = (name: string) => {
-    alert(`正在建立与 ${name} 的安全加密连接，请在随后的弹窗中完成授权...`);
+    onShowToast?.(`正在建立与 ${name} 的安全加密连接，请在随后的弹窗中完成授权...`);
   };
 
   return (
@@ -4052,7 +3953,7 @@ const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
       
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         <div className="bg-blue-50/50 p-5 rounded-[24px] border border-blue-100 flex items-start gap-4">
-          <div className="w-10 h-10 bg-white rounded-[24px] flex items-center justify-center text-xl shadow-sm">💡</div>
+          <div className="w-10 h-10 bg-white rounded-[24px] flex items-center justify-center text-xl shadow-sm text-blue-500"><Info size={20} /></div>
           <p className="text-xs text-blue-700 leading-relaxed font-medium">
             授权后，系统将自动从第三方平台获取长辈的基础生理指标（步数、心率、呼吸等），协助机器人为您生成更精准的健康报告。
           </p>
@@ -4094,7 +3995,7 @@ const SmartHealthPlatformsView = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
+const SmartDeviceBindView = ({ onClose, onShowToast }: { onClose: () => void; onShowToast?: (msg: string) => void }) => {
   const [scanning, setScanning] = useState(true);
   const [devices, setDevices] = useState<any[]>([]);
 
@@ -4149,11 +4050,11 @@ const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
             {devices.map(d => (
               <button 
                 key={d.id}
-                onClick={() => alert(`正在尝试连接 ${d.name}...`)}
+                onClick={() => onShowToast?.(`正在尝试连接 ${d.name}...`)}
                 className="w-full bg-white p-5 rounded-[28px] border border-gray-100 flex items-center justify-between active:scale-[0.98] transition-transform shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-2xl">🩺</div>
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-2xl"><Stethoscope size={24} /></div>
                   <div className="text-left">
                     <p className="font-bold text-gray-800 text-base">{d.name}</p>
                     <p className="text-xs text-gray-400 mt-1">{d.type} · 信号稳定</p>
@@ -4166,7 +4067,7 @@ const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
             <div className="mt-10 p-6 bg-gray-50/50 border border-gray-100 rounded-[32px] text-center space-y-3">
                <p className="text-xs text-gray-400 font-medium">找不到您的设备？</p>
                <button 
-                onClick={() => alert('已开启平台手动对接模式')}
+                onClick={() => onShowToast?.('已开启平台手动对接模式')}
                 className="text-xs text-[#024481] font-bold border-b border-[#024481]/30 pb-0.5"
                >尝试通过健康平台同步数据</button>
             </div>
@@ -4179,10 +4080,12 @@ const SmartDeviceBindView = ({ onClose }: { onClose: () => void }) => {
 
 const AddRobotView = ({ 
   onAdd, 
-  onClose 
+  onClose,
+  onShowToast
 }: { 
   onAdd: (robot: any) => void; 
-  onClose: () => void 
+  onClose: () => void;
+  onShowToast?: (msg: string) => void;
 }) => {
   const [formData, setFormData] = useState({
     sn: '',
@@ -4216,7 +4119,7 @@ const AddRobotView = ({
 
   const handleConfirm = () => {
     if (!isValidSN(formData.sn)) {
-      alert('请输入有效的8-12位设备序列号');
+      onShowToast?.('请输入有效的8-12位设备序列号');
       return;
     }
     
@@ -4237,7 +4140,7 @@ const AddRobotView = ({
         status: '在线',
         battery: 100,
         version: 'v1.0.0',
-        icon: '🤖',
+        icon: <Bot size={24} />,
         network: '5G',
         ...formData
       });
@@ -4253,7 +4156,7 @@ const AddRobotView = ({
       className="absolute inset-0 z-[150] bg-[#fbf9f8] flex flex-col"
     >
       <header className="bg-white px-6 py-6 flex items-center gap-4 border-b border-gray-100 shrink-0">
-        <button onClick={onClose} className="text-xl">🔙</button>
+        <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
         <h2 className="text-xl font-bold text-[#024481]">绑定新设备</h2>
       </header>
 
@@ -4281,7 +4184,7 @@ const AddRobotView = ({
                  onClick={handleScanSN}
                  className="w-14 h-14 bg-blue-50 text-blue-600 rounded-[24px] flex items-center justify-center text-xl active:scale-95 transition-transform"
                >
-                 📷
+                 <Camera size={20} />
                </button>
              </div>
            </div>
@@ -4300,32 +4203,8 @@ const AddRobotView = ({
            </div>
         </div>
 
-        {/* 服务商信息 */}
-        <div className="bg-white rounded-[32px] p-6 border border-gray-50 card-shadow space-y-4">
-           <div className="flex items-center gap-2 mb-1">
-             <span className="w-1 h-3 bg-[#10B981] rounded-full"></span>
-             <h3 className="text-xs font-bold text-gray-800">服务人员信息 (必填)</h3>
-           </div>
-           <div className="space-y-3">
-             <input 
-               type="text" 
-               placeholder="服务人员姓名"
-               value={formData.serviceProviderName}
-               onChange={(e) => setFormData({...formData, serviceProviderName: e.target.value})}
-               className="w-full bg-gray-50 border-none rounded-[24px] p-4 text-base font-bold"
-             />
-             <input 
-               type="tel" 
-               placeholder="服务人员手机号"
-               value={formData.serviceProviderPhone}
-               onChange={(e) => setFormData({...formData, serviceProviderPhone: e.target.value})}
-               className="w-full bg-gray-50 border-none rounded-[24px] p-4 text-base font-bold"
-             />
-           </div>
-        </div>
-
         <button 
-          disabled={!formData.sn || !formData.serviceProviderName || !formData.serviceProviderPhone}
+          disabled={!formData.sn}
           onClick={handleConfirm}
           className="w-full py-4 bg-[#024481] text-white rounded-[24px] font-bold shadow-xl shadow-blue-100 active:scale-[0.98] transition-all disabled:opacity-30"
         >
@@ -4342,7 +4221,7 @@ const AddRobotView = ({
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[300] bg-gray-900 flex flex-col items-center justify-center font-sans"
           >
-            <div className="absolute top-0 w-full p-6 pt-12 flex justify-between items-center z-10 bg-gradient-to-b from-gray-900/80 to-transparent">
+            <div className="absolute top-0 w-full p-6 pt-12 flex justify-between items-center z-10 bg-gray-900/60">
               <button onClick={() => setIsScanningSN(false)} className="text-white text-3xl p-2 active:opacity-50 transition-transform">‹</button>
               <h2 className="text-white font-bold  text-lg">扫一扫</h2>
               <div className="w-10"></div>
@@ -4371,7 +4250,7 @@ const AddRobotView = ({
                  initial={{ top: '-10%' }}
                  animate={{ top: '110%' }}
                  transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
-                 className="absolute left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#00f249]/20 transform -translate-y-full z-10"
+                 className="absolute left-0 right-0 h-24 bg-[#00f249]/10 transform -translate-y-full z-10"
                />
             </div>
             <p className="text-white/60 mt-10 text-base font-bold  text-center">将二维码/条码放入框内<br/><span className="text-xs font-normal opacity-80 mt-2 block">即可自动扫描识别并绑定</span></p>
@@ -4417,7 +4296,7 @@ const AddRobotView = ({
                 className="w-28 h-28 bg-white rounded-[36px] shadow-2xl flex items-center justify-center text-6xl z-10 border border-blue-50 relative"
               >
                 <div key={bindingState.step}>
-                  {bindingState.step === 'searching' && '🔍'}
+                  {bindingState.step === 'searching' && <Search size={20} className="animate-pulse" />}
                   {bindingState.step === 'connecting' && '⚡'}
                   {bindingState.step === 'binding' && '🔐'}
                   {bindingState.step === 'success' && '✨'}
@@ -4438,7 +4317,7 @@ const AddRobotView = ({
                 <motion.div 
                   animate={{ top: ['0%', '100%', '0%'] }}
                   transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent z-20 blur-sm"
+                  className="absolute inset-x-0 h-1 bg-blue-400/50 z-20 blur-sm"
                 />
               )}
             </div>
@@ -4481,7 +4360,7 @@ const AddRobotView = ({
 };
 
 // --- 子组件：每周健康报告 PDF 预览 ---
-const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void; robots: any[]; setOverlay: (overlay: OverlayType | null) => void }) => {
+const HealthReportView = ({ onClose, robots, setOverlay, onShowToast }: { onClose: () => void; robots: any[]; setOverlay: (overlay: OverlayType | null) => void; onShowToast?: (msg: string) => void }) => {
   const reportData = {
     dateRange: '2026.05.04 - 2026.05.10',
     overallStatus: '优秀',
@@ -4505,15 +4384,14 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
   };
 
   const handleWeChatClick = () => {
-    // Check if any robot is bound and has service provider info
-    const robot = robots[0];
-    const isBound = robots.length > 0 && robot?.serviceProviderName && robot?.serviceProviderPhone;
+    // Check if any robot is bound
+    const isBound = robots.length > 0;
     
     if (!isBound) {
-      alert('请先绑定机器人和服务人员');
+      onShowToast?.('请先绑定机器人');
       setOverlay('addRobot');
     } else {
-      alert('已生成分享链接，可发送至微信');
+      onShowToast?.('已生成分享链接，可发送至微信');
     }
   };
 
@@ -4641,7 +4519,7 @@ const HealthReportView = ({ onClose, robots, setOverlay }: { onClose: () => void
           <Share2 size={18} strokeWidth={1.5} /> 分享转发
         </button>
         <button 
-          onClick={() => alert('PDF 正在下载中...')}
+          onClick={() => onShowToast?.('PDF 正在下载中...')}
           className="flex-1 py-4 bg-gray-800 text-white rounded-[24px] font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
         >
           <Download size={18} strokeWidth={1.5} /> 立即下载
@@ -4659,7 +4537,8 @@ const LoginRegisterView = ({
   onSetRobots, 
   onSetLoggedIn,
   onSetMainAccount,
-  onViewLegal
+  onViewLegal,
+  onShowToast
 }: { 
   onLogin: () => void; 
   onAnonymousLogin: () => void;
@@ -4668,6 +4547,7 @@ const LoginRegisterView = ({
   onSetLoggedIn: (val: boolean) => void;
   onSetMainAccount: (val: boolean) => void;
   onViewLegal: (type: 'terms' | 'privacy') => void;
+  onShowToast?: (msg: string) => void;
 }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [loginMethod, setLoginMethod] = useState<'sms' | 'password'>('sms'); // 默认验证码登录
@@ -4683,8 +4563,8 @@ const LoginRegisterView = ({
     onSetUnbound(false);
     onLogin();
     onSetRobots([
-      { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: '🤖' },
-      { id: 'demo-1', nickname: '演示机器人 A', model: 'Gen-2 Pro', status: 'online', battery: 100, network: '极佳', version: 'v2.2.0', icon: '🤖' }
+      // 已去掉其它多余的演示机器人
+      { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: <Bot size={24} />, sn: 'JH4820-2910-X1' }
     ]);
   };
 
@@ -4695,8 +4575,8 @@ const LoginRegisterView = ({
     onSetUnbound(false);
     onLogin();
     onSetRobots([
-      { id: 'robot-main', nickname: '主管理员设备', model: 'Gen-2', status: 'online', battery: 92, network: '极佳', version: 'v2.1.0', icon: '🤖' },
-      { id: 'demo-1', nickname: '演示机器人 A', model: 'Gen-2 Pro', status: 'online', battery: 100, network: '极佳', version: 'v2.2.0', icon: '🤖' }
+      // 已去掉演示机器人 A，仅留一台主设备
+      { id: 'robot-main', nickname: '主管理员设备', model: 'Gen-2', status: 'online', battery: 92, network: '极佳', version: 'v2.1.0', icon: <Bot size={24} />, sn: 'JH4820-2910-MA' }
     ]);
   };
 
@@ -4707,7 +4587,7 @@ const LoginRegisterView = ({
     onSetUnbound(false);
     onLogin();
     onSetRobots([
-      { id: 'robot-shared', nickname: '共享小和设备', model: 'Gen-2', status: 'online', battery: 45, network: '良好', version: 'v2.1.0', icon: '🤖' }
+      { id: 'robot-shared', nickname: '共享小和设备', model: 'Gen-2', status: 'online', battery: 45, network: '良好', version: 'v2.1.0', icon: <Bot size={24} /> }
     ]);
   };
 
@@ -4723,7 +4603,7 @@ const LoginRegisterView = ({
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (!agreedToTerms) {
-      alert("请先同意协议");
+      onShowToast?.("请先同意协议");
       return;
     }
     setLoading(true);
@@ -5027,7 +4907,7 @@ const ProfileView = ({
                 onClick={triggerFileInput}
                 className="w-full py-4 bg-gray-50 rounded-[24px] flex items-center justify-center gap-3 active:scale-95 transition-transform"
               >
-                <Image size={20} className="text-gray-500" />
+                <ImageIcon size={20} className="text-gray-500" />
                 <span className="font-bold text-gray-700">从相册选择</span>
               </button>
               <button 
@@ -5043,6 +4923,9 @@ const ProfileView = ({
 
       {/* 成员切换页签 - 隐藏多成员切换，当前版本仅支持一个老人 */}
       {/* 个人简介与数据概览 */}
+      <div className="px-1 mb-2 bg-transparent">
+        <h3 className="font-bold text-lg text-gray-800">长辈信息</h3>
+      </div>
       <div className="bg-white rounded-[32px] p-6 card-shadow border border-gray-50 flex flex-col items-center relative overflow-hidden">
         <div className="relative">
           <div 
@@ -5062,13 +4945,8 @@ const ProfileView = ({
             <Edit2 size={12} strokeWidth={3} />
           </button>
         </div>
-        <div className="text-center mt-4 w-full">
+        <div className="text-center mt-4 w-full mb-8">
           <h2 className="text-2xl font-bold text-gray-800">{profile.name} <span className="text-base text-gray-500 font-normal ml-1">{profile.age}岁</span></h2>
-          <div className="flex gap-2 mt-3 justify-center mb-8">
-            <span className="px-3 py-1 bg-gray-100 text-[#576b95] rounded-full text-xs font-bold">{profile.bloodType}</span>
-            <span className="px-3 py-1 bg-gray-100 text-[#576b95] rounded-full text-xs font-bold">{profile.mode}</span>
-            <span className="px-3 py-1 bg-gray-100 text-[#576b95] rounded-full text-xs font-bold">{profile.healthStatus}</span>
-          </div>
         </div>
 
         {/* 数据概览 */}
@@ -5165,7 +5043,7 @@ const ProfileView = ({
 
       {/* 消息通知相关 */}
       <div className="px-1 mt-6 mb-2">
-        <h3 className="font-bold text-lg text-gray-800">消息通知</h3>
+        <h3 className="font-bold text-lg text-gray-800">通知信息</h3>
       </div>
 
       <div className="bg-white rounded-[32px] p-2 card-shadow border border-gray-50 flex items-center justify-between active:scale-[0.98] transition-transform cursor-pointer"
@@ -5176,8 +5054,7 @@ const ProfileView = ({
             <Bell size={24} strokeWidth={2} />
           </div>
           <div>
-            <h3 className="font-bold text-gray-800 text-lg">通知中心</h3>
-            <p className="text-xs text-gray-400 mt-1">管理推送、短信及语音告警</p>
+            <h3 className="font-bold text-gray-800 text-lg">设置管理</h3>
           </div>
         </div>
         <ChevronRight size={20} className="text-gray-300 pr-4 box-content" />
@@ -5214,7 +5091,7 @@ const ProfileView = ({
 
         <p className="text-center text-xs text-gray-400 mt-6 px-4 leading-relaxed">
           嘉和智护OS 极简陪伴版 v1.2.4<br/>
-          安全加密连接中 🔒
+          安全加密连接中 <Lock size={12} className="inline-block align-middle" />
         </p>
       </div>
     </motion.div>
@@ -5252,7 +5129,7 @@ const NotificationsView = ({
     >
       <header className="bg-white flex items-center justify-between px-4 py-4 relative border-b border-gray-100 shrink-0">
         <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-[24px] flex items-center justify-center text-gray-500 font-bold active:scale-95 transition-transform text-2xl">‹</button>
-        <h2 className="text-xl font-bold text-center text-gray-800">消息通知</h2>
+        <h2 className="text-xl font-bold text-center text-gray-800">通知信息</h2>
         <div className="flex items-center gap-3 shrink-0">
           <button onClick={onMarkAllRead} className="text-xs text-gray-400 font-bold whitespace-nowrap active:opacity-70">全部已读</button>
           <button onClick={onClearAll} className="text-xs text-[#E11D48]/60 font-bold whitespace-nowrap active:opacity-70">一键清除</button>
@@ -5390,6 +5267,7 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
   const [globalToast, setGlobalToast] = useState('');
+  const [confirmation, setConfirmation] = useState<{title: string, message: string, onConfirm: () => void} | null>(null);
   const [alertData, setAlertData] = useState<AlertData | null>(null);
   const [alarmResolved, setAlarmResolved] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState<any>(null);
@@ -5453,8 +5331,8 @@ export default function App() {
   const [activeElderlyIndex, setActiveElderlyIndex] = useState(0);
 
   const [robots, setRobots] = useState<Robot[]>([
-    { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: '🤖' },
-    { id: 'robot-2', nickname: '备用小和', model: 'Gen-2 Lite', status: 'offline', battery: 12, network: '断开', version: 'v2.0.8', icon: '🤖' }
+    // 只留一个机器人，已经去掉“备用小和”
+    { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: <Bot size={24} />, sn: 'JH4820-2910-X1' }
   ]);
 
   const [activeRobotId, setActiveRobotId] = useState('robot-1');
@@ -5468,7 +5346,7 @@ export default function App() {
     { id: '3', time: '昨日 18:30', source: '抓拍', status: '定时日常巡检' }
   ]);
 
-  // 通知设置
+  // 通知信息
   const [notifConfig, setNotifConfig] = useState({
     app: true,
     sms: true,
@@ -5765,8 +5643,8 @@ export default function App() {
               setIsAnonymous(true);
               setIsUnboundMode(false);
               setRobots([
-                { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: '🤖' },
-                { id: 'demo-1', nickname: '演示机器人 A', model: 'Gen-2 Pro', status: 'online', battery: 100, network: '极佳', version: 'v2.2.0', icon: '🤖' }
+                // 只保留一个主机器人，已移除多余设备
+                { id: 'robot-1', nickname: '我的小和', model: 'Gen-2', status: 'online', battery: 85, network: '极佳', version: 'v2.1.0', icon: <Bot size={24} />, sn: 'JH4820-2910-X1' }
               ]);
             }}
             onSetUnbound={setIsUnboundMode}
@@ -5777,6 +5655,7 @@ export default function App() {
               setLegalType(type);
               setOverlay('legalNotice');
             }}
+            onShowToast={showToast}
           />
         </AnimatePresence>
       ) : (
@@ -5794,6 +5673,7 @@ export default function App() {
               setOverlay('deviceManagement');
             }}                
             onClose={() => setOverlay('deviceManagement')}
+            onShowToast={showToast}
           />
         )}
         {overlay === 'deviceManagement' && (
@@ -5818,10 +5698,10 @@ export default function App() {
           />
         )}
         {overlay === 'smartPlatforms' && (
-          <SmartHealthPlatformsView onClose={() => setOverlay('deviceManagement')} />
+          <SmartHealthPlatformsView onClose={() => setOverlay('deviceManagement')} onShowToast={showToast} />
         )}
         {overlay === 'smartDeviceScan' && (
-          <SmartDeviceBindView onClose={() => setOverlay('deviceManagement')} />
+          <SmartDeviceBindView onClose={() => setOverlay('deviceManagement')} onShowToast={showToast} />
         )}
         {overlay === 'smartDeviceDetail' && selectedDevice && (
           <SmartDeviceDetailView 
@@ -5829,9 +5709,9 @@ export default function App() {
             onClose={() => setOverlay('deviceManagement')} 
             onDisconnect={() => {
               setOverlay('deviceManagement');
-              setGlobalToast(`已解除与 ${selectedDevice.name} 的绑定`);
-              setTimeout(() => setGlobalToast(''), 3000);
+              showToast(`已解除与 ${selectedDevice.name} 的绑定`);
             }}
+            onShowToast={showToast}
           />
         )}
         {overlay === 'videoCall' && (
@@ -5851,8 +5731,7 @@ export default function App() {
             onResolve={() => {
               setAlarmResolved(true);
               setOverlay(null);
-              setGlobalToast('告警已解除，状态已转为正常');
-              setTimeout(() => setGlobalToast(''), 3000);
+              showToast('告警已解除，状态已转为正常');
             }} 
           />
         )}
@@ -5885,8 +5764,12 @@ export default function App() {
         {overlay === 'elderlyProfile' && (
           <ElderlyProfileEditView 
             data={elderlyProfiles[activeElderlyIndex]} 
-            onSave={(newData) => setElderlyProfiles(ps => ps.map((p, idx) => idx === activeElderlyIndex ? newData : p))}
+            onSave={(newData) => {
+              setElderlyProfiles(ps => ps.map((p, idx) => idx === activeElderlyIndex ? newData : p));
+              showToast('个人资料已更新');
+            }}
             onClose={() => setOverlay(null)} 
+            onShowToast={showToast}
           />
         )}
         {overlay === 'emergencyContacts' && (
@@ -5895,6 +5778,7 @@ export default function App() {
             onUpdate={setEmergencyContacts}
             onClose={() => setOverlay(null)}
             isMainAccount={isMainAccount}
+            onShowToast={showToast}
           />
         )}
         {overlay === 'familyMembers' && (
@@ -5902,6 +5786,7 @@ export default function App() {
             members={familyMembers}
             onDelete={(id) => setFamilyMembers(ms => ms.filter(m => m.id !== id))}
             onClose={() => setOverlay(null)}
+            onShowToast={showToast}
           />
         )}
         {overlay === 'medicationPlan' && (
@@ -5910,6 +5795,7 @@ export default function App() {
             onUpdate={setMedicationPlan}
             onClose={() => setOverlay(null)}
             isMainAccount={isMainAccount}
+            onShowToast={showToast}
           />
         )}
         {overlay === 'medicationCalendar' && (
@@ -5934,6 +5820,7 @@ export default function App() {
               setOverlay('deviceManagement');
               setActiveDetailRobot(null);
             }}
+            onShowToast={showToast}
             isMainAccount={isMainAccount}
           />
         )}
@@ -5941,7 +5828,15 @@ export default function App() {
           <AlarmSettingsView onClose={() => setOverlay(null)} />
         )}
         {overlay === 'healthReport' && (
-          <HealthReportView onClose={() => setOverlay(null)} robots={robots} setOverlay={setOverlay} />
+          <HealthReportView onClose={() => setOverlay(null)} robots={robots} setOverlay={setOverlay} onShowToast={showToast} />
+        )}
+        {confirmation && (
+          <ConfirmationView 
+            title={confirmation.title}
+            message={confirmation.message}
+            onConfirm={confirmation.onConfirm}
+            onCancel={() => setConfirmation(null)}
+          />
         )}
         {overlay === 'cameraAccessLogs' && (
           <CameraAccessLogsView 
@@ -5981,9 +5876,9 @@ export default function App() {
                       if (pwd === '123456') {
                         setCameraLogs([]);
                         setOverlay(null);
-                        alert('历史记录已成功清理');
+                        showToast('历史记录已成功清理');
                       } else {
-                        alert('密码错误');
+                        showToast('密码错误');
                       }
                     }}
                     className="flex-1 py-4 bg-[#E11D48] text-white rounded-[24px] font-bold shadow-lg shadow-red-200 active:scale-95 transition-transform"
@@ -6028,8 +5923,9 @@ export default function App() {
           <div key={activeTab}>
             {isUnboundMode && robots.length === 0 ? (
               <div className="flex flex-col items-center justify-center pt-20 px-6 text-center">
-                 <div className="w-40 h-40 bg-blue-500 rounded-[32px] flex items-center justify-center text-6xl text-white mb-8 shadow-2xl shadow-blue-300">🤖</div>
-                 <h2 className="text-2xl font-bold text-blue-600 mb-4">欢迎开启智护生活！</h2>
+                 <div className="w-40 h-40 bg-blue-500 rounded-[32px] flex items-center justify-center text-6xl text-white mb-8 shadow-2xl shadow-blue-300">
+                   <Bot size={80} strokeWidth={1} />
+                 </div>
                  <p className="text-gray-500 font-bold text-base mb-12">只需简单两步，即可为您或您的长辈开启全方位的智能健康守护。</p>
                  <div className="w-full bg-white rounded-[32px] p-6 shadow-xl border border-blue-50 flex items-center gap-4 text-left">
                     <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">1</div>
